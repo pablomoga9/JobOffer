@@ -4,7 +4,7 @@ require('dotenv').config();
 const dbUrl = `mongodb+srv://pablo9:${process.env.DBPASS}@jobads.fhisfl5.mongodb.net/?retryWrites=true&w=majority`;
 
 const connectionParams = {
-    useNewUrlParser: true, userUnifiedTopology: true, ssl: true
+    useNewUrlParser: true, ssl: true
 }
 
 mongoose
