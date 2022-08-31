@@ -8,7 +8,7 @@ head
     include ./styles.css
   title Job Scanner
 header
-    h1 Este es el #{viewPage}
+    
     #menu-box
         nav
             ul
@@ -24,9 +24,9 @@ header
                     a#goHome(href="/")  Home
                 li
                     a#register(href="/signup")  Registro    
-    dialog#modal(method='dialog' open='')
-        h2 Inicio de sesi&oacute;n
-        form#form1(method='dialog')
+dialog#modal(method='dialog' open='')
+    h2 Inicio de sesi&oacute;n
+    form#form1(method='dialog')
             button#btnCloseLogin X
             label
                 | Email
@@ -36,7 +36,7 @@ header
                 | Contrase&ntilde;a 
                 input#passInput(type='password' name='pass' placeholder='Introduce tu contraseña')
             button#sendSignIn(type='submit') Enviar
-    main
+main
     article
     article
     footer

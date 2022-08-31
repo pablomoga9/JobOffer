@@ -1,8 +1,40 @@
 doctype html
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(http-equiv="X-UA-Compatible", content="IE=edge")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Document
-    body 
+html 
+head
+  meta(charset="UTF-8")
+  meta(http-equiv="X-UA-Compatible", content="IE=edge")
+  meta(name="viewport", content="width=device-width, initial-scale=1.0")
+  style 
+    include ./styles.css
+  title Job Scanner
+header     
+   #menu-box
+     nav 
+        ul
+            li
+                a Perfil
+            li
+                a Favoritos
+        ul
+            li
+                a Acceso
+        ul#userNav  
+            li 
+                a#goHome(href="/homeNoLog")  Home
+            li
+                a#logIn(href="/signup") Registro
+
+main 
+
+    dialog#modal3(method='dialog' open='')
+             h2 Recuperar contraseña
+             form#form1(method='dialog')
+                button#btnCloseLogin X
+                div#infoContainer 
+                    label 
+                    | Email
+                    p#infoBox i 
+                input#emailInput(type='text' name='email' placeholder='Introduce tu correo electrónico')
+                div#commentBox 
+                    p Introduce el correo electrónico de tu cuenta para que podamos enviar un enlace y actualizar tu contraseña   
+                button#sendSignIn(type='submit') Enviar

@@ -118,11 +118,18 @@ form ul li {
 #modal3::backdrop{
     background-color: rgba(0, 0, 0, 0.6);
 }
-#modal,#modal2, #modal3{
+#modal,#modal2{
    
     border-radius: 40px;
     padding: 30px;
     border: 5px solid rgba(66, 19, 83, 0.8) ;
+}
+
+#modal3{
+    border-radius: 40px;
+    padding: 30px;
+    border: 5px solid rgba(66, 19, 83, 0.8) ;
+    width: 50%;
 }
 
 #userNav{
@@ -144,5 +151,26 @@ a{
     background: #3f0606;
     border-radius: 20px;
     color: white;
+}
+
+#infoBox{
+    background: rgb(69, 48, 101);
+    width: 10%;
+    border-radius: 50px;
+    text-align: center;
+    color: white;
+    margin: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#infoContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#commentBox{
+    display: none;
 }
 
