@@ -1,6 +1,7 @@
 const express = require('express');
 
 require('./utils/dbMongo.js');
+require('./utils/dbElephant')
 
 //Routes
 const adRouter = require('./routes/adRoutes.js');
