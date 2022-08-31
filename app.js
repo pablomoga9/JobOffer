@@ -20,6 +20,17 @@ app.use(express.json());
 
 app.use('/api/', adRouter);
 
+
+app.get('/', (req,res)=>{
+    try{
+        res.render("login",{viewPage:"Login"});
+    }
+    catch(error){
+        console.log(error.stack)
+        
+    }
+})
+
 app.use(middle404);
 
 app.listen(port,()=>{

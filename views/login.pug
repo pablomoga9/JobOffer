@@ -1,8 +1,37 @@
 doctype html
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(http-equiv="X-UA-Compatible", content="IE=edge")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Document
-    body 
+html 
+head
+  meta(charset='UTF-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  style 
+    include ./styles.css
+  title Job Scanner
+header
+    h1 Este es el #{viewPage}
+    #menu-box
+        nav
+        ul
+            li
+            a Perfil
+            li
+            a Favoritos
+        ul
+            li
+            a Acceso
+    dialog#modal(open='')
+        h2 Inicio de sesi&oacute;n
+        form#form1(method='dialog')
+            button#btnCloseLogin X
+            label
+                | Email
+                input#emailInput(type='text' name='email' placeholder='Introduce tu correo electrónico')
+            br
+            label
+                | Contrase&ntilde;a 
+                input#passInput(type='password' name='pass' placeholder='Introduce tu contraseña')
+            button#sendSignIn(type='submit') Enviar
+    main
+    article
+    article
+    footer
