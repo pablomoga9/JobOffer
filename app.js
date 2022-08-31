@@ -34,8 +34,6 @@ app.use('/api/', adRouter);
 
 app.get('/', (req,res)=>{
     try{
-       
-        res.render("recoverPass",{})
         //Si es admin hace rend de una, si es no log otra, si es user otra
      switch(userType){
         case 0: res.render("homeUser",{});
