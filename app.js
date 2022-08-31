@@ -23,7 +23,7 @@ app.use('/api/', adRouter);
 
 app.get('/', (req,res)=>{
     try{
-        res.render("login",{viewPage:"Login"});
+        res.render("register",{viewPage:"Login"});
     }
     catch(error){
         console.log(error.stack)
