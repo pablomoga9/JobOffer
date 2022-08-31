@@ -33,6 +33,8 @@ app.use('/api/', adRouter);
 
 app.get('/', (req,res)=>{
     try{
+       
+        res.render("login",{})
         //Si es admin hace rend de una, si es no log otra, si es user otra
      switch(userType){
         case 0: res.render("homeUser",{});
@@ -41,6 +43,7 @@ app.get('/', (req,res)=>{
             break;
         default: res.render("homeNoLog",{});
      }
+     
     }
     catch(error){
         console.log(error.stack)
@@ -117,4 +120,14 @@ app.get('/users',(req,res)=>{
     catch(error){
         console.log(error.stack);
     }
+})
+
+
+
+app.use(middle404);
+
+
+
+app.listen(port, () => {
+    console.log("Server working fine")
 })
