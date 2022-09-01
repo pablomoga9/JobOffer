@@ -9,6 +9,7 @@ require('./utils/dbElephant')
 
 //Routes
 const adRouter = require('./routes/adRoutes.js');
+const adminRouter= require('./routes/adminRoutes')
 
 //Middlewares
 const middle404 = require('./middlewares/error404.js');
@@ -24,6 +25,7 @@ app.set('views','./views');
 app.use(express.json());
 
 app.use('/api/', adRouter);
+app.use('/api', adminRouter)
 
 
 
