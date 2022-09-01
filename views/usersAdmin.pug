@@ -5,4 +5,10 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Document
-    body 
+    body
+         each users_registered in admin
+            h1 Usuarios registrados
+            p : #{product.title}
+            p Descripción: #{product.description}
+            p Precio: #{product.price}
+            img(src=product.image, alt=product.title width="300")
