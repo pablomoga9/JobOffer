@@ -5,7 +5,7 @@ const puppeteer = require('puppeteer');
 
 const extractAdsData = async(province,browser,search)=>{
     try{
-        let adData = {};
+        // let adData = {};
         let scrapedData = [];
         const browser = await puppeteer.launch({headless:false});
         const page = await browser.newPage();
@@ -45,20 +45,43 @@ const extractAdsData = async(province,browser,search)=>{
             const elementUrl = offerUrl[i];
             const offerUrlText = await page.evaluate(element=>element.href,elementUrl);
 
-            adData['search'] = search;
-            adData['title'] = titlesText;
-            adData['titleUrl'] = offerUrlText;
-            adData['city'] = cityText;
-            adData['date'] = dateText;
-            adData['company'] = companyText;
-            adData['description'] = descriptionText;
 
-          
+            // if(){
+            //     adData['search'] = search;
+            //     adData['title'] = titlesText;
+            //     adData['titleUrl'] = offerUrlText;
+            //     adData['city'] = cityText;
+            //     adData['date'] = dateText;
+            //     adData['company'] = companyText;
+            //     adData['description'] = descriptionText;
+            //     console.log("first")
+            // }
+            // else{
+            //     adData.search = search;
+            //     adData.title = titlesText;
+            //     adData.titleUrl = offerUrlText
+            //     adData.city = cityText;
+            //     adData.date = dateText;
+            //     adData.company = companyText;
+            //     adData.description = descriptionText;
+            //     console.log("second")
+            // }
+           
 
-            scrapedData.push(adData);
+           
 
+            scrapedData.push({
+                search: search,
+                title: titlesText,
+                titleUrl: offerUrlText,
+                city: cityText,
+                date: dateText,
+                company: companyText,
+                description: descriptionText
+            });
+            
         }
-
+         console.log(scrapedData);
         return scrapedData;
 
     }
@@ -67,7 +90,7 @@ const extractAdsData = async(province,browser,search)=>{
     }
 } 
 
-
+// extractAdsData("Madrid","","desarrollador");
 module.exports = {
     extractAdsData
 }

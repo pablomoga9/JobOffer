@@ -7,20 +7,24 @@ const getAds = async(req,res)=>{
     try{
         const searchJob = "desarrollo";
         const getByInputValue = await scraper.extractAdsData("Madrid","",searchJob);
-       res.status(200).render('homeNoLog',{getByInputValue});
+       
        const findJob = await adsSchema.find({search:searchJob},"-_id");
-       if(findJob==null){
-        for(i = 0; i < getByInputValue.length; i++){
-            try{
-                let adDoc = new adsSchema(getByInputValue[i]);
-                let saveAd = await adDoc.save();
-                return  saveAd;
-            }
-            catch(error){
-                console.log(error.stack)
-            }
-        }
+
+       
+       if(Object.entries(findJob).length===0){
+            for(i = 0; i < getByInputValue.length; i++){
+                    
+                        let adDoc = new adsSchema(getByInputValue[i]);
+                        let saveAd = await adDoc.save();
+                       
+                }
+                res.status(200).render('homeNoLog',{getByInputValue});     
        }
+       else{
+                res.status(200).render('homeNoLog',{findJob});
+       }
+       
+       
     }
     catch(error){   
         console.log(error.stack);

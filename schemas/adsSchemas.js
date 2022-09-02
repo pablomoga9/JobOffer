@@ -8,10 +8,10 @@ const schema = new mongoose.Schema({
     title:{
         type: String
     },
-    _id:{
-        type: Number,
-        unique: true
-    },
+    // _id:{
+    //     type: Number,
+    //     unique: true
+    // },
     titleUrl:{
         type: String
     },
