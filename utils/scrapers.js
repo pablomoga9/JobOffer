@@ -5,11 +5,12 @@ const puppeteer = require('puppeteer');
 
 const extractAdsData = async(province,browser,search)=>{
     try{
-        // let adData = {};
+       //En la URL no puede haber espacios, son todos sustituidos por "%20"
+       const searchNoSpace = search.replaceAll('%20',' ')
         let scrapedData = [];
         const browser = await puppeteer.launch({headless:false});
         const page = await browser.newPage();
-        //await page.goto(`https://es.indeed.com/ofertas?l=${nombreCiudad}`)
+       //La URL 
         await page.goto(`https://es.indeed.com/jobs?q=${search}&l=${province}`);
         
         const titles = await page.$$('td.resultContent > div > h2 > a > span');
@@ -44,31 +45,6 @@ const extractAdsData = async(province,browser,search)=>{
             //OfferUrl
             const elementUrl = offerUrl[i];
             const offerUrlText = await page.evaluate(element=>element.href,elementUrl);
-
-
-            // if(){
-            //     adData['search'] = search;
-            //     adData['title'] = titlesText;
-            //     adData['titleUrl'] = offerUrlText;
-            //     adData['city'] = cityText;
-            //     adData['date'] = dateText;
-            //     adData['company'] = companyText;
-            //     adData['description'] = descriptionText;
-            //     console.log("first")
-            // }
-            // else{
-            //     adData.search = search;
-            //     adData.title = titlesText;
-            //     adData.titleUrl = offerUrlText
-            //     adData.city = cityText;
-            //     adData.date = dateText;
-            //     adData.company = companyText;
-            //     adData.description = descriptionText;
-            //     console.log("second")
-            // }
-           
-
-           
 
             scrapedData.push({
                 search: search,

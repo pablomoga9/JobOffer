@@ -11,4 +11,10 @@ html(lang="en")
     body 
 
         ul 
-            each val in 
+            each element in getByInputValue ? getByInputValue : [] || findJob ? findJob : []
+                    h2 Titulo: #{element.title} 
+                    p Ciudad: #{element.city}
+                    p Fecha de subida: #{element.date}
+                    p Empresa: #{element.company}
+                    p Descripcion: #{element.description}
+                       
