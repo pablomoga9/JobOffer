@@ -1,72 +1,65 @@
 
 
+const { type } = require('express/lib/response');
 const puppeteer = require('puppeteer');
 
-const extractAdsData = async(url,browser)=>{
+const extractAdsData = async(province,browser,search)=>{
     try{
-        const adData = {};
+        let adData = {};
+        let scrapedData = [];
         const browser = await puppeteer.launch({headless:false});
         const page = await browser.newPage();
         //await page.goto(`https://es.indeed.com/ofertas?l=${nombreCiudad}`)
-        await page.goto('https://es.indeed.com/ofertas?l=Madrid');
-
-        //Cada tarjeta tendrá imagen de empresa, título del puesto, nombre de la empresa, ciudad, presencial/remoto/híbrido, fecha de subida de la oferta, descripción, tipo de contrato, tipo de jornada y salario anual
+        await page.goto(`https://es.indeed.com/jobs?q=${search}&l=${province}`);
         
-        // adData['wage'] = await page.$eval('#app > div > div > div.ij-AdvertisingRoadblock > div.ij-AdvertisingRoadblockContainer > div.ij-AdvertisingRoadblockContainerChild > div > div > div.ij-ContentSearch-main > div.ij-ContentSearch-list > ul > li:nth-child(1) > div > div.sui-AtomCard-info > div > ul:nth-child(8) > li:nth-child(2)',wage=>wage.innerText);
-        console.log("ok")
         const titles = await page.$$('td.resultContent > div > h2 > a > span');
         const companyName = await page.$$('span.companyName > a'&&'span.companyName');
         const city = await page.$$('div.companyLocation');
         const description = await page.$$('div.job-snippet > ul > li');
         const publishDate = await page.$$('span.date')
-        console.log(titles[1]);
+        const offerUrl = await page.$$('h2.jobTitle > a'); 
         
-        
-        //Bucles recorren todos los elementos de los array creados 
-        
-        //Titles
         for(let i = 0; i < titles.length;i++){
-            const element = titles[i];
-            const titlesText = await page.evaluate(element=>element.textContent, element);
-            console.log(titlesText);
-        }
-        //companyName
-        for(let i=0; i < companyName.length; i++){
-            const element = companyName[i];
-            const companyText = await page.evaluate(element=>element.textContent,element);
-            console.log(companyText);
+            
+            //Title
+            const elementTitle = titles[i];
+            const titlesText = await page.evaluate(element=>element.textContent, elementTitle);
+
+            //CompanyName
+            const elementCompany = companyName[i];
+            const companyText = await page.evaluate(element=>element.textContent,elementCompany);
+
+            //City
+            const elementCity = city[i];
+            const cityText = await page.evaluate(element=>element.textContent,elementCity);
+
+            //Description
+            const elementDescription = description[i];
+            const descriptionText = await page.evaluate(element=>element.textContent,elementDescription);
+
+            //PublishDate
+            const elementDate = publishDate[i];
+            const dateText = await page.evaluate(element=>element.textContent,elementDate);
+
+            //OfferUrl
+            const elementUrl = offerUrl[i];
+            const offerUrlText = await page.evaluate(element=>element.href,elementUrl);
+
+            adData['search'] = search;
+            adData['title'] = titlesText;
+            adData['titleUrl'] = offerUrlText;
+            adData['city'] = cityText;
+            adData['date'] = dateText;
+            adData['company'] = companyText;
+            adData['description'] = descriptionText;
+
+          
+
+            scrapedData.push(adData);
+
         }
 
-        //city
-        for(let i=0; i < city.length; i++){
-            const element = city[i];
-            const cityText = await page.evaluate(element=>element.textContent,element);
-            console.log(cityText);
-        }
-
-        //description
-        for(let i = 0; i < description.length; i++){
-            const element = description[i];
-        }
-        // const data = awaitpage.evaluate(()=>{
-        //     console.log("okok")
-        //     const title = document.querySelector('td.resultContent > div > h2 > a > span').innerHTML;
-        //     const companyName = document.querySelector('span.companyName > a').innerHTML;
-
-        //     return {
-        //         title,
-        //         companyName,
-        //         try1:console.log("okokok")
-        //     }
-        // });
-        
-        // adData['card'] = await page.$$('.job_seen_beacon');
-        console.log(data);
-    //    adData.map((element)=>{
-           
-    //    })
-
-        return adData;
+        return scrapedData;
 
     }
     catch(error){
@@ -74,13 +67,7 @@ const extractAdsData = async(url,browser)=>{
     }
 } 
 
-extractAdsData();
 
-// const scrap = async (url) =>{
-//     try{
-//         const scrapedData = [];
-//     }
-//     catch(error){
-       
-//     }
-// }
+module.exports = {
+    extractAdsData
+}

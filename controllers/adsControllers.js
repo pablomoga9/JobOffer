@@ -1,15 +1,26 @@
 const adsSchema = require('../schemas/adsSchemas');
-
+const scraper = require('../utils/scrapers');
 
 //Require de models de SQL para poder traer las queries de favoritos
 
 const getAds = async(req,res)=>{
     try{
-        const getByInputValue= "Query to get by input value"
-        res.status(200).json(getByInputValue);
-        res.render("dashboardAd");
-        res.render("homeNoLog");
-        res.render("homeUser");
+        const searchJob = "desarrollo";
+        const getByInputValue = await scraper.extractAdsData("Madrid","",searchJob);
+       res.status(200).render('homeNoLog',{getByInputValue});
+       const findJob = await adsSchema.find({search:searchJob},"-_id");
+       if(findJob==null){
+        for(i = 0; i < getByInputValue.length; i++){
+            try{
+                let adDoc = new adsSchema(getByInputValue[i]);
+                let saveAd = await adDoc.save();
+                return  saveAd;
+            }
+            catch(error){
+                console.log(error.stack)
+            }
+        }
+       }
     }
     catch(error){   
         console.log(error.stack);
