@@ -1,7 +1,9 @@
 // const mongoose = require("mongoose");
 // require('dotenv').config();
 
-// const dbUrl = `mongodb+srv://pablo9:${process.env.DBPASS}@jobads.fhisfl5.mongodb.net/?retryWrites=true&w=majority`;
+
+//const dbUrl = `mongodb+srv://pablo9:${process.env.DBPASS}@jobads.fhisfl5.mongodb.net/adsDB?retryWrites=true&w=majority`;
+
 
 // const connectionParams = {
 //     useNewUrlParser: true, ssl: true

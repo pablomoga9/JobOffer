@@ -5,4 +5,16 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Document
+        script 
+            include ../controllers/adsControllers.js
+                
     body 
+
+        ul 
+            each element in getByInputValue ? getByInputValue : [] || findJob ? findJob : []
+                    h2 Titulo: #{element.title} 
+                    p Ciudad: #{element.city}
+                    p Fecha de subida: #{element.date}
+                    p Empresa: #{element.company}
+                    p Descripcion: #{element.description}
+                       

@@ -1,7 +1,8 @@
-var pg = require('pg');
-require('dotenv').config()
-//or native libpq bindings
-//var pg = require('pg').native
+ var pg = require('pg');
+ require('dotenv').config()
+// //or native libpq bindings
+// //var pg = require('pg').native
+
 
 var conString = `postgres://${process.env.ELEPH_USER}:${process.env.ELEPH_PASSWORD}@tyke.db.elephantsql.com/yamrybsr`
 var client = new pg.Client(conString);
@@ -23,3 +24,4 @@ const elephant=pg.Client
  module.exports={
 
  }
+

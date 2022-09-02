@@ -2,18 +2,30 @@ const mongoose = require('mongoose');
 
 //ESQUEMA PROVISIONAL
 const schema = new mongoose.Schema({
-    job:{
+    search:{
         type: String
     },
-    id:{
-        type: Number,
-        unique: true
+    title:{
+        type: String
+    },
+    // _id:{
+    //     type: Number,
+    //     unique: true
+    // },
+    titleUrl:{
+        type: String
     },
     city:{
         type: String
     },
     date:{
-        type: Date
+        type: String
+    },
+    company:{
+        type: String
+    },
+    description:{
+        type: String
     }
 })
 
