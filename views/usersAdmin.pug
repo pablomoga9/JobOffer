@@ -1,14 +1,16 @@
+require('../controllers/adminControllers.js')
 doctype html
 html(lang="en")
     head
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Document
+        title Vista de usuarios registrados
     body
-         each users_registered in admin
+         each users in usersAdmin
             h1 Usuarios registrados
-            p : #{product.title}
-            p Descripción: #{product.description}
-            p Precio: #{product.price}
-            img(src=product.image, alt=product.title width="300")
+            p Id usuario: #{users.id}
+            p Email: #{users.email}
+            p Password: #{users.password}
+            p Name: #{users.full_name}
+            p Role: #{users.role}

@@ -5,7 +5,7 @@ let userType;//0 = user, 1 = admin, 2 = no log
 const express = require('express');
 
 require('./utils/dbMongo.js');
-require('./utils/dbElephant')
+require('./utils/dbElephant.js')
 
 //Routes
 const adRouter = require('./routes/adRoutes.js');
@@ -130,5 +130,5 @@ app.use(middle404);
 
 
 app.listen(port, () => {
-    console.log("Server working fine")
+    console.log(`Server working in port ${port}`)
 })
