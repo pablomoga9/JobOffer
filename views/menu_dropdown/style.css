@@ -1,0 +1,50 @@
+#menu-nav {
+    width: fit-content;    
+}
+
+#menu-list {
+    display: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid rgb(231, 231, 231);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    width: fit-content;
+}
+  
+#menu-check:checked  ~ #menu-list {
+    display: block;
+}
+
+#menu-check {
+    display: none;
+}
+
+#menu-label {
+    box-sizing: border-box;
+    display: inline-block;
+    border: 1px solid rgb(180, 179, 179);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    font-weight: bold;
+    text-align: center;
+    user-select: none;
+    cursor: pointer;
+}
+
+#menu-list li {
+    display: block;
+    background: rgb(255, 255, 255);
+    margin: 0;
+    padding: 10px;
+    list-style: none;
+}
+
+#menu-list li a {
+    font-family: sans-serif;
+    text-decoration: none;
+    color: rgb(88, 88, 88);
+}
