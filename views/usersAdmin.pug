@@ -1,4 +1,4 @@
-require('../controllers/adminControllers.js')
+
 doctype html
 html(lang="en")
     head
@@ -7,10 +7,10 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Vista de usuarios registrados
     body
-         each users in usersAdmin
+         each user in adminview
             h1 Usuarios registrados
-            p Id usuario: #{users.id}
-            p Email: #{users.email}
-            p Password: #{users.password}
-            p Name: #{users.full_name}
-            p Role: #{users.role}
+            p Id usuario: #{user.id}
+            p Email: #{user.email}
+            p Password: #{user.password}
+            p Name: #{user.full_name}
+            p Role: #{user.role}

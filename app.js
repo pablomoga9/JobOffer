@@ -24,8 +24,9 @@ app.set('views','./views');
 
 app.use(express.json());
 
+app.use('/',adminRouter)
 app.use('/api/', adRouter);
-app.use('/api', adminRouter)
+// app.use('/api', adminRouter)
 
 
 
@@ -116,7 +117,7 @@ app.get('/profile',(req,res)=>{
 
 app.get('/users',(req,res)=>{
     try{
-        res.render("usersAdmin",{});
+        res.send({});
     }
     catch(error){
         console.log(error.stack);

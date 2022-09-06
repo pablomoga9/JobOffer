@@ -5,12 +5,14 @@ const queries = {
     "updateUser":`UPDATE users SET full_name= $1 WHERE email = $2;`,
     "deleteUser":`DELETE FROM users WHERE email=$1;`,
     "loginUser":`SELECT email,password FROM users`,
-    "registerUser":`INSERT INTO users(email,password,full_name,role='client')`,
+    "registerUser":`INSERT INTO users(email,password,full_name,role='client') VALUES($1,$2,$3)`,
     "recoverPassword":`SELECT password FROM users WHERE users.email = $1`,
     "changePassword":`UPDATE users SET password= crypt($1, gen_salt('bf')) where email=$2;`,
-    "favAds": `SELECT ad FROM favs INNER JOIN users ON users.id=favs.user_id WHERE users.email=$1`,
+    "favAds": `SELECT ad FROM favs INNER JOIN users ON users.id= favs.user_id WHERE users.email = $1`,
+    "saveFavAd": `INSERT INTO favs (id,user_id, ad)
+    VALUES ($1,(SELECT id FROM users WHERE email =$2 ),
+            $3');`,
+    "deleteFavAd": `DELETE FROM favs WHERE ad=$1`,
     "userProfile": `SELECT email,full_name FROM users WHERE users.email=$1`,
-    "saveFavAd": `INSERT INTO favs(ad) VALUES($1) INNER JOIN users ON users.id=favs.user_id`,
-    "DeleteFavAd": `DELETE FROM favs WHERE ad=$1`,
 }
 module.exports= queries
