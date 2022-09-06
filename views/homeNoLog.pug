@@ -5,16 +5,25 @@ html(lang="en")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Document
-        script 
-            include ../controllers/adsControllers.js
-                
+       
+    //- include ../public/scripts/search.js
+        
+          
     body 
-
-        ul 
-            each element in getByInputValue ? getByInputValue : [] || findJob ? findJob : []
-                    h2 Titulo: #{element.title} 
-                    p Ciudad: #{element.city}
-                    p Fecha de subida: #{element.date}
-                    p Empresa: #{element.company}
-                    p Descripcion: #{element.description}
+        form#searchForm(action="/api/search") 
+            input#search(type="text" name="job")
+            input#city(type="text" name="city")
+            button#submitBtn(type="submit" value="Search") Enviar 
+              
+    if getByInputValue||findJob   
+            ul 
+                each element in getByInputValue ? getByInputValue : [] || findJob ? findJob : []
+                
                        
+                                
+                                    a#adTitle(href='#{element.titleUrl}') 
+                                    h2 Titulo: #{element.title} 
+                                    p Ciudad: #{element.city}
+                                    p Fecha de subida: #{element.date}
+                                    p Empresa: #{element.company}
+                                    p Descripcion: #{element.description}     

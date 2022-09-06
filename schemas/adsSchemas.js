@@ -26,6 +26,9 @@ const schema = new mongoose.Schema({
     },
     description:{
         type: String
+    },
+    adminAd:{
+        type: Boolean
     }
 })
 
