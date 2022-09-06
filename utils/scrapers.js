@@ -39,8 +39,8 @@ const extractAdsData = async(province,browser,search)=>{
             const cityText = await page.evaluate(element=>element.textContent,elementCity);
 
             //Description
-            const elementDescription = description[i];
-            const descriptionText = await page.evaluate(element=>element.textContent,elementDescription);
+            // const elementDescription = description[i];
+            // const descriptionText = await page.evaluate(element=>element.textContent,elementDescription);
 
             //PublishDate
             const elementDate = publishDate[i];
@@ -57,7 +57,7 @@ const extractAdsData = async(province,browser,search)=>{
                 city: cityText,
                 date: dateText,
                 company: companyText,
-                description: descriptionText,
+                // description: descriptionText,
                 adminAd: false,
                 province: province
             });

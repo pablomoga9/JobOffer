@@ -7,14 +7,37 @@ html(lang="en")
         title Document
     body 
 
-         form#adForm(action="/api/ads" method="POST") 
+         form#adCreate(action="/api/ads/create" method="POST") 
+            label(for="") Palabra clave de empleo: 
             input#job(type="text" name="job")
+            label(for="") Título de oferta:  
             input#title(type="text" name="title")
+            label(for="") URL de oferta: 
+            input#urlTitle(type="text" name="url")
+            label(for="") Ciudad:  
             input#city(type="text" name="city")
+            label(for="") Empresa:  
             input#company(type="text" name="company")
-            input#description(type="text" name="description")
-            button#submitBtn(type="submit" value="Search") Enviar 
-
-    if created
-        h2#successMessage Anuncio publicado con éxito 
-        a#backToDashboard(href="/dashboard") Volver
+            label(for="") Descripción:  
+            input#description(type="text" name="description") 
+            button#submitBtn(type="submit" value="Search") Crear
+           
+        
+         form#adUpdate(action="/api/ads/update" method="POST")
+            label(for="") ID:
+            input#idUpdate(type="text" name="id")  
+            label(for="") Palabra clave de empleo: 
+            input#jobUpdate(type="text" name="job")
+            label(for="") Título de oferta:  
+            input#titleUpdate(type="text" name="title")
+            label(for="") URL de oferta: 
+            input#urlTitleUpdate(type="text" name="url")
+            label(for="") Ciudad:  
+            input#cityUpdate(type="text" name="city")
+            label(for="") Empresa:  
+            input#companyUpdate(type="text" name="company")
+            label(for="") Descripción:  
+            input#descriptionUpdate(type="text" name="description") 
+            button#submitUpdate(type="submit" value="Search") Actualizar oferta
+         ul#adsList  
+         script(src="/scripts/dashboard.js")  

@@ -3,8 +3,8 @@
 let userType = 2;//0 = user, 1 = admin, 2 = no log
 
 const express = require('express');
-const bodyParser = require('body-parser');
-const scraper = require('./utils/scrapers');
+
+
 
 require('./utils/dbMongo.js');
 require('./utils/dbElephant')
@@ -29,8 +29,8 @@ app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 // app.use(express.static('public'))
 app.use('/api/', adRouter);
-app.use('/api', adminRouter)
-
+app.use('/api', adminRouter);
+app.use(express.static('public'))
 
 
 
