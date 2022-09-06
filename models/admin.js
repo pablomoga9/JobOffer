@@ -198,12 +198,11 @@ const deleteFavAd= async (ad) => {
 }
 
 
-
 const getUserProfile = async () => {
     let client,result;
     try{
         client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.userProfile)
+        const data = await client.query(queries.userProfile,[email])
         result = data.rows
     }catch(err){
         console.log(err);
@@ -218,5 +217,5 @@ const getUserProfile = async () => {
 
 
 module.exports={
-    getUsers,getUsersById, createUsermodel, updateUser, deleteUser, getloginUser,createRegisterUser,getrecoverPassword,updatePassword,createFavAd
+    getUsers,getUsersById, createUsermodel, updateUser, deleteUser, getloginUser,createRegisterUser,getrecoverPassword,updatePassword,getfavAds,createFavAd,deleteFavAd, getUserProfile
 }
