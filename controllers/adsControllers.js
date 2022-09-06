@@ -6,13 +6,14 @@ const getAds = async(req,res)=>{
     try{
         // let {search} = req.body;
         // console.log(search)
-        const searchJob = req.query.job;//Esto será el valor del input de la barra de búsqueda de puesto de trabajo
-        
-        const getByInputValue = await scraper.extractAdsData(req.query.city,"",searchJob);//Se le pasa a la función de scraping el valor del input de la barra de búsqueda para la ciudad, el browser y la variable searchJob
-        console.log(getByInputValue)
-       const findJob = await adsSchema.find({search:searchJob},"-_id");//Comprobamos si ya hay registros en Mongo de Ads que tengan el mismo nombre de empleo que estamos buscando
-       
-       if(Object.entries(findJob).length===0){//Si no los hay, traemos los datos del scraping a Mongo y hacemos render directamente del scrap
+        const searchJob = req.query.job.toLowerCase();//Esto será el valor del input de la barra de búsqueda de puesto de trabajo
+        const searchProvince = req.query.city.toLowerCase();
+        const findJob = await adsSchema.find({search:searchJob,province:searchProvince},"-_id");//Comprobamos si ya hay registros en Mongo de Ads que tengan el mismo nombre de empleo que estamos buscando
+
+
+        if(Object.entries(findJob).length===0){//Si no los hay, traemos los datos del scraping a Mongo y hacemos render directamente del scrap
+            const getByInputValue = await scraper.extractAdsData(req.query.city,"",searchJob);//Se le pasa a la función de scraping el valor del input de la barra de búsqueda para la ciudad, el browser y la variable searchJob
+            console.log(getByInputValue)
             for(i = 0; i < getByInputValue.length; i++){
                     
                         let adDoc = new adsSchema(getByInputValue[i]);
@@ -25,6 +26,10 @@ const getAds = async(req,res)=>{
        else{
                 return res.status(200).render('homeNoLog',{findJob});//Si ya hay documentos en Mongo con este título de empleo, hacemos render de aquellos que se hayan encontrado con findJob
        }
+       
+      
+       
+      
        
        
     }

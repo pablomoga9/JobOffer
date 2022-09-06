@@ -58,7 +58,8 @@ const extractAdsData = async(province,browser,search)=>{
                 date: dateText,
                 company: companyText,
                 description: descriptionText,
-                adminAd: false
+                adminAd: false,
+                province: province
             });
             
         }

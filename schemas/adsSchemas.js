@@ -8,10 +8,6 @@ const schema = new mongoose.Schema({
     title:{
         type: String
     },
-    // _id:{
-    //     type: Number,
-    //     unique: true
-    // },
     titleUrl:{
         type: String
     },
@@ -29,6 +25,9 @@ const schema = new mongoose.Schema({
     },
     adminAd:{
         type: Boolean
+    },
+    province:{
+        type: String
     }
 })
 
