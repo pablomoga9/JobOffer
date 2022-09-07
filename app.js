@@ -3,11 +3,13 @@
 let userType = 2;//0 = user, 1 = admin, 2 = no log
 
 const express = require('express');
+const users= require('./controllers/adminControllers')
+
 
 
 
 require('./utils/dbMongo.js');
-require('./utils/dbElephant')
+require('./utils/dbElephant.js')
 
 //Routes
 const adRouter = require('./routes/adRoutes.js');
@@ -27,11 +29,13 @@ app.set('view engine','pug')
 app.set('views','./views');
 
 app.use(express.json());
+
 app.use(express.urlencoded({extended:true}));
 // app.use(express.static('public'))
 app.use('/api/', adRouter);
-app.use('/api', adminRouter);
+app.use('/', adminRouter);
 app.use(express.static('public'))
+
 
 
 
@@ -118,7 +122,7 @@ app.get('/profile',(req,res)=>{
 
 app.get('/users',(req,res)=>{
     try{
-        res.render("usersAdmin",{});
+        res.send('usersAdmin',{});
     }
     catch(error){
         console.log(error.stack);
@@ -132,7 +136,7 @@ app.use(middle404);
 
 
 app.listen(port, () => {
-    console.log("Server working fine")
+    console.log(`Server working in port ${port}`)
 })
 
 
