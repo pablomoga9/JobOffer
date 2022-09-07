@@ -1,14 +1,27 @@
 const adsSchema = require('../schemas/adsSchemas');
 const scraper = require('../utils/scrapers');
-
+const pdfService = require('../utils/pdf-service')
 
 const getAds = async(req,res)=>{
     try{
             if(req.query.admin){
                 
                 const findAdmin = await adsSchema.find({adminAd:true});
-                console.log(findAdmin);
+                
                 return res.status(200).json(findAdmin);
+            }
+            else if(req.query.pdf){
+                console.log("hi")
+                const findAdmin = await adsSchema.find({adminAd:true});
+                const stringPdf = findAdmin.toString();
+                const stream = res.writeHead(200,{
+                    'Content-Type':'application/pdf',
+                    'Content-Disposition':'attachment;filename=invoice.pdf'
+                });
+                pdfService.buildPDF(
+                    ()=> stream.write(stringPdf),
+                    () => stream.end()
+                )
             }
             else{
                 
@@ -33,14 +46,7 @@ const getAds = async(req,res)=>{
                 }
         
             }
-           
-    
-      
-       
-      
-       
-       
-    }
+        }
     catch(error){   
         console.log(error.stack);
         res.status(404).json({"message":"ads not found"});

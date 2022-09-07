@@ -49,7 +49,7 @@ document.getElementById('adCreate').addEventListener('submit',(event)=>{
             })
        }
        catch(error){
-        // console.log(error.message);
+        console.log(error.message);
        }
     }
     apiCreate();
@@ -87,7 +87,7 @@ document.getElementById('adUpdate').addEventListener('submit',(event)=>{
         })
        }
        catch(error){
-
+        console.log(error.message)
        }
     }
     apiUpdate();
@@ -144,4 +144,22 @@ displayAdminList();
 
 //     }
 // }
+
+
+
+    async function downloadPdf(){
+        try{
+            console.log("in")
+            await fetch('api/search?pdf=true')
+            .then(response=>response.json())
+            .then(data=>{
+                console.log("done");
+            })
+        }
+        catch(error){
+            console.log(error.message);
+        }
+    }
+   
+
 
