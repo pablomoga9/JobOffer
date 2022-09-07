@@ -5,17 +5,20 @@ const scraper = require('../utils/scrapers');
 const getAds = async(req,res)=>{
     try{
             if(req.query.admin){
-                const findAdmin = await adsSchema.find({admin:true});
-                return findAdmin;
+                
+                const findAdmin = await adsSchema.find({adminAd:true});
+                console.log(findAdmin);
+                return res.status(200).json(findAdmin);
             }
             else{
-                const searchJob = req.query.job.toLowerCase();//Esto será el valor del input de la barra de búsqueda de puesto de trabajo
+                
+                const searchJob = req.query.job;//Esto será el valor del input de la barra de búsqueda de puesto de trabajo
                 const searchProvince = req.query.city
                 const findJob = await adsSchema.find({search:searchJob,province:searchProvince},"-_id");//Comprobamos si ya hay registros en Mongo de Ads que tengan el mismo nombre de empleo que estamos buscando
                     
                 if(Object.entries(findJob).length===0){//Si no los hay, traemos los datos del scraping a Mongo y hacemos render directamente del scrap
                         const getByInputValue = await scraper.extractAdsData(req.query.city,"",searchJob);//Se le pasa a la función de scraping el valor del input de la barra de búsqueda para la ciudad, el browser y la variable searchJob
-                        // console.log(getByInputValue)
+                        
                         for(i = 0; i < getByInputValue.length; i++){
                                 
                                     let adDoc = new adsSchema(getByInputValue[i]);
@@ -46,22 +49,10 @@ const getAds = async(req,res)=>{
 
 const createAd = async(req,res)=>{
     try{
-        
-        console.log("hola");
-        const create = new adsSchema({
-            search:req.query.job,
-            title: req.query.title,
-            titleUrl: req.query.url,
-            city:req.query.city,
-            date:req.query.date,
-            company:req.query.company,
-            description: req.query.description,
-            adminAd: true
-        })
-        
+        const create = new adsSchema(req.body)
         const saveAd = await create.save();
-        
-        console.log(saveAd)
+        res.status(200).json({"message":"ok"});
+       
         
     }
     catch(error){
@@ -72,9 +63,12 @@ const createAd = async(req,res)=>{
 
 const updateAd = async(req,res)=>{
     try{
-        const update = "Query to update an ad by admin";
-        res.status(200).json(update);
-        res.render("dashboardAdmin");
+        const update = req.body;
+        console.log(req.body);
+        const findById = await adsSchema.findByIdAndUpdate({_id:(req.body._id).toString()},update);
+        findById.overwrite(update);
+        findById.save();
+        return findById;
     }
     catch(error){
         console.log(error.stack);
@@ -84,9 +78,9 @@ const updateAd = async(req,res)=>{
 
 const deleteAd = async(req,res)=>{
     try{
-        const delAd = "Query to delete an ad by admin";
-        res.status(200).json(delAd);
-        res.render("dashboardAdmin");
+        const deleteId = req.query.id;
+        const findById = await adsSchema.deleteOne({_id:deleteId});
+        return findById
     }
     catch(error){
         console.log(error.stack);

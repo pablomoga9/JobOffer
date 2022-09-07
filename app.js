@@ -15,6 +15,7 @@ const adminRouter= require('./routes/adminRoutes')
 
 //Middlewares
 const middle404 = require('./middlewares/error404.js');
+var morgan = require('morgan')
 
 const app = express();
 const port = 3000;

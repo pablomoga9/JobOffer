@@ -7,7 +7,7 @@ html(lang="en")
         title Document
     body 
 
-         form#adCreate(action="/api/ads/create" method="POST") 
+         form#adCreate(action="api/ads/create" method="POST") 
             label(for="") Palabra clave de empleo: 
             input#job(type="text" name="job")
             label(for="") Título de oferta:  
@@ -39,5 +39,5 @@ html(lang="en")
             label(for="") Descripción:  
             input#descriptionUpdate(type="text" name="description") 
             button#submitUpdate(type="submit" value="Search") Actualizar oferta
-         ul#adsList  
+         ul#adsList(action="/api/search" method="POST")  
          script(src="/scripts/dashboard.js")  
