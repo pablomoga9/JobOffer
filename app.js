@@ -1,8 +1,10 @@
 
 //int provisional prueba comprobación tipo usuario
-let userType;//0 = user, 1 = admin, 2 = no log
+let userType = 2;//0 = user, 1 = admin, 2 = no log
 
 const express = require('express');
+
+
 
 require('./utils/dbMongo.js');
 require('./utils/dbElephant')
@@ -13,9 +15,11 @@ const adminRouter= require('./routes/adminRoutes')
 
 //Middlewares
 const middle404 = require('./middlewares/error404.js');
+var morgan = require('morgan')
 
 const app = express();
 const port = 3000;
+
 
 
 //Views
@@ -23,10 +27,11 @@ app.set('view engine','pug')
 app.set('views','./views');
 
 app.use(express.json());
-
+app.use(express.urlencoded({extended:true}));
+// app.use(express.static('public'))
 app.use('/api/', adRouter);
-app.use('/api', adminRouter)
-
+app.use('/api', adminRouter);
+app.use(express.static('public'))
 
 
 
@@ -36,15 +41,8 @@ app.use('/api', adminRouter)
 
 app.get('/', (req,res)=>{
     try{
-        //Si es admin hace rend de una, si es no log otra, si es user otra
-     switch(userType){
-        case 0: res.render("homeUser",{});
-            break
-        case 1: res.render("homeAdmin",{});
-            break;
-        default: res.render("homeNoLog",{});
-     }
      
+    res.render('homeNoLog');
     }
     catch(error){
         console.log(error.stack)
@@ -62,6 +60,8 @@ app.get('/login',(req,res)=>{
         console.log(error.stack);
     }
 })
+
+
 
 //Register
 
@@ -89,7 +89,7 @@ app.get('/favourites',(req,res)=>{
 
 app.get('/dashboard',(req,res)=>{
     try{
-        res.render("dashboardAdmin",{})
+        res.render("dashboardAdmin")
     }
     catch(error){
         console.log(error.stack);
@@ -134,3 +134,6 @@ app.use(middle404);
 app.listen(port, () => {
     console.log("Server working fine")
 })
+
+
+

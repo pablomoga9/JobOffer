@@ -6,3 +6,38 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Document
     body 
+
+         form#adCreate(action="api/ads/create" method="POST") 
+            label(for="") Palabra clave de empleo: 
+            input#job(type="text" name="job")
+            label(for="") Título de oferta:  
+            input#title(type="text" name="title")
+            label(for="") URL de oferta: 
+            input#urlTitle(type="text" name="url")
+            label(for="") Ciudad:  
+            input#city(type="text" name="city")
+            label(for="") Empresa:  
+            input#company(type="text" name="company")
+            label(for="") Descripción:  
+            input#description(type="text" name="description") 
+            button#submitBtn(type="submit" value="Search") Crear
+           
+        
+         form#adUpdate(action="/api/ads/update" method="POST")
+            label(for="") ID:
+            input#idUpdate(type="text" name="id")  
+            label(for="") Palabra clave de empleo: 
+            input#jobUpdate(type="text" name="job")
+            label(for="") Título de oferta:  
+            input#titleUpdate(type="text" name="title")
+            label(for="") URL de oferta: 
+            input#urlTitleUpdate(type="text" name="url")
+            label(for="") Ciudad:  
+            input#cityUpdate(type="text" name="city")
+            label(for="") Empresa:  
+            input#companyUpdate(type="text" name="company")
+            label(for="") Descripción:  
+            input#descriptionUpdate(type="text" name="description") 
+            button#submitUpdate(type="submit" value="Search") Actualizar oferta
+         ul#adsList(action="/api/search" method="POST")  
+         script(src="/scripts/dashboard.js")  

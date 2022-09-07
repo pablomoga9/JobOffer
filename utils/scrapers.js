@@ -6,12 +6,12 @@ const puppeteer = require('puppeteer');
 const extractAdsData = async(province,browser,search)=>{
     try{
        //En la URL no puede haber espacios, son todos sustituidos por "%20", hacemos replacell en el string de search
-       const searchNoSpace = search.replaceAll('%20',' ')
+    //    const searchNoSpace = search.replaceAll('%20',' ')
         let scrapedData = [];
         const browser = await puppeteer.launch({headless:false});
         const page = await browser.newPage();
        //URL con search sin espacio y ubicación 
-        await page.goto(`https://es.indeed.com/jobs?q=${searchNoSpace}&l=${province}`);
+        await page.goto(`https://es.indeed.com/jobs?q=${search}&l=${province}`);
         
 
         //Obtenemos todos los elementos que tengan un selector concreto para cada una de las propiedades del objeto de cada oferta
@@ -57,7 +57,9 @@ const extractAdsData = async(province,browser,search)=>{
                 city: cityText,
                 date: dateText,
                 company: companyText,
-                description: descriptionText
+                description: descriptionText,
+                adminAd: false,
+                province: province
             });
             
         }
