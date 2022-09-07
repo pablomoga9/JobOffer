@@ -1,31 +1,33 @@
 const pool= require('../utils/dbElephant')
 require('dotenv').config()
 const query= require('../models/queries')
-const queries = require('../models/queries')
+// const queries = require('../models/queries')
 const { registerUser } = require('../models/queries')
+const { Pool } = require('pg')
 
     const getUsers = async () => {
     let client,result
     try{
-        client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(query.getUsers)
+        // client = await pool.connect(); // Espera a abrir conexion
+        const data = await pool.query(query.getUsers)
         result = data.rows
         console.log("Estas en el modelo",result);
         return result
     }catch(err){
         console.log(err);
         throw err;
-    }finally{
-        client.release();    
     }
+    //finally{
+    //     client.release();    
+    // }
     return result
 }
 
 const getUsersById= async () => {
     let client,result;
     try{
-        client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(query.getUsersById)
+       
+        const data = await Pool.query(query.getUsersById)
         result = data.rows
     }catch(err){
         console.log(err);
@@ -40,17 +42,14 @@ const createUsermodel = async (user) => {
     const{id,email,password,full_name,role}=user
     let client,result;
     try {
-         client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(query.createUser,[id(4),email('nuevousuario@gmail.com'),password('password'),full_name('Solan de Cabras'),role('client')])
+        const data = await pool.query(query.createUser,[id,email,password,full_name,role])
         result = data.rows
-        res.status(201).json({"new user created": result})
+        return result
     } catch (error) {
         console.log(error);
-        res.status(400).json({"message":"Fallo la creacion de usuario"})
     }finally{
         // client.release();    
     }
-    return result
 }
 
 const updateUser = async (userUpdated) => {
@@ -58,32 +57,27 @@ const updateUser = async (userUpdated) => {
     let client,result;
     try{
         client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.updateUser,
+        const data = await client.query(query.updateUser,
                                         [full_name,email])
         result = data.rowCount
+        return result
     }catch(err){
         console.log(err);
         throw err;
-    }finally{
-        client.release();    
     }
-    return result
 }
 
 const deleteUser = async (email) => {
     let client,result;
-    client = await pool.connect(); // Espera a abrir conexion
     try{
-        const data = await client.query(queries.deleteUser,
+        const data = await pool.query(query.deleteUser,
                                         [email])
         result = data.rowCount
+        return result
     }catch(err){
         console.log(err);
         throw err;
-    }finally{
-        client.release();    
     }
-    return result
 }
 
 const getloginUser = async () => {

@@ -3,6 +3,8 @@
 let userType;//0 = user, 1 = admin, 2 = no log
 
 const express = require('express');
+const users= require('./controllers/adminControllers')
+
 
 require('./utils/dbMongo.js');
 require('./utils/dbElephant.js')
@@ -117,7 +119,7 @@ app.get('/profile',(req,res)=>{
 
 app.get('/users',(req,res)=>{
     try{
-        res.send({});
+        res.send('usersAdmin',{});
     }
     catch(error){
         console.log(error.stack);
