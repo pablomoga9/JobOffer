@@ -122,14 +122,7 @@ app.get('/profile',(req,res)=>{
 
 
 
-app.get('/users',(req,res)=>{
-    try{
-        res.send('usersAdmin',{});
-    }
-    catch(error){
-        console.log(error.stack);
-    }
-})
+
 
 
 

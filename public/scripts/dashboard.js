@@ -112,7 +112,7 @@ async function displayAdminList(){
             <p>${data[i].company}</p>
             <button>Borrar</button>
             `
-            // <button onclick="${deleteAd(data[i]._id)}">Borrar</button>
+            // <button onclick="${deleteAd(data[i]._id)}" action="api/ads/delete?email" method="DELETE">Borrar</button>
         }
     })
 }
