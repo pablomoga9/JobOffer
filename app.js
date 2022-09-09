@@ -4,7 +4,7 @@ let userType = 2;//0 = user, 1 = admin, 2 = no log
 
 const express = require('express');
 const users= require('./controllers/adminControllers')
-
+const morgan = require('./config/morganConfig')
 
 
 
@@ -19,7 +19,7 @@ const userRouter = require('./routes/userRoutes.js');
 
 //Middlewares
 const middle404 = require('./middlewares/error404.js');
-var morgan = require('morgan')
+
 
 const app = express();
 const port = 3000;
@@ -31,7 +31,7 @@ app.set('view engine','pug')
 app.set('views','./views');
 
 app.use(express.json());
-
+app.use(morgan(':method :host :status :param[id] - :response-time ms :body'));
 app.use(express.urlencoded({extended:true}));
 // app.use(express.static('public'))
 app.use('/api/', adRouter);
