@@ -16,20 +16,54 @@ html(lang="en")
             p Password: #{user.password}
             p Name: #{user.full_name}
             p Role: #{user.role}
+            button#DeleteBtn(type="click" value="Delete" action=`/users?email="${Email}`) Delete
 
-
-         form#userCreate(action="/users" method="POST") 
-            h2 Crear usuario
-            label(for="") Nombre completo: 
-            input#nameInput(type="text" name="nameInput" placeholder='Introduce nombre completo')
-            br
+         form#userCreate(action="/users" method="POST")
+            h2 CREAR USUARIO 
+            label(for="") ID de usuario: 
+            input#id(type="text" name="id")
             label(for="") Email:  
-            input#email2(type="text" name="email" placeholder='Introduce un correo electrónico')
-            label(for="") Contraseña: 
-            input#pass1(type="text" name="password" placeholder='Introduce una contraseña')
-            label(for="") Role:  
-            input#pass2(type="text" name="Role" placeholder='Introduce un rol: admin o client')
-            label(for="") Id usuario:  
-            input#email2(type="text" name="description" placeholder='Introduce un id') 
-            button#sendSignUp(type="submit") Crear
-         script(src="/JobOffer/controllers/adminControllers.js")  
+            input#email(type="text" name="email")
+            label(for="") Password
+            input#password(type="text" name="password")
+            label(for="") Nombre Completo:  
+            input#fullName(type="text" name="full_name")
+            label(for="") Rol de usuario:  
+            input#role(placeholder="admin o client" type="text" name="role")
+            button#submitBtn(type="submit" value="Create") Crear
+
+            ul#usersList(action="/users" method="POST")
+            script(src="../public/scripts/usersAdmin.js") 
+           
+         form#userUpdate(action="/users" method="PUT")
+           h2 ACTUALIZAR USUARIO 
+            br
+            label(for="") ID de usuario: 
+            input#id2(type="text" name="id2")
+            label(for="") Email:  
+            input#2email(type="text" name="email2")
+            label(for="") Password
+            input#password2(type="text" name="password2")
+            label(for="") Nombre Completo:  
+            input#fullName2(type="text" name="full_name2")
+            label(for="") Rol de usuario:  
+            input#role2(placeholder="admin o client" type="text" name="role2")
+            button#submitBtn(type="submit" value="PUT") Actualizar 
+         ul#adsList(action="/api/search" method="PUT")  
+
+         form#userUpdate(action="/users" method="DELETE")
+           h2 ELIMINAR USUARIO 
+            br
+            label(for="") ID de usuario: 
+            input#id3(type="text" name="id3")
+            label(for="") Email:  
+            input#3email(type="text" name="email3")
+            label(for="") Password
+            input#password3(type="text" name="password3")
+            label(for="") Nombre Completo:  
+            input#fullName3(type="text" name="full_name3")
+            label(for="") Rol de usuario:  
+            input#role3(placeholder="admin o client" type="text" name="role3")
+            button#submitBtn(type="submit" value="DELETE" action=`/users?email="${Email`) BORRAR 
+         ul#adsList(action="/api/search" method="DELETE")  
+         script(src="/scripts/usersAdmin.js") 

@@ -3,7 +3,7 @@ require('dotenv').config()
 const query= require('../models/queries')
 // const queries = require('../models/queries')
 const { registerUser } = require('../models/queries')
-const { Pool } = require('pg')
+// const { Pool } = require('pg')
 
     const getUsers = async () => {
     let client,result
@@ -40,16 +40,17 @@ const getUsersById= async () => {
 
 const createUsermodel = async (user) => {
     const{id,email,password,full_name,role}=user
-    let client,result;
+    let result;
     try {
         const data = await pool.query(query.createUser,[id,email,password,full_name,role])
         result = data.rows
         return result
     } catch (error) {
         console.log(error);
-    }finally{
-        // client.release();    
     }
+    // finally{
+    //     // client.release();    
+    // }
 }
 
 const updateUser = async (userUpdated) => {

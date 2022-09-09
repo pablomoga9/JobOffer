@@ -25,6 +25,9 @@ app.set('view engine','pug')
 app.set('views','./views');
 
 app.use(express.json());
+app.use(express.urlencoded({
+    extended: true
+  }))
 
 app.use('/',adminRouter)
 app.use('/api/', adRouter);
@@ -117,14 +120,14 @@ app.get('/profile',(req,res)=>{
     }
 })
 
-app.get('/users',(req,res)=>{
-    try{
-        res.send('usersAdmin',{});
-    }
-    catch(error){
-        console.log(error.stack);
-    }
-})
+// app.get('/users',(req,res)=>{
+//     try{
+//         res.send('usersAdmin',{});
+//     }
+//     catch(error){
+//         console.log(error.stack);
+//     }
+// })
 
 
 
