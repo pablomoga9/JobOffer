@@ -40,6 +40,7 @@ html(lang="en")
             label(for="") Descripción:  
             input#descriptionUpdate(type="text" name="description") 
             button#submitUpdate(type="submit" value="Search") Actualizar oferta
+         button#downloadPdf(onclick="downloadPdf()") PDF Ofertas 
          ul#adsList(action="/api/search" method="POST")  
          script(src="/scripts/dashboard.js")  
 

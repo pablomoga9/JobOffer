@@ -8,12 +8,14 @@ const users= require('./controllers/adminControllers')
 
 
 
+
 require('./utils/dbMongo.js');
 require('./utils/dbElephant.js')
 
 //Routes
 const adRouter = require('./routes/adRoutes.js');
 const adminRouter= require('./routes/adminRoutes')
+const userRouter = require('./routes/userRoutes.js');
 
 //Middlewares
 const middle404 = require('./middlewares/error404.js');
@@ -34,9 +36,9 @@ app.use(express.urlencoded({extended:true}));
 // app.use(express.static('public'))
 app.use('/api/', adRouter);
 app.use('/', adminRouter);
+app.use('/api',userRouter);
+
 app.use(express.static('public'))
-
-
 
 
 //WEB ROUTES
@@ -120,14 +122,7 @@ app.get('/profile',(req,res)=>{
 
 
 
-app.get('/users',(req,res)=>{
-    try{
-        res.send('usersAdmin',{});
-    }
-    catch(error){
-        console.log(error.stack);
-    }
-})
+
 
 
 
