@@ -5,7 +5,7 @@ let userType = 2;//0 = user, 1 = admin, 2 = no log
 const express = require('express');
 const users= require('./controllers/adminControllers')
 const morgan = require('./config/morganConfig')
-
+const helmet = require('helmet');
 
 
 
@@ -30,6 +30,7 @@ const port = 3000;
 app.set('view engine','pug')
 app.set('views','./views');
 
+app.use(helmet());
 app.use(express.json());
 app.use(morgan(':method :host :status :param[id] - :response-time ms :body'));
 app.use(express.urlencoded({extended:true}));

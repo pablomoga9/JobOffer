@@ -6,7 +6,8 @@ const queries = require('../models/queries');
 const {Pool} = require('pg');
 const pool = require('../utils/dbElephant');
 const bcrypt = require('bcrypt');
-const jwt_secret = "secret key del .env"
+const jwt_secret = "secret key del .env";
+const saltRounds =  10;
 
 const loginUser = async(req,res)=>{
     try{
@@ -50,8 +51,18 @@ const loginUser = async(req,res)=>{
 }
 
 const registerUser = async(req,res)=>{
+    let data;
+    let client;
     try{
-        console.log(req.body)
+        const {email,password,username} = req.body;
+        const hashPassword = await bcrypt.hash(password,saltRounds);
+        if(regex.validateEmail(email)&& regex.validatePassword(password)){
+            client = await pool.connect();
+            data = await client.query(queries.createUser,[id,email,password,username,"user"]);
+            res.status(201).json(data);
+        }else{
+            res.status(400).json({msg:'Usuario o contaseña incorrecta'});
+        }
     }
     catch(error){
         console.log(error.message);
