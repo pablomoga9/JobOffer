@@ -5,6 +5,7 @@ let emailPost=document.getElementById('email');
 let passwordPost = document.getElementById('password');
 let namePost = document.getElementById('fullName');
 let rolePost = document.getElementById('role');
+let loggedPost= document.getElementById('logged');
 
 let usersList = document.getElementById('usersList');
 
@@ -14,7 +15,7 @@ let emailPut = document.getElementById('2email');
 let passwordPut = document.getElementById('password2');
 let namePut = document.getElementById('fullName2');
 let rolePut = document.getElementById('role2');
-
+let loggedPut= document.getElementById('logged2');
 //DELETE
 //let deleteBtn=document.getElementById('DeleteBtn');
 
@@ -26,7 +27,8 @@ document.getElementById('userCreate').addEventListener('submit',(event)=>{
         email: emailPost.value,
         password: passwordPost.value,
         full_name:namePost.value,
-        role:rolePost.value
+        role:rolePost.value,
+        logged: loggedPost.value
     }
     
     async function userCreate(){
@@ -42,7 +44,7 @@ document.getElementById('userCreate').addEventListener('submit',(event)=>{
             .then(response=>response.json())
             .then(data=>{
                 insertUsersList();
-                location.reload
+                location.reload()
             })
         }
         catch(error){
@@ -56,11 +58,9 @@ document.getElementById('userCreate').addEventListener('submit',(event)=>{
 document.getElementById('userUpdate').addEventListener('submit',(event)=>{
     event.preventDefault();
     let updateUser = {
-        id:idPut.value,
         email: emailPut.value,
-        password: passwordPut.value,
-        full_name:namePut.value,
-        role:rolePut.value
+        full_name:namePut.value
+
     }
 
     async function userUpdate(){
@@ -75,6 +75,7 @@ document.getElementById('userUpdate').addEventListener('submit',(event)=>{
         .then(response=>response.json())
         .then(data=>{
             insertUsersList();
+             location.reload()
         })
        }
        catch(error){
@@ -100,9 +101,9 @@ async function insertUsersList(){
             <p>${data[i].password}</p>
             <p>${data[i].full_name}</p>
             <p>${data[i].role}</p>
+            <p>${data[i].logged}</p>
             <button>Borrar</button>
             `
-            // <button onclick="${deleteAd(data[i]._id)}">Borrar</button>
         }
     })
 }

@@ -31,25 +31,19 @@ html(lang="en")
             input#fullName(type="text" name="full_name")
             label(for="") Rol de usuario:  
             input#role(placeholder="admin o client" type="text" name="role")
-            button#submitBtn(type="submit" value="Create") Crear
+            label(for="") Logeado:
+            input#logged(placeholder="true or false" type="boolean" name="logged")
+            button#createBtn(type="submit" value="Create") Crear
 
-            ul#usersList(action="/users" method="POST")
-            script(src="../public/scripts/usersAdmin.js") 
            
          form#userUpdate(action="/users" method="POST")
            h2 ACTUALIZAR USUARIO 
             br
-            label(for="") ID de usuario: 
-            input#id2(type="text" name="id2")
             label(for="") Email:  
             input#2email(type="text" name="email2")
-            label(for="") Password
-            input#password2(type="text" name="password2")
             label(for="") Nombre Completo:  
             input#fullName2(type="text" name="full_name2")
-            label(for="") Rol de usuario:  
-            input#role2(placeholder="admin o client" type="text" name="role2")
-            button#submitBtn(type="submit" value="POST") Actualizar 
-         ul#adsList(action="/api/search" method="POST")  
+            button#updateBtn(type="submit" value="POST") Actualizar  
+         ul#usersList(action="/users" method="POST")
 
          script(src="/scripts/usersAdmin.js") 

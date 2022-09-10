@@ -66,12 +66,16 @@ const createUser = async(req,res) =>{
 
 
 const updateUser = async(req,res)=>{
+  const updatedUser= req.body
   try{
-      if(req.body.email){
-          const response = await admin.updateUser(req.body.full_name)
+          const response = await admin.updateUser(updatedUser,{ method: "PUT",
+          headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(updatedUser)})
           res.status(200).json({"user updated": response})
       }
-  }
   catch(error){
     res.status(400).json({"message":"could not update"});
   }
