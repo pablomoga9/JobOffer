@@ -3,15 +3,6 @@ const { getUsers } = require("../models/queries");
 const queries = require("../models/queries");
 require("pug")
 
-// const getUsers_registered= async (req,res)=>{
-//   try{let users = await admin.getUsers();
-
-//  res.status(200).json({result:users}); // array [] con las entries encontradas
-// }catch(error){
-//   console.log(error.message);
-//   }
-// }
-
 const getUsersRegistered = async (req, res) => {
   try {
     let users = await admin.getUsers();
@@ -21,31 +12,6 @@ const getUsersRegistered = async (req, res) => {
     console.log(error.message);
   }
 };
-
-
-// const createUser = async(req,res) =>{
-//   const newUser = req.body;
-//   try{
-//     let response = await fetch('http://localhost:3000/users', {
-//         method: "POST",
-//         headers: {
-//             'Accept': 'application/json',
-//             'Content-Type': 'application/json'
-//         },
-//         body: JSON.stringify(newUser)
-//     })
-//     let answer = await response.json(); // objeto de vuelta de la petición
-//     console.log("Este es el console.log de lo que devuelve el post de usuarios",answer);
-//     res.status(201).send(`usuario guardado en el sistema`);
-  
-//   }catch(error){
-//     console.log(`ERROR: ${error.stack}`);
-//     res.status(400).send(`Error guardando usuarios`);
-//   }
-// }
-
-
-
 
 const createUser = async(req,res) =>{
   const newUser = req.body;
