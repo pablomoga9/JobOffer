@@ -10,13 +10,14 @@ html(lang="en")
         title Vista de usuarios registrados
     body
          each user in users
-            h3 Usuario:
-            p Id usuario: #{user.id}
-            p Email: #{user.email}
-            p Password: #{user.password}
-            p Name: #{user.full_name}
-            p Role: #{user.role}
-            button#DeleteBtn(type="click" value="Delete" action=`/users?email="${Email}`) Delete
+            article
+                h3 Usuario:
+                p Id usuario: #{user.id}
+                p # #{user.email}
+                p Password: #{user.password}
+                p Name: #{user.full_name}
+                p Role: #{user.role}
+                button.DeleteBtn(value="Delete" user_email=user.email) Delete
 
          form#userCreate(action="/users" method="POST")
             h2 CREAR USUARIO 
@@ -35,7 +36,7 @@ html(lang="en")
             ul#usersList(action="/users" method="POST")
             script(src="../public/scripts/usersAdmin.js") 
            
-         form#userUpdate(action="/users" method="PUT")
+         form#userUpdate(action="/users" method="POST")
            h2 ACTUALIZAR USUARIO 
             br
             label(for="") ID de usuario: 
@@ -48,22 +49,7 @@ html(lang="en")
             input#fullName2(type="text" name="full_name2")
             label(for="") Rol de usuario:  
             input#role2(placeholder="admin o client" type="text" name="role2")
-            button#submitBtn(type="submit" value="PUT") Actualizar 
-         ul#adsList(action="/api/search" method="PUT")  
+            button#submitBtn(type="submit" value="POST") Actualizar 
+         ul#adsList(action="/api/search" method="POST")  
 
-         form#userUpdate(action="/users" method="DELETE")
-           h2 ELIMINAR USUARIO 
-            br
-            label(for="") ID de usuario: 
-            input#id3(type="text" name="id3")
-            label(for="") Email:  
-            input#3email(type="text" name="email3")
-            label(for="") Password
-            input#password3(type="text" name="password3")
-            label(for="") Nombre Completo:  
-            input#fullName3(type="text" name="full_name3")
-            label(for="") Rol de usuario:  
-            input#role3(placeholder="admin o client" type="text" name="role3")
-            button#submitBtn(type="submit" value="DELETE" action=`/users?email="${Email`) BORRAR 
-         ul#adsList(action="/api/search" method="DELETE")  
          script(src="/scripts/usersAdmin.js") 

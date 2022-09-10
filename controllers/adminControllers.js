@@ -78,14 +78,11 @@ const updateUser = async(req,res)=>{
 }
 
 const deleteUser = async (req, res) => {
-  const deleteUserByEmail = req.body.email;
+  const email = req.query.email;
+  console.log(email);
   try {
-    const response= await admin.deleteUser(deleteUserByEmail,{ method: "DELETE",
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    }});
-    res.status(200).json("user deleted",response)
+    const response = await admin.deleteUser(email);
+    res.status(200).json({"user deleted":response})
   } catch (error) {
     res.status(400).json({"message":"could not delete user"});
   }

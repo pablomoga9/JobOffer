@@ -1,4 +1,3 @@
-require('')
 
 //POST
 let idPost = document.getElementById('id');
@@ -17,7 +16,7 @@ let namePut = document.getElementById('fullName2');
 let rolePut = document.getElementById('role2');
 
 //DELETE
-let deleteBtn=document.getElementById('DeleteBtn');
+//let deleteBtn=document.getElementById('DeleteBtn');
 
 //Listener para el post
 document.getElementById('userCreate').addEventListener('submit',(event)=>{
@@ -43,6 +42,7 @@ document.getElementById('userCreate').addEventListener('submit',(event)=>{
             .then(response=>response.json())
             .then(data=>{
                 insertUsersList();
+                location.reload
             })
         }
         catch(error){
@@ -109,6 +109,7 @@ async function insertUsersList(){
 
 
 async function deleteUser(emailDelete) {
+    
   try {
     let response = await fetch('/users?email='+emailDelete,{
         method:'DELETE',
@@ -117,19 +118,24 @@ async function deleteUser(emailDelete) {
         }
     })
     let answer = await response.json(); // objeto de vuelta de la petición
-        return answer
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     insertUsersList();
-    //   });
+    return answer
   } catch (error){
     console.log(error);
   }
 }
+const deleteButtons = document.querySelectorAll(".DeleteBtn");
+for (let index = 0; index < deleteButtons.length; index++) {
+    deleteButtons[index].addEventListener('click',function(event){
+        console.log(event.target.getAttribute("user_email"));
+        console.log("aaaaaa");
+        let email = event.target.getAttribute("user_email")
+        deleteUser(email);
+        location.reload()
+    })
+    
+}
 
-deleteBtn.addEventListener('click',(event)=>{
-  
-})
+
 
 
 insertUsersList();
