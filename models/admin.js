@@ -48,9 +48,6 @@ const createUsermodel = async (user) => {
     } catch (error) {
         console.log(error);
     }
-    // finally{
-    //     // client.release();    
-    // }
 }
 
 const updateUser = async (userUpdated) => {
@@ -81,35 +78,44 @@ const deleteUser = async (email) => {
     }
 }
 
-const getloginUser = async () => {
+const getloginUser = async (email) => {
+    let result;
+    try{
+        const data = await pool.query(query.loginUser,[email])
+        result = data.rows
+        return result
+    }catch(err){
+        console.log(err);
+        throw err;
+    }
+}
+
+const turnToLogged= async (email) => {
     let client,result;
     try{
-        client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.loginUser)
+        const data = await pool.query(query.turnToLogged,[email])
         result = data.rows
     }catch(err){
         console.log(err);
         throw err;
-    }finally{
-        client.release();    
     }
     return result
 }
 
+
 const createRegisterUser = async (registerUser) => {
-    const {email,password,full_name} = registerUser;
-    let client,result;
+    const {email,full_name,password} = registerUser;
+    let result;
+
     try{
-        client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.registerUser,[email,password,full_name])
+        const data = await pool.query(query.registerUser,[email,full_name,password])
+        console.log(data)
         result = data.rowCount
+        return result
     }catch(err){
         console.log(err);
         throw err;
-    }finally{
-        client.release();    
     }
-    return result
 }
 
 const getrecoverPassword = async () => {
@@ -212,5 +218,5 @@ const getUserProfile = async () => {
 
 
 module.exports={
-    getUsers,getUsersById, createUsermodel, updateUser, deleteUser, getloginUser,createRegisterUser,getrecoverPassword,updatePassword,getfavAds,createFavAd,deleteFavAd, getUserProfile
+    getUsers,getUsersById, createUsermodel, updateUser, deleteUser, getloginUser,turnToLogged,createRegisterUser,getrecoverPassword,updatePassword,getfavAds,createFavAd,deleteFavAd, getUserProfile
 }

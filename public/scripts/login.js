@@ -7,8 +7,8 @@ document.getElementById("form1").addEventListener("submit",(event)=>{
         email: emailInput.value,
         pass: passInput.value
     }
-    const postCredentials = async () =>{
-        await fetch('api/login',{
+    const postCredentials = async (email) =>{
+        await fetch('api/login?email='+email,{
             method:'POST',
             body: JSON.stringify(loginData),
             headers:{
