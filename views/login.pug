@@ -26,7 +26,7 @@ header
                     a#register(href="/signup")  Registro    
 dialog#modal(method='dialog' open='')
     h2 Inicio de sesi&oacute;n
-    form#form1(method='dialog')
+    form#form1(action="/api/login" method='POST')
             button#btnCloseLogin X
             label
                 | Email
@@ -36,7 +36,8 @@ dialog#modal(method='dialog' open='')
                 | Contrase&ntilde;a 
                 input#passInput(type='password' name='pass' placeholder='Introduce tu contraseña')
             button#sendSignIn(type='submit') Enviar
-main
+body 
     article
     article
+    script(src="/scripts/login.js") 
     footer
