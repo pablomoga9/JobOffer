@@ -30,7 +30,7 @@ const getAds = async(req,res)=>{
                 const findJob = await adsSchema.find({search:searchJob,province:searchProvince},"-_id");//Comprobamos si ya hay registros en Mongo de Ads que tengan el mismo nombre de empleo que estamos buscando
                     
                 if(Object.entries(findJob).length===0){//Si no los hay, traemos los datos del scraping a Mongo y hacemos render directamente del scrap
-                        const getByInputValue = await scraper.extractAdsData(req.query.city,"",searchJob);//Se le pasa a la función de scraping el valor del input de la barra de búsqueda para la ciudad, el browser y la variable searchJob
+                        const getByInputValue = await scraper.extractAllData(req.query.city,"",searchJob);//Se le pasa a la función de scraping el valor del input de la barra de búsqueda para la ciudad, el browser y la variable searchJob
                         
                         for(i = 0; i < getByInputValue.length; i++){
                                 
