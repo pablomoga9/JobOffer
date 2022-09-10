@@ -1,8 +1,10 @@
 const queries = {
     "getUsers" : "SELECT * FROM users",
+    "getUserByEmail":"SELECT email FROM users",
     "getUsersById": "SELECT id FROM users",
     "createUser": `INSERT INTO users (id, email,password, full_name, role,logged) VALUES ($1,$2,crypt($3, gen_salt('bf')),$4,$5,$6)`,
     "updateUser":`UPDATE users SET full_name= $1 WHERE users.email = $2;`,
+    "turnToLogged":`UPDATE users SET logged=true WHERE users.email=$1`,
     "deleteUser":`DELETE FROM users WHERE email=$1;`,
     "loginUser":`SELECT email,password FROM users`,
     "registerUser":`INSERT INTO users(email,password,full_name,role='client') VALUES($1,$2,$3)`,
