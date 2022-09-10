@@ -3,7 +3,7 @@ require('dotenv').config()
 const query= require('../models/queries')
 // const queries = require('../models/queries')
 const { registerUser } = require('../models/queries')
-const { Pool } = require('pg')
+// const { Pool } = require('pg')
 
     const getUsers = async () => {
     let client,result
@@ -39,25 +39,26 @@ const getUsersById= async () => {
 }
 
 const createUsermodel = async (user) => {
-    const{id,email,password,full_name,role}=user
-    let client,result;
+    const{id,email,password,full_name,role,logged}=user
+    let result;
     try {
-        const data = await pool.query(query.createUser,[id,email,password,full_name,role])
+        const data = await pool.query(query.createUser,[id,email,password,full_name,role,logged])
         result = data.rows
         return result
     } catch (error) {
         console.log(error);
-    }finally{
-        // client.release();    
     }
+    // finally{
+    //     // client.release();    
+    // }
 }
 
 const updateUser = async (userUpdated) => {
     const {full_name,email} = userUpdated;
     let client,result;
     try{
-        client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(query.updateUser,
+        // client = await pool.connect(); // Espera a abrir conexion
+        const data = await pool.query(query.updateUser,
                                         [full_name,email])
         result = data.rowCount
         return result

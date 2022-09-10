@@ -32,7 +32,9 @@ app.set('views','./views');
 
 app.use(helmet());
 app.use(express.json());
+
 app.use(morgan(':method :host :status :param[id] - :response-time ms :body'));
+
 app.use(express.urlencoded({extended:true}));
 // app.use(express.static('public'))
 app.use('/api/', adRouter);
@@ -120,8 +122,6 @@ app.get('/profile',(req,res)=>{
         console.log(error.stack);
     }
 })
-
-
 
 
 
