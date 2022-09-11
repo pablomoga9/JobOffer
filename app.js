@@ -85,8 +85,8 @@ app.post('api/login', (req, res) => {
 
 app.get('/', (req,res)=>{
     try{
-     
-    res.render('homeNoLog');
+     res.send("Hola desde heroku!")
+    // res.render('homeNoLog');
     }
     catch(error){
         console.log(error.stack)
