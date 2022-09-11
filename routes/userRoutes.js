@@ -3,8 +3,8 @@ const userController = require('../controllers/userControllers');
 
 routes.post('/login', userController.loginUser)
 routes.post('/signup',userController.registerUser);
-// routes.get('/logout',userController.logoutUser);
-// routes.get('/recoverPassword7/:email', userController.recoverPassword);
-// routes.put('/resetPassword/:recoverToken', userController.resetPassword);
+routes.get('/logout',userController.logout);
+routes.get('/recoverPassword/:email', userController.recoverPassword);
+routes.put('/resetPassword/:recoverToken', userController.restorePassword);
 
 module.exports  = routes;

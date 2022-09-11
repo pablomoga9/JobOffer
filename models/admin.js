@@ -32,6 +32,18 @@ const getUsersById= async () => {
     }
 }
 
+const getUserByEmail = async(email)=>{
+    let result;
+    try{
+        const data = await pool.query(query.getUserByEmail2)
+        result = data.rows;
+    }
+    catch(error){
+        console.log(error);
+    }
+    return result;
+}
+
 const createUsermodel = async (user) => {
     const{id,email,password,full_name,role,logged}=user
     let result;
@@ -93,6 +105,18 @@ const turnToLogged= async (email) => {
         throw err;
     }
     return result
+}
+
+const turnToNoLogged = async(email)=>{
+    let result
+    try{
+        const data = await pool.query(query.turnToNoLogged,[email])
+        result = data.rows;
+    }
+    catch(error){
+        console.log(error);
+    }
+    return result;
 }
 
 
@@ -201,5 +225,20 @@ const getUserProfile = async () => {
 
 
 module.exports={
-    getUsers,getUsersById, createUsermodel, updateUser, deleteUser, getloginUser,turnToLogged,createRegisterUser,getrecoverPassword,updatePassword,getfavAds,createFavAd,deleteFavAd, getUserProfile
+    getUsers,
+    getUsersById,
+    createUsermodel,
+    updateUser,
+    deleteUser,
+    getloginUser,
+    turnToLogged,
+    createRegisterUser,
+    getrecoverPassword,
+    updatePassword,
+    getfavAds,
+    createFavAd,
+    deleteFavAd,
+    getUserProfile,
+    turnToNoLogged,
+    getUserByEmail
 }
