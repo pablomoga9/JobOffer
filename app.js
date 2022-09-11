@@ -22,7 +22,7 @@ const favsRouter = require('./routes/favsRoutes.js');
 //Middlewares
 const middle404 = require('./middlewares/error404.js');
 const {requireAuth,checkUser} = require('./middlewares/verifiedToken.js');
-const { cookie } = require('express/lib/response');
+const res = require('express/lib/response');
 
 const app = express();
 const port = 3000;
@@ -127,6 +127,15 @@ app.get('/profile',(req,res)=>{
        }
     catch(error){
         console.log(error.stack);
+    }
+})
+
+app.get('/recoverPassword',(req,res)=>{
+    try{
+        res.render('recoverPass');
+    }
+    catch{
+        console.log(error)
     }
 })
 

@@ -7,6 +7,7 @@ const queries = {
     "createUser": `INSERT INTO users (id, email,password, full_name, role,logged) VALUES ($1,$2,crypt($3, gen_salt('bf')),$4,$5,$6)`,
     "updateUser":`UPDATE users SET full_name= $1 WHERE users.email = $2;`,
     "turnToLogged":`UPDATE users SET logged=true WHERE users.email=$1`,
+    "turnToNoLogged":'UPDATE users SET logged=false WHERE users.email=$1',
     "deleteUser":`DELETE FROM users WHERE email=$1;`,
     "loginUser":`SELECT email,password FROM users WHERE users.email=$1`,
     "registerUser":`INSERT INTO users(email,full_name,password,role) VALUES($1,$2,crypt($3, gen_salt('bf')),'client')`,
