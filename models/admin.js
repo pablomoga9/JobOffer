@@ -37,7 +37,7 @@ const getUserByEmail= async (email) => {
     let client,result;
     try{
        
-        const data = await pool.query(query.getUserByEmail(),[email])
+        const data = await pool.query(query.getUserByEmail,[email])
         result = data.rows
         return result
     }catch(err){

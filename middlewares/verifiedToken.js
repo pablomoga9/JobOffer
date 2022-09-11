@@ -7,8 +7,6 @@ const protectedRoutes = express.Router();
 
 protectedRoutes.use((req,res,next)=>{
     const token = req.headers['access_token'];
-    const cookies= req.headers.cookie
-    console.log("soy la cookie",cookies);
 
     if(token){
         jwt.verify(token,'keyDePrueba', async (err, decoded) => {
@@ -31,7 +29,6 @@ protectedRoutes.use((req,res,next)=>{
 //check current user
 const checkUser = (req,res,next)=>{
     const token = req.cookies.jwt;
-    console.log(token);
     if(token){
         jwt.verify(token,'keyDePrueba',async(err,decoded)=>{
             if(err){

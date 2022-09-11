@@ -7,4 +7,5 @@ adminRouter.post('/users', adminControllers.createUser);
 adminRouter.put('/users', adminControllers.updateUser);
 adminRouter.delete('/users',adminControllers.deleteUser);
 
+
 module.exports = adminRouter;

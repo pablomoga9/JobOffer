@@ -10,6 +10,7 @@ const saltRounds =  10;
 const client = require("../models/admin");
 const { transporter } = require('../config/nodemailer');
 const sendUrl = 'http://localhost:3000';
+const jwtSecret = process.env.SECRET;
 
 
 const loginUser = async(req,res)=>{
@@ -18,35 +19,33 @@ const loginUser = async(req,res)=>{
             console.log(req.body);
             data = await client.getloginUser(req.body.email)
             console.log(data);
-            if(!data){
-                res.status(200).json({msg:'Usuario o contaseña incorrecta'});
-            }
-            else{
-                const password= req.body.pass
-                const hash = bcrypt.hashSync(password, saltRounds)
-                console.log(typeof hash);
-                const match = await bcrypt.compare(password,hash);
-                if(match){
-                    console.log("estoy en match");
-                    await client.turnToLogged(req.body.email);
-                    const {email,username} = data;
-                    const userForToken = {
-                        email:email,
-                        username: username
-                    };
-                    const token = jwt.sign(userForToken, 'keyDePrueba',{expiresIn:'20m'});
-                    res.status(200)
-                    .json({
-                        msg: 'Correct authentication',
-                        token: token
-                    });
-                    return res.cookie('keyDePrueba', token, {
-                        expires:new Date(Date.now() + 25892000000),
-                        httpOnly:true
-                    });
-                }else{
-                    res.status(400).json({msg:'Usuario o contaseña incorrecta'})
-                }
+            if (!data) {
+              res.status(200).json({ msg: "Usuario o contaseña incorrecta" });
+            } else {
+              const password = req.body.pass;
+              const hash = bcrypt.hashSync(password, saltRounds);
+              console.log(typeof hash);
+              const match = await bcrypt.compare(password, hash);
+              if (match) {
+                console.log("estoy en match");
+                await client.turnToLogged(req.body.email);
+                const { email, username } = data;
+                const userForToken = {
+                  email: email,
+                  username: username,
+                };
+                res.json({ success: "welcome" });
+                const token = jwt.sign(userForToken, "keyDePrueba", {
+                  expiresIn: "20m",
+                });
+                res.cookie("keyDePrueba", token, { httpOnly: true });
+                res.status(200).json({
+                  msg: res.cookie("keyDePrueba", token, { httpOnly: true }),
+                  token: token,
+                });
+              } else {
+                res.status(400).json({ msg: "Usuario o contaseña incorrecta" });
+              }
             }
         }   
         catch(error){
@@ -144,7 +143,7 @@ const restorePassword = async(req,res)=>{
 const logout = async(req, res) => {
     let data;
     try {
-        data = await client.turnToNoLogged(req.query.email)
+        data = await client.turnToNoLogged(req.params.email)
         res.status(200).json({message: 'Token deleted'});
     } catch (error) {
         console.log('Error:', error);

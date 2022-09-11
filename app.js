@@ -1,12 +1,25 @@
 
-//int provisional prueba comprobación tipo usuario
-let userType = 2;//0 = user, 1 = admin, 2 = no log
 
+
+
+
+
+
+
+// **********************************
 const express = require('express');
 const cookieParser= require('cookie-parser')
 const users= require('./controllers/adminControllers')
+const usersControllers= require('./controllers/userControllers')
 const morgan = require('./config/morganConfig')
 const helmet = require('helmet');
+const jwt = require('express-jwt');
+const cors = require('cors');
+const jsonwebtoken= require('jsonwebtoken')
+
+
+
+
 
 
 
@@ -39,13 +52,26 @@ app.use(express.json());
 app.use(morgan(':method :host :status :param[id] - :response-time ms :body'));
 
 app.use(express.urlencoded({extended:true}));
+app.use(cors());
 // app.use(express.static('public'))
 app.use('/api/', adRouter);
 app.use('/', adminRouter);
+app.use('/api',adminRouter)
 app.use('/api',userRouter);
 app.use('/api',favsRouter);
 app.use(express.static('public'))
 app.use(cookieParser())
+
+
+app.post('api/login', (req, res) => {
+      app.use(
+          jwt(
+          { 
+            secret: 'keyDePrueba', 
+            algorithms: ['HS256'],
+            getToken: req => req.cookies.token
+          }));
+});
 
 
 //WEB ROUTES
@@ -74,8 +100,6 @@ app.get('/login',(req,res)=>{
         console.log(error.stack);
     }
 })
-
-
 
 //Register
 
