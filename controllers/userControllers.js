@@ -83,19 +83,26 @@ const registerUser = async(req,res)=>{
 
 const recoverPassword = async(req,res)=>{
     try{
-        //Comprobación de BDD datos si hay usuario con params.email
-        const recoverToken = jwt.sign({email:req.params.email},'keyDePrueba',{expiresIn: '20m'});
-        const url = `${sendUrl}/api/resetpassword/${recoverToken}`;
-        await transporter.sendEmail({
-            to:req.params.email,
-            subject: 'Recuperar contraseña',
-            html:`<h3>Recuperar contraseña</h3>
-                <a href=${url}>Click para recuperar</a>
-                <p>El link expirará en 20 minutos</p>`
-        });
-        res.status(200).json({
-            message:'Un email de recuperación ha sido enviado a tu dirección de email'
-        })
+        console.log("okok");
+        let data = await client.getUserByEmail(req.params.email)
+        if(data){
+            const recoverToken = jwt.sign({email:req.params.email},'keyDePrueba',{expiresIn: '20m'});
+            const url = `${sendUrl}/api/resetpassword/${recoverToken}`;
+            await transporter.sendEmail({
+                to:req.params.email,
+                subject: 'Recuperar contraseña',
+                html:`<h3>Recuperar contraseña</h3>
+                    <a href=${url}>Click para recuperar</a>
+                    <p>El link expirará en 20 minutos</p>`
+            });
+            res.status(200).json({
+                message:'Un email de recuperación ha sido enviado a tu dirección de email'
+            })
+        }
+        else{
+            res.status(404).json({message:'No existe un usuario con ese email'});
+        }
+       
     }   
     catch(error){
         console.log(error);

@@ -38,6 +38,18 @@ const getUsersById= async () => {
     return result
 }
 
+const getUserByEmail = async(email)=>{
+    let result;
+    try{
+        const data = await pool.query(query.getUserByEmail2)
+        result = data.rows;
+    }
+    catch(error){
+        console.log(error);
+    }
+    return result;
+}
+
 const createUsermodel = async (user) => {
     const{id,email,password,full_name,role,logged}=user
     let result;
@@ -244,5 +256,6 @@ module.exports={
     createFavAd,
     deleteFavAd,
     getUserProfile,
-    turnToNoLogged
+    turnToNoLogged,
+    getUserByEmail
 }
