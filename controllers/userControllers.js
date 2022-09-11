@@ -109,11 +109,34 @@ const restorePassword = async(req,res)=>{
         const password = req.body.password;
         if(regex.validatePassword(password)){
             const hashPassword = await bcrypt.hash(password, saltRounds);
-            await client.updateUser()
+            const newData = {
+                email: payload.email,
+                password: hashPassword
+            }
+            await client.updateUser(newData,{ method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newData)})
         }
+        else{
+            res.status(400).json({msg: 'Password debe tener 8 caracteres, una minúscula, una mayúscula y un caracter especial'});
+        }
+        res.status(200).json({message: 'Password actualized'});
     }
     catch(error){
+        console.log(error)
+    }
+}
 
+const logout = async(req, res) => {
+    let data;
+    try {
+        data = await User.updateOne({ email: req.params.email }, { logged: false })
+        res.status(200).json({message: 'Token deleted'});
+    } catch (error) {
+        console.log('Error:', error);
     }
 }
 
@@ -121,5 +144,6 @@ module.exports = {
     loginUser,
     registerUser,
     recoverPassword,
-    restorePassword
+    restorePassword,
+    logout
 }

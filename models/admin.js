@@ -102,6 +102,18 @@ const turnToLogged= async (email) => {
     return result
 }
 
+const turnToNoLogged = async(email)=>{
+    let result
+    try{
+        const data = await pool.query(query.turnToNoLogged,[email])
+        result = data.rows;
+    }
+    catch(error){
+        console.log(error);
+    }
+    return result;
+}
+
 
 const createRegisterUser = async (registerUser) => {
     const {email,full_name,password} = registerUser;
@@ -218,5 +230,19 @@ const getUserProfile = async () => {
 
 
 module.exports={
-    getUsers,getUsersById, createUsermodel, updateUser, deleteUser, getloginUser,turnToLogged,createRegisterUser,getrecoverPassword,updatePassword,getfavAds,createFavAd,deleteFavAd, getUserProfile
+    getUsers,
+    getUsersById,
+    createUsermodel,
+    updateUser,
+    deleteUser,
+    getloginUser,
+    turnToLogged,
+    createRegisterUser,
+    getrecoverPassword,
+    updatePassword,
+    getfavAds,
+    createFavAd,
+    deleteFavAd,
+    getUserProfile,
+    turnToNoLogged
 }
