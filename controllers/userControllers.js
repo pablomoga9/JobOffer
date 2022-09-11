@@ -8,7 +8,8 @@ const pool = require('../utils/dbElephant');
 const bcrypt = require('bcrypt');
 const saltRounds =  10;
 const client = require("../models/admin");
-
+const { transporter } = require('../config/nodemailer');
+const sendUrl = 'http://localhost:3000';
 
 
 const loginUser = async(req,res)=>{
@@ -79,7 +80,46 @@ const registerUser = async(req,res)=>{
     }
 }
 
+
+const recoverPassword = async(req,res)=>{
+    try{
+        //Comprobación de BDD datos si hay usuario con params.email
+        const recoverToken = jwt.sign({email:req.params.email},'keyDePrueba',{expiresIn: '20m'});
+        const url = `${sendUrl}/api/resetpassword/${recoverToken}`;
+        await transporter.sendEmail({
+            to:req.params.email,
+            subject: 'Recuperar contraseña',
+            html:`<h3>Recuperar contraseña</h3>
+                <a href=${url}>Click para recuperar</a>
+                <p>El link expirará en 20 minutos</p>`
+        });
+        res.status(200).json({
+            message:'Un email de recuperación ha sido enviado a tu dirección de email'
+        })
+    }   
+    catch(error){
+        console.log(error);
+    }
+}
+
+const restorePassword = async(req,res)=>{
+    try{
+        const recoverToken = req.params.recoverToken;
+        const payload = jwt.verify(recoverToken,'keyDePrueba');
+        const password = req.body.password;
+        if(regex.validatePassword(password)){
+            const hashPassword = await bcrypt.hash(password, saltRounds);
+            await client.updateUser()
+        }
+    }
+    catch(error){
+
+    }
+}
+
 module.exports = {
     loginUser,
-    registerUser
+    registerUser,
+    recoverPassword,
+    restorePassword
 }
