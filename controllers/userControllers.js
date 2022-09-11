@@ -133,7 +133,7 @@ const restorePassword = async(req,res)=>{
 const logout = async(req, res) => {
     let data;
     try {
-        data = await User.updateOne({ email: req.params.email }, { logged: false })
+        data = await client.turnToNoLogged(req.params.email)
         res.status(200).json({message: 'Token deleted'});
     } catch (error) {
         console.log('Error:', error);
