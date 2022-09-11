@@ -40,6 +40,10 @@ const loginUser = async(req,res)=>{
                         msg: 'Correct authentication',
                         token: token
                     });
+                    return res.cookie('keyDePrueba', token, {
+                        expires:new Date(Date.now() + 25892000000),
+                        httpOnly:true
+                    });
                 }else{
                     res.status(400).json({msg:'Usuario o contaseña incorrecta'})
                 }
@@ -140,7 +144,7 @@ const restorePassword = async(req,res)=>{
 const logout = async(req, res) => {
     let data;
     try {
-        data = await client.turnToNoLogged(req.params.email)
+        data = await client.turnToNoLogged(req.query.email)
         res.status(200).json({message: 'Token deleted'});
     } catch (error) {
         console.log('Error:', error);

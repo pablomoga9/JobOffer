@@ -1,15 +1,18 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
+const admin= require('../models/admin')
 const pool = require('../utils/dbElephant');
 const queries = require('../models/queries');
 const protectedRoutes = express.Router();
 
 protectedRoutes.use((req,res,next)=>{
     const token = req.headers['access_token'];
+    const cookies= req.headers.cookie
+    console.log("soy la cookie",cookies);
 
     if(token){
         jwt.verify(token,'keyDePrueba', async (err, decoded) => {
-            let data = await pool.query(queries.getUserByEmail2,[decoded.email]);
+            let data = await admin.getUserByEmail(decoded.email);
             if(data.logged==true){
                 req.decoded = decoded;
                 next();
@@ -28,6 +31,7 @@ protectedRoutes.use((req,res,next)=>{
 //check current user
 const checkUser = (req,res,next)=>{
     const token = req.cookies.jwt;
+    console.log(token);
     if(token){
         jwt.verify(token,'keyDePrueba',async(err,decoded)=>{
             if(err){
@@ -35,7 +39,7 @@ const checkUser = (req,res,next)=>{
                 next();
             }
             else{
-                let user = await pool.query(queries.getUsersById,[decoded.id])
+                let user = await admin.getUsersById(decoded.id)
                 res.locals.user = user;
                 next();
             }

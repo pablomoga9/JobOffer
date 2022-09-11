@@ -3,6 +3,7 @@
 let userType = 2;//0 = user, 1 = admin, 2 = no log
 
 const express = require('express');
+const cookieParser= require('cookie-parser')
 const users= require('./controllers/adminControllers')
 const morgan = require('./config/morganConfig')
 const helmet = require('helmet');
@@ -44,6 +45,7 @@ app.use('/', adminRouter);
 app.use('/api',userRouter);
 app.use('/api',favsRouter);
 app.use(express.static('public'))
+app.use(cookieParser())
 
 
 //WEB ROUTES
@@ -87,16 +89,18 @@ app.get('/signup', (req,res)=>{
 })
 
 //Favourites
+app.use('/',favsRouter)
+// app.get('/favourites',(req,res)=>{
+//     try{
+//         res.render("favourites",{})
+//     }
+//     catch(error){
+//         console.log(error.stack);
+//     }
+// }) 
 
-app.get('/favourites',(req,res)=>{
-    try{
-        res.render("favourites",{})
-    }
-    catch(error){
-        console.log(error.stack);
-    }
-}) 
-
+// ruta search desde donde se guardan los favoritos
+app.use('/',adRouter)
 //Dashboard Admin
 
 app.get('/dashboard',(req,res)=>{
