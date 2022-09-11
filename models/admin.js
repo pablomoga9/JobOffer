@@ -17,25 +17,19 @@ const { registerUser } = require('../models/queries')
         console.log(err);
         throw err;
     }
-    //finally{
-    //     client.release();    
-    // }
-    return result
 }
 
 const getUsersById= async () => {
     let client,result;
     try{
        
-        const data = await Pool.query(query.getUsersById)
+        const data = await pool.query(query.getUsersById)
         result = data.rows
+        return result
     }catch(err){
         console.log(err);
         throw err;
-    }finally{
-        client.release();    
     }
-    return result
 }
 
 const createUsermodel = async (user) => {
@@ -54,7 +48,6 @@ const updateUser = async (userUpdated) => {
     const {full_name,email} = userUpdated;
     let client,result;
     try{
-        // client = await pool.connect(); // Espera a abrir conexion
         const data = await pool.query(query.updateUser,
                                         [full_name,email])
         result = data.rowCount
@@ -121,14 +114,11 @@ const createRegisterUser = async (registerUser) => {
 const getrecoverPassword = async () => {
     let client,result;
     try{
-        client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.recoverPassword)
+        const data = await pool.query(query.recoverPassword)
         result = data.rows
     }catch(err){
         console.log(err);
         throw err;
-    }finally{
-        client.release();    
     }
     return result
 }
@@ -137,15 +127,12 @@ const updatePassword = async (passwordUpdated) => {
     const {password,email} = passwordUpdated;
     let client,result;
     try{
-        client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.changePassword,
+        const data = await pool.query(query.changePassword,
                                         [password,email])
         result = data.rowCount
     }catch(err){
         console.log(err);
         throw err;
-    }finally{
-        client.release();    
     }
     return result
 }
@@ -153,8 +140,7 @@ const updatePassword = async (passwordUpdated) => {
 const getfavAds = async () => {
     let client,result;
     try{
-        client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.favAds,[email])
+        const data = await pool.query(query.favAds,[email])
         result = data.rows
     }catch(err){
         console.log(err);
@@ -170,14 +156,11 @@ const createFavAd = async (favAd) => {
     const {id,email,ad} = favAd;
     let client,result;
     try{
-        client = await pool.connect(); // Espera a abrir conexion
-        const data = await client.query(queries.saveFavAd,[id,email,ad])
+        const data = await pool.query(query.saveFavAd,[id,email,ad])
         result = data.rowCount
     }catch(err){
         console.log(err);
         throw err;
-    }finally{
-        client.release();    
     }
     return result
 }

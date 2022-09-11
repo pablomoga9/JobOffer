@@ -7,7 +7,7 @@ const createFav = async(req,res)=>{
     try{
         //Ejecutar "checkAuth" del middleware de verifiedToken
         let userId;//decoded id sacado de checkAuth
-        const user = await pool.query(query.getUsersById,[id]);
+        const user = await client.query(query.getUsersById,[id]);
         await pool.query(pool.query(query.saveFavAd,[userId,req.body.id]))//Añadimos fav con id del user y el id traido del body
     }
     catch(error){
