@@ -39,6 +39,10 @@ const loginUser = async(req,res)=>{
                         msg: 'Correct authentication',
                         token: token
                     });
+                    return res.cookie('keyDePrueba', token, {
+                        expires:new Date(Date.now() + 25892000000),
+                        httpOnly:true
+                    });
                 }else{
                     res.status(400).json({msg:'Usuario o contaseña incorrecta'})
                 }

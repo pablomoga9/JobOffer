@@ -7,7 +7,7 @@ const getUsersRegistered = async (req, res) => {
   try {
     let users = await admin.getUsers();
 
-    res.status(200).render("usersAdmin", { users }); // array [] con las entries encontradas
+    res.status(200).render("usersAdmin", { users }); 
   } catch (error) {
     console.log(error.message);
   }

@@ -127,6 +127,8 @@ async function deleteUser(emailDelete) {
 const deleteButtons = document.querySelectorAll(".DeleteBtn");
 for (let index = 0; index < deleteButtons.length; index++) {
     deleteButtons[index].addEventListener('click',function(event){
+        console.log(event.target.getAttribute("user_email"));
+
         let email = event.target.getAttribute("user_email")
         deleteUser(email);
         location.reload()

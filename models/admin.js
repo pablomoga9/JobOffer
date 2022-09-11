@@ -3,6 +3,7 @@ require('dotenv').config()
 const query= require('../models/queries')
 // const queries = require('../models/queries')
 const { registerUser } = require('../models/queries')
+const tokenUser= require('../middlewares/verifiedToken')
 // const { Pool } = require('pg')
 
     const getUsers = async () => {
@@ -19,11 +20,24 @@ const { registerUser } = require('../models/queries')
     }
 }
 
-const getUsersById= async () => {
+const getUsersById= async (id) => {
     let client,result;
     try{
        
-        const data = await pool.query(query.getUsersById)
+        const data = await pool.query(query.getUsersById,[id])
+        result = data.rows
+        return result
+    }catch(err){
+        console.log(err);
+        throw err;
+    }
+}
+
+const getUserByEmail= async (email) => {
+    let client,result;
+    try{
+       
+        const data = await pool.query(query.getUserByEmail(),[email])
         result = data.rows
         return result
     }catch(err){
@@ -137,49 +151,53 @@ const updatePassword = async (passwordUpdated) => {
     return result
 }
 
-const getfavAds = async () => {
+const getFavAds= async (email) => {
     let client,result;
     try{
-        const data = await pool.query(query.favAds,[email])
+       
+        const data = await pool.query(query.getFavAds,[email])
+        console.log("getfavAds",data);
         result = data.rows
+        return result
     }catch(err){
         console.log(err);
         throw err;
-    }finally{
-        client.release();    
     }
-    return result
 }
 
 
 const createFavAd = async (favAd) => {
-    const {id,email,ad} = favAd;
+    checkedUser=tokenUser.checkUser()
+    console.log(checkedUser);
+    const favparameters= {
+        checkedUser:checkedUser,
+        favAd:favAd
+    }
+    console.log("soy el console log",favparameters);
     let client,result;
     try{
-        const data = await pool.query(query.saveFavAd,[id,email,ad])
+        const data = await pool.query(query.saveFavAd,[favparameters.checkedUser,favparameters.favAd])
+        console.log(data);
         result = data.rowCount
+        return result
     }catch(err){
         console.log(err);
         throw err;
     }
-    return result
 }
 
 const deleteFavAd= async (ad) => {
     let client,result;
-    client = await pool.connect(); // Espera a abrir conexion
     try{
-        const data = await client.query(queries.deleteFavAd,
+        const data = await pool.query(query.deleteFavAd,
                                         [ad])
         result = data.rowCount
+        return result
+    
     }catch(err){
         console.log(err);
         throw err;
-    }finally{
-        client.release();    
-    }
-    return result
-}
+    }}
 
 
 const getUserProfile = async () => {
@@ -201,5 +219,5 @@ const getUserProfile = async () => {
 
 
 module.exports={
-    getUsers,getUsersById, createUsermodel, updateUser, deleteUser, getloginUser,turnToLogged,createRegisterUser,getrecoverPassword,updatePassword,getfavAds,createFavAd,deleteFavAd, getUserProfile
+    getUsers,getUsersById,getUserByEmail, createUsermodel, updateUser, deleteUser, getloginUser,turnToLogged,createRegisterUser,getrecoverPassword,updatePassword,getFavAds,createFavAd,deleteFavAd, getUserProfile
 }

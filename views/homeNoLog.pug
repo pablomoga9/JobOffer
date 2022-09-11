@@ -1,15 +1,15 @@
 doctype html
 html(lang="en")
     head
-        title Document
+        title Home 
        
     //- include ../public/scripts/search.js
         
           
     body 
-        form#searchForm(action="/api/search/" method="POST") 
+         form#searchForm(action="/search" method="POST") 
             input#search(type="text" name="job")
             input#city(type="text" name="city")
-            button#submitBtn(type="submit" value="Search") Enviar 
-        ul#searchList 
-        script(src="/scripts/search.js")
+            button#submitBtn(type="submit" value="Search") Buscar 
+         ul#searchList 
+         script(src="/scripts/search.js")
