@@ -46,17 +46,17 @@ const getUserByEmail= async (email) => {
     }
 }
 
-const getUserByEmail = async(email)=>{
-    let result;
-    try{
-        const data = await pool.query(query.getUserByEmail2)
-        result = data.rows;
-    }
-    catch(error){
-        console.log(error);
-    }
-    return result;
-}
+// const getUserByEmail = async(email)=>{
+//     let result;
+//     try{
+//         const data = await pool.query(query.getUserByEmail2)
+//         result = data.rows;
+//     }
+//     catch(error){
+//         console.log(error);
+//     }
+//     return result;
+// }
 
 const createUsermodel = async (user) => {
     const{id,email,password,full_name,role,logged}=user
@@ -126,11 +126,11 @@ const turnToNoLogged = async(email)=>{
     try{
         const data = await pool.query(query.turnToNoLogged,[email])
         result = data.rows;
+        return result;
     }
     catch(error){
         console.log(error);
     }
-    return result;
 }
 
 
@@ -253,7 +253,7 @@ module.exports={
     createRegisterUser,
     getrecoverPassword,
     updatePassword,
-    getfavAds,
+    getFavAds,
     createFavAd,
     deleteFavAd,
     getUserProfile,
