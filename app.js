@@ -17,6 +17,10 @@ const jwt = require('express-jwt');
 const cors = require('cors');
 const jsonwebtoken= require('jsonwebtoken')
 
+//heroku port
+const port = process.env.PORT || 5000;
+
+
 
 
 
@@ -38,7 +42,7 @@ const {requireAuth,checkUser} = require('./middlewares/verifiedToken.js');
 const res = require('express/lib/response');
 
 const app = express();
-const port = 3000;
+
 
 
 
