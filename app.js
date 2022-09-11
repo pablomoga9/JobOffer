@@ -18,7 +18,7 @@ const cors = require('cors');
 const jsonwebtoken= require('jsonwebtoken')
 
 //heroku port
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 4000;
 
 
 
