@@ -8,10 +8,8 @@ protectedRoutes.use((req,res,next)=>{
     const token = req.headers['access_token'];
 
     if(token){
-        jwt.verify(token,jwt_secret, async (err, decoded) => {
-            let client;
-            client = await pool.connect();
-            let data = await client.query(queries.getUserByEmail,[decoded.email]);
+        jwt.verify(token,'keyDePrueba', async (err, decoded) => {
+            let data = await pool.query(queries.getUserByEmail2,[decoded.email]);
             if(data.logged==true){
                 req.decoded = decoded;
                 next();
@@ -27,4 +25,26 @@ protectedRoutes.use((req,res,next)=>{
     }
 });
 
-module.exports = protectedRoutes;
+//check current user
+const checkUser = (req,res,next)=>{
+    const token = req.cookies.jwt;
+    if(token){
+        jwt.verify(token,'keyDePrueba',async(err,decoded)=>{
+            if(err){
+                res.locals.user = null;
+                next();
+            }
+            else{
+                let user = await pool.query(queries.getUsersById,[decoded.id])
+                res.locals.user = user;
+                next();
+            }
+        });
+    }
+    else{
+        res.locals.user  =null;
+        next();
+    }
+}
+
+module.exports = {protectedRoutes,checkUser};
