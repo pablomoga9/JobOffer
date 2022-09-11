@@ -10,6 +10,12 @@ const getAds = async(req,res)=>{
                 
                 return res.status(200).json(findAdmin);
             }
+            else if(req.query.title){
+                console.log(req.query.title);
+                
+                const findId = await adsSchema.find({title:req.query.title})
+                return res.status(200).json(findId);
+            }
             else if(req.query.pdf){
                 console.log("hi")
                 const findAdmin = await adsSchema.find({adminAd:true});

@@ -16,10 +16,11 @@ require('./utils/dbElephant.js')
 const adRouter = require('./routes/adRoutes.js');
 const adminRouter= require('./routes/adminRoutes')
 const userRouter = require('./routes/userRoutes.js');
+const favsRouter = require('./routes/favsRoutes.js');
 
 //Middlewares
 const middle404 = require('./middlewares/error404.js');
-
+const {requireAuth,checkUser} = require('./middlewares/verifiedToken.js');
 
 const app = express();
 const port = 3000;
@@ -40,12 +41,13 @@ app.use(express.urlencoded({extended:true}));
 app.use('/api/', adRouter);
 app.use('/', adminRouter);
 app.use('/api',userRouter);
-
+app.use('/api',favsRouter);
 app.use(express.static('public'))
 
 
 //WEB ROUTES
 
+// app.get('*',checkUser);
 //Home(no log, user & admin)
 
 app.get('/', (req,res)=>{
