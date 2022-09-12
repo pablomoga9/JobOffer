@@ -1,15 +1,31 @@
 const userCheck = require('../middlewares/verifiedToken')
 const client = require("../models/admin");
 const jwt = require('jsonwebtoken');
+const adsSchema = require('../schemas/adsSchemas');
 // const pool= require('../utils/dbElephant')
 // const query= require('../models/queries')
 
 const getMyFavs = async (req, res) => {
     try {
-      email= req.body.email
-      let favs = await client.getFavAds(email);
-  
-      res.status(200).render("favourites", { favs }); // array [] con las entries encontradas
+     
+      let getData = [];
+      let getData2 = [];
+      let cookies = (req.headers.cookie).slice(12);
+      let decoded = jwt.verify(cookies,'keyDePrueba')
+      let favs = await client.getFavAds(decoded.email);
+    
+      for(i=0;i<favs.length;i++){
+        getData.push(favs[i].ad);
+        }
+       
+      for(i=0;i<getData.length;i++){
+        const element = await adsSchema.find({_id:getData[i]},'-_id');
+        getData2.push(element);
+      }
+      
+      
+      return res.status(200).json(getData2);
+     
     } catch (error) {
       console.log(error.message);
     }
