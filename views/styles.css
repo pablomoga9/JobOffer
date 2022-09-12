@@ -2,6 +2,8 @@ body {
     margin: 0;
 }
 
+
+
 header {
     background-image: url("./assets/img/pece.jpg");
     background-size: cover;
@@ -174,3 +176,73 @@ a{
     display: none;
 }
 
+#searchForm{
+    margin: 20px;
+    padding: 30px;
+    width: 90%;
+    background-color: rgb(236, 236, 236);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+#searchForm input{
+    font-size: larger;
+    width: 85%;
+    height: 35px;
+    border: solid 1px rgb(191, 191, 191);
+    border-radius: 4px;
+    outline: none;
+}
+
+#searchForm button{
+    background-color: white;
+    color: rgb(88, 88, 88);
+    height: 39px;
+    width: 80px;
+    border: 1px solid rgb(231, 231, 231);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#searchList{
+    display: flex;
+    flex-wrap: wrap;
+    align-items:center;
+    flex-direction: column;
+    list-style: none;
+}
+#searchList li{
+    background: rgba(77, 77, 77, 0.6);
+    width: 40%;
+    margin: 30px;
+    padding: 30px;
+    border-radius: 30px;
+    text-decoration: none;
+}
+
+#searchList li > p{
+    text-align: center;
+}
+
+.elementTitle{
+   
+    margin: 0;
+    text-align: center;
+}
+
+.elementUrl{
+
+    text-align: center;
+}
+
+.favBtn{
+    cursor: pointer;
+}
+.favBtn:hover{
+    filter: brightness(1);
+}

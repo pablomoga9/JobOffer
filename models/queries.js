@@ -9,7 +9,7 @@ const queries = {
     "turnToLogged":`UPDATE users SET logged=true WHERE users.email=$1`,
     "turnToNoLogged":'UPDATE users SET logged=false WHERE users.email=$1',
     "deleteUser":`DELETE FROM users WHERE email=$1;`,
-    "loginUser":`SELECT email,password FROM users WHERE users.email=$1`,
+    "loginUser":`SELECT * FROM users WHERE users.email=$1`,
     "registerUser":`INSERT INTO users(email,full_name,password,role) VALUES($1,$2,crypt($3, gen_salt('bf')),'client')`,
     "recoverPassword":`SELECT password FROM users WHERE users.email = $1`,
     "changePassword":`UPDATE users SET password= crypt($1, gen_salt('bf')) where email=$2;`,

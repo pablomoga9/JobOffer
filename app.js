@@ -1,27 +1,8 @@
-
-
-
-
-
-
-
-
-// **********************************
 const express = require('express');
 const cookieParser= require('cookie-parser')
-const users= require('./controllers/adminControllers')
-const usersControllers= require('./controllers/userControllers')
 const morgan = require('./config/morganConfig')
 const helmet = require('helmet');
-const jwt = require('express-jwt');
 const cors = require('cors');
-const jsonwebtoken= require('jsonwebtoken')
-
-
-
-
-
-
 
 require('./utils/dbMongo.js');
 require('./utils/dbElephant.js')
@@ -34,8 +15,6 @@ const favsRouter = require('./routes/favsRoutes.js');
 
 //Middlewares
 const middle404 = require('./middlewares/error404.js');
-const {requireAuth,checkUser} = require('./middlewares/verifiedToken.js');
-const res = require('express/lib/response');
 
 const app = express();
 const port = 3000;
@@ -48,12 +27,9 @@ app.set('views','./views');
 
 app.use(helmet());
 app.use(express.json());
-
 app.use(morgan(':method :host :status :param[id] - :response-time ms :body'));
-
 app.use(express.urlencoded({extended:true}));
 app.use(cors());
-// app.use(express.static('public'))
 app.use('/api/', adRouter);
 app.use('/', adminRouter);
 app.use('/api',adminRouter)
@@ -62,21 +38,9 @@ app.use('/api',favsRouter);
 app.use(express.static('public'))
 app.use(cookieParser())
 
-
-app.post('api/login', (req, res) => {
-      app.use(
-          jwt(
-          { 
-            secret: 'keyDePrueba', 
-            algorithms: ['HS256'],
-            getToken: req => req.cookies.token
-          }));
-});
-
-
 //WEB ROUTES
 
-// app.get('*',checkUser);
+
 //Home(no log, user & admin)
 
 app.get('/', (req,res)=>{

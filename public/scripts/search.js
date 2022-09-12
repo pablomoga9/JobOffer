@@ -23,7 +23,7 @@ let favButtons;
             const liContent = data.map((element)=>{
                 return `
                 <li class="listElements">
-                <a href="${element.titleUrl}"><h2 class="elementTitle">${element.title}</h2></a>
+                <a href="${element.titleUrl}" class="elementUrl"><h2 class="elementTitle">${element.title}</h2></a>
                 <p>${element.city}</p>
                 <p>${element.date}</p>
                 <p>${element.description}</p>
