@@ -134,10 +134,28 @@ const logout = async(req, res) => {
     let data;
     try {
         data = await client.turnToNoLogged(req.params.email)
+        req.headers.cookie = "";
         res.status(200).json({message: 'Token deleted'});
         res.redierct('/')
     } catch (error) {
         console.log('Error:', error);
+    }
+}
+
+const checkUser = async(req,res)=>{
+    try{
+       
+        const cookies = req.slice(12); 
+        let decoded = jwt.verify(cookies,'keyDePrueba')
+        let check = await client.checkAdmin(decoded.email);
+        if(check.role == "admin"){
+            console.log(check);
+            return true;
+        }
+        
+    }
+    catch(error){
+
     }
 }
 
@@ -146,5 +164,6 @@ module.exports = {
     registerUser,
     recoverPassword,
     restorePassword,
-    logout
+    logout,
+    checkUser
 }

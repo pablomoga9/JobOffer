@@ -180,9 +180,8 @@ const getFavAds= async (email) => {
     try{
        
         const data = await pool.query(query.getFavAds,[email])
-        console.log("getfavAds",data);
-        result = data.rows
-        return result
+        
+        return data.rows;
     }catch(err){
         console.log(err);
         throw err;
@@ -239,6 +238,23 @@ const getUserProfile = async () => {
     return result
 }
 
+const checkAdmin = async(email)=>{
+    try{
+       
+        const data = await pool.query(query.checkAdmin,[email]);
+       
+        if(data.rows[0].role == 'admin'){
+           
+            return data.rows[0];
+            
+        }
+       
+    }
+    catch(error){
+
+    }
+}
+
 
 
 
@@ -258,5 +274,6 @@ module.exports={
     deleteFavAd,
     getUserProfile,
     turnToNoLogged,
-    getUserByEmail
+    getUserByEmail,
+    checkAdmin
 }

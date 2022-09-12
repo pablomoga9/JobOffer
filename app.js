@@ -3,6 +3,7 @@ const cookieParser= require('cookie-parser')
 const morgan = require('./config/morganConfig')
 const helmet = require('helmet');
 const cors = require('cors');
+const userController = require('./controllers/userControllers')
 
 require('./utils/dbMongo.js');
 require('./utils/dbElephant.js')
@@ -46,8 +47,19 @@ app.use(cookieParser())
 
 app.get('/', (req,res)=>{
     try{
-     
-    res.render('homeNoLog');
+       let cookies = req.headers.cookie
+       const check = userController.checkUser(cookies);
+
+        if(!cookies){
+            res.render('homeNoLog');
+         }
+        else if(cookies && check == "admin"){
+            res.render('homeAdmin');
+        }
+        else if(cookies){
+            res.render('homeNoLog');
+        }
+        
     }
     catch(error){
         console.log(error.stack)
@@ -78,23 +90,42 @@ app.get('/signup', (req,res)=>{
 })
 
 //Favourites
-app.use('/',favsRouter)
-// app.get('/favourites',(req,res)=>{
-//     try{
-//         res.render("favourites",{})
-//     }
-//     catch(error){
-//         console.log(error.stack);
-//     }
-// }) 
 
-// ruta search desde donde se guardan los favoritos
-app.use('/',adRouter)
+app.get('/favourites',(req,res)=>{
+    try{
+        let cookies = req.headers.cookie
+       const check = userController.checkUser(cookies);
+        if(!cookies){
+            res.redirect('/')
+        }
+        else if(cookies && check == "admin"){
+          res.redirect('/')
+        }
+        else if(cookies){
+            res.render('favourites');
+        }
+        }
+      
+    catch(error){
+        console.log(error.stack);
+    }
+}) 
 //Dashboard Admin
 
 app.get('/dashboard',(req,res)=>{
     try{
-        res.render("dashboardAdmin")
+        let cookies = req.headers.cookie
+        const check = userController.checkUser(cookies);
+        // console.log(check);
+         if(!cookies){
+             res.redirect('/')
+         }
+         else if(cookies && userController.checkUser(cookies)==true){
+          res.render('dashboardAdmin');
+         }
+         else if(cookies){
+            res.redirect('/')
+         }
     }
     catch(error){
         console.log(error.stack);
@@ -119,6 +150,26 @@ app.get('/profile',(req,res)=>{
     }
 })
 
+app.get('api/users'),(req,res)=>{
+    try{
+        let cookies = req.headers.cookie
+        const check = userController.checkUser(cookies);
+       
+         if(!cookies){
+             res.redirect('/')
+         }
+         else if(cookies && userController.checkUser(cookies)==true){
+          res.render('usersAdmin');
+         }
+         else if(cookies){
+            res.redirect('/')
+         }
+    }
+    catch(error){
+
+    }
+}
+
 app.get('/recoverPassword',(req,res)=>{
     try{
         res.render('recoverPass');
@@ -131,7 +182,7 @@ app.get('/recoverPassword',(req,res)=>{
 
 
 
-app.use(verifyToken);
+// app.use(verifyToken);
 app.use(middle404);
 
 
