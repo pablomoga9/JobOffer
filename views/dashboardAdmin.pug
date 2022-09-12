@@ -5,42 +5,34 @@ html(lang="en")
         meta(charset="UTF-8")
         meta(http-equiv="X-UA-Compatible", content="IE=edge")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        style 
+            include ./styles.css
         title Vista crear y ver anuncios
     body 
+      section#ad-container
+         section#adCreate-box
 
-         form#adCreate(action="api/ads/create" method="POST") 
-            label(for="") Palabra clave de empleo: 
-            input#job(type="text" name="job")
-            label(for="") Título de oferta:  
-            input#title(type="text" name="title")
-            label(for="") URL de oferta: 
-            input#urlTitle(type="text" name="url")
-            label(for="") Ciudad:  
-            input#city(type="text" name="city")
-            label(for="") Empresa:  
-            input#company(type="text" name="company")
-            label(for="") Descripción:  
-            input#description(type="text" name="description") 
-            button#submitBtn(type="submit" value="Search") Crear
-           
-        
-         form#adUpdate(action="/api/ads/update" method="POST")
-            label(for="") ID:
-            input#idUpdate(type="text" name="id")  
-            label(for="") Palabra clave de empleo: 
-            input#jobUpdate(type="text" name="job")
-            label(for="") Título de oferta:  
-            input#titleUpdate(type="text" name="title")
-            label(for="") URL de oferta: 
-            input#urlTitleUpdate(type="text" name="url")
-            label(for="") Ciudad:  
-            input#cityUpdate(type="text" name="city")
-            label(for="") Empresa:  
-            input#companyUpdate(type="text" name="company")
-            label(for="") Descripción:  
-            input#descriptionUpdate(type="text" name="description") 
-            button#submitUpdate(type="submit" value="Search") Actualizar oferta
-         button#downloadPdf(onclick="downloadPdf()") PDF Ofertas 
-         ul#adsList(action="/api/search" method="POST")  
-         script(src="/scripts/dashboard.js")  
+            form#adCreate(action="api/ads/create" method="POST") 
+               input#job(type="text" name="job" placeholder="Palabra clave de empleo...") 
+               input#title(type="text" name="title" placeholder="Título de oferta...")
+               input#urlTitle(type="text" name="url" placeholder="URL de oferta...") 
+               input#city(type="text" name="city" placeholder="Ciudad...")  
+               input#company(type="text" name="company" placeholder="Empresa...")  
+               input#description(type="text" name="description" placeholder="Descripción...") 
+               button#submitBtn(type="submit" value="Search") Crear oferta
+            
+         section#adUpdate-box  
+            form#adUpdate(action="/api/ads/update" method="POST")
+               input#idUpdate(type="text" name="id" placeholder="ID...")  
+               input#jobUpdate(type="text" name="job" placeholder="Palabra clave de empleo...")
+               input#titleUpdate(type="text" name="title" placeholder="Título de oferta...")
+               input#urlTitleUpdate(type="text" name="url" placeholder="URL de oferta...") 
+               input#cityUpdate(type="text" name="city" placeholder="Ciudad...") 
+               input#companyUpdate(type="text" name="company" placeholder="Empresa...")  
+               input#descriptionUpdate(type="text" name="description" placeholder="Descripción...") 
+               button#submitUpdate(type="submit" value="Search") Actualizar oferta
+            
+         section#ad-box   
+            ul#adsList(action="/api/search" method="POST")  
+            script(src="/scripts/dashboard.js")  
 
