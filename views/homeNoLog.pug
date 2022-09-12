@@ -1,16 +1,31 @@
 doctype html
 html(lang="en")
     head
-        title Home 
+        title Home No Log
         style 
             include ./styles.css
     //- include ../public/scripts/search.js
         
           
-    body 
-         form#searchForm(action="/search" method="POST") 
-            input#search(type="text" name="job")
-            input#city(type="text" name="city")
+    body
+        header
+        nav#menu-nav
+            ul#menu-list
+                li
+                    a#favourites(href='#') Favoritos
+                li
+                    a#adverts(href='#') Anuncios
+                li
+                    a#users(href='#') Usuarios
+                li
+                    a#profile(href='#') Mi Perfil
+                li
+                    a#login(href='/login') Iniciar Sesión
+                li
+                    a#logout(href='#') Cerrar Sesión
+        form#searchForm(action="/search" method="POST") 
+            input#search(type="text" name="job" placeholder=" Busca un empleo...")
+            input#city(type="text" name="city" placeholder=" ...en esta ciudad")
             button#submitBtn(type="submit" value="Search") Buscar 
-         ul#searchList 
-         script(src="/scripts/search.js")
+        ul#searchList 
+        script(src="/scripts/search.js")
