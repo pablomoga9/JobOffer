@@ -1,13 +1,12 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const admin= require('../models/admin')
-const pool = require('../utils/dbElephant');
-const queries = require('../models/queries');
 const protectedRoutes = express.Router();
 
 protectedRoutes.use((req,res,next)=>{
-    const token = req.headers['access_token'];
-
+    console.log("esto es el req" + req);
+    const cookies = req.headers.cookie;
+    console.log("esto son las cookies" + cookies)
     if(token){
         jwt.verify(token,'keyDePrueba', async (err, decoded) => {
             let data = await admin.getUserByEmail(decoded.email);
@@ -48,4 +47,4 @@ const checkUser = (req,res,next)=>{
     }
 }
 
-module.exports = {protectedRoutes,checkUser};
+module.exports = protectedRoutes
