@@ -14,8 +14,7 @@ const queries = {
     "recoverPassword":`SELECT password FROM users WHERE users.email = $1`,
     "changePassword":`UPDATE users SET password= crypt($1, gen_salt('bf')) where email=$2;`,
     "getFavAds": `SELECT * FROM favs INNER JOIN users ON users.id= favs.user_id WHERE users.email = $1`,
-    "saveFavAd": `INSERT INTO favs (user_id, ad)
-    VALUES ((SELECT id FROM users WHERE email =$1),$2');`,
+    "saveFavAd": `INSERT INTO favs (user_id, ad) VALUES ((SELECT id FROM users WHERE email=$1),$2)`,
     "deleteFavAd": `DELETE FROM favs WHERE ad=$1`,
     "userProfile": `SELECT email,full_name FROM users WHERE users.email=$1`,
 }

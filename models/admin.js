@@ -191,18 +191,18 @@ const getFavAds= async (email) => {
 
 
 const createFavAd = async (favAd) => {
-    checkedUser=tokenUser.checkUser()
-    console.log(checkedUser);
     const favparameters= {
-        checkedUser:checkedUser,
-        favAd:favAd
+        checkedUser:favAd.email,
+        adId:favAd.id
     }
-    console.log("soy el console log",favparameters);
+    
     let client,result;
     try{
-        const data = await pool.query(query.saveFavAd,[favparameters.checkedUser,favparameters.favAd])
-        console.log(data);
+       
+        const data = await pool.query(query.saveFavAd,[favparameters.checkedUser,favparameters.adId])
+        
         result = data.rowCount
+        // console.log(result);
         return result
     }catch(err){
         console.log(err);

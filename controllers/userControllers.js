@@ -12,7 +12,7 @@ const jwtSecret = process.env.SECRET;
 const loginUser = async(req,res)=>{
     
         try{
-            
+        
             let data = await client.getloginUser(req.body.email)
            
             if (!data) {
@@ -23,18 +23,17 @@ const loginUser = async(req,res)=>{
               const match = await bcrypt.compare(password, hash);
 
               if (match) {
-                
-                await client.turnToLogged(data[0].email);
+                 await client.turnToLogged(data[0].email);
                 const userForToken = {
                   email: data[0].email,
                   username: data[0].full_name,
-                  check:true
                 };
+     
                 const token = jwt.sign(userForToken, "keyDePrueba", {
                   expiresIn: 5000,
                 });
                 res.cookie("acces-token", token, { httpOnly: true,
-                sameSite:"strict" })
+                sameSite:"strict" }).send();
                 }
               else {
               
@@ -136,6 +135,7 @@ const logout = async(req, res) => {
     try {
         data = await client.turnToNoLogged(req.params.email)
         res.status(200).json({message: 'Token deleted'});
+        res.redierct('/')
     } catch (error) {
         console.log('Error:', error);
     }

@@ -14,6 +14,7 @@ const userRouter = require('./routes/userRoutes.js');
 const favsRouter = require('./routes/favsRoutes.js');
 
 //Middlewares
+const verifyToken = require('./middlewares/verifiedToken')
 const middle404 = require('./middlewares/error404.js');
 
 const app = express();
@@ -130,7 +131,7 @@ app.get('/recoverPassword',(req,res)=>{
 
 
 
-
+app.use(verifyToken);
 app.use(middle404);
 
 

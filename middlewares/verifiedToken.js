@@ -4,9 +4,15 @@ const admin= require('../models/admin')
 const protectedRoutes = express.Router();
 
 protectedRoutes.use((req,res,next)=>{
-    console.log("esto es el req" + req);
     const cookies = req.headers.cookie;
-    console.log("esto son las cookies" + cookies)
+    console.log(cookies);
+    if(cookies){
+        console.log("cookies");
+    }
+    else{
+        console.log("no cookies");
+    }
+    // const token = req.headers['access_token'];
     if(token){
         jwt.verify(token,'keyDePrueba', async (err, decoded) => {
             let data = await admin.getUserByEmail(decoded.email);
