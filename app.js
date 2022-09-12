@@ -83,16 +83,16 @@ app.post('api/login', (req, res) => {
 // app.get('*',checkUser);
 //Home(no log, user & admin)
 
-app.get('/', (req,res)=>{
-    try{
-     res.send("Hola desde heroku!")
-    // res.render('homeNoLog');
-    }
-    catch(error){
-        console.log(error.stack)
+// app.get('/', (req,res)=>{
+//     try{
+//     //  res.send("Hola desde heroku!")
+//     // res.render('homeNoLog');
+//     }
+//     catch(error){
+//         console.log(error.stack)
         
-    }
-})
+//     }
+// })
 
 //Login
 
