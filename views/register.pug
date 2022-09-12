@@ -1,0 +1,46 @@
+doctype html
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        style 
+            include ./styles.css
+        title Job Scanner
+    header
+        h1 Este es el #{viewPage}
+        #menu-box
+            nav
+                ul
+                    li
+                    a Perfil
+                    li
+                    a Favoritos
+                ul
+                    li
+                    a Acceso
+                ul#userNav  
+                    li 
+                        a#goHome(href="/homeNoLog")  Home
+                    li
+                        a#logIn(href="/login") LogIn 
+    dialog#modal2(method='dialog' open='')
+            h2 Registro
+            form#form2(actino="/api/signup" method='POST')
+                button#btnCloseSignUp X
+                label
+                | Nombre de usuario 
+                input#nameInput(name='full_name' placeholder='Introduce tu nombre' type='text')
+                br
+                label
+                | Email 
+                input#email2(name='email' type='text' placeholder='Introduce un correo electrónico')
+                br
+                label
+                | Contrase&ntilde;a 
+                input#pass1(type='password' name='password' placeholder='Introduce una contraseña')
+                label
+                //- | Repite la contrase&ntilde;a 
+                //- input#pass2(type='password' name='pass2' placeholder='Vuelve a introducir la misma contraseña')
+                button#sendSignUp(type='submit') Enviar
+    script(src="/scripts/signUp.js") 
