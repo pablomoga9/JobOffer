@@ -71,11 +71,25 @@ const createUsermodel = async (user) => {
 }
 
 const updateUser = async (userUpdated) => {
+    
     const {full_name,email} = userUpdated;
     let client,result;
     try{
         const data = await pool.query(query.updateUser,
                                         [full_name,email])
+        result = data.rowCount
+        return result
+    }catch(err){
+        console.log(err);
+        throw err;
+    }
+}
+
+const updateByUser = async (userUpdated)=>{
+    let client,result;
+    try{
+        const data = await pool.query(query.updateUser,
+                                        [userUpdate.newName,userUpdate.email])
         result = data.rowCount
         return result
     }catch(err){

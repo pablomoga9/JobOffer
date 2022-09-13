@@ -306,6 +306,16 @@ a{
     border-radius: 20px;
     margin: 20px;
 }
+#profileAdmin{
+    padding: 20px;
+    background: #c2a8ee;
+    border-radius: 20px;
+    margin: 20px;
+}
+
+#profileAdmin:hover{
+    filter: brightness(1.20);
+}
 
 #advertsAdmin:hover{
     filter: brightness(1.20);

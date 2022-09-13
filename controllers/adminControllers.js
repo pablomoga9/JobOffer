@@ -1,7 +1,9 @@
+require('dotenv').config();
 const admin = require("../models/admin");
 const { getUsers } = require("../models/queries");
 const queries = require("../models/queries");
 require("pug")
+const jwt = require('jsonwebtoken');
 
 const getUsersRegistered = async (req, res) => {
   try {
@@ -47,6 +49,32 @@ const updateUser = async(req,res)=>{
   }
 }
 
+const updateByUser = async(req,res)=>{
+  let updatedUser;
+  try{
+          console.log("inController")
+          let cookies = (req.headers.cookie).slice(12);
+          let decoded = jwt.verify(cookies,process.env.SECRET);
+          updatedUser = {
+            name:req.body.newName,
+            email:decoded.email
+          }
+          console.log(updatedUser);
+          const response = await admin.updateUser(updatedUser)
+          //   ,{ 
+          //   method: "PUT",
+          //   headers: {
+          //     'Accept': 'application/json',
+          //     'Content-Type': 'application/json'
+          // },
+          // body: JSON.stringify(updatedUser)})
+          res.status(200).json({"user updated": response})
+      }
+  catch(error){
+    res.status(400).json({"message":"could not update"});
+  }
+}
+
 const deleteUser = async (req, res) => {
   const email = req.query.email;
   console.log(email);
@@ -59,5 +87,5 @@ const deleteUser = async (req, res) => {
 };
 
 module.exports={
-    getUsersRegistered,createUser,updateUser,deleteUser
+    getUsersRegistered,createUser,updateUser,deleteUser,updateByUser
 }

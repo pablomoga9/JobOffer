@@ -6,4 +6,9 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Document
     body 
-        h2 Usuario:#{}
+        h2 Usuario:#{userName}
+        form#updateName(action="api/users" method="POST")
+            label Introduce tu nuevo nombre de usuario 
+            input#newNameInput(type="text" name="newName") 
+            button#sendNewName(type="submit") Enviar
+        script(src="/scripts/changeName.js") 
