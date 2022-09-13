@@ -24,10 +24,10 @@ let favButtons;
                 return `
                 <li class="listElements">
                 <a href="${element.titleUrl}" class="elementUrl"><h2 class="elementTitle">${element.title}</h2></a>
-                <p>${element.city}</p>
-                <p>${element.date}</p>
-                <p>${element.description}</p>
-                <p>${element.company}</p>
+                <p id="company">${element.company}</p>
+                <p id="description">${element.description}</p>
+                <p id="cities">${element.city}</p>
+                <p id="date">${element.date}</p>  
                 <button class="favBtn">❤</button>
                 </li>
                 `
