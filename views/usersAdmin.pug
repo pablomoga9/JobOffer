@@ -7,43 +7,33 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         style 
             include ./styles.css
-        title Vista de usuarios registrados
+        title Vista usuarios registrados
     body
-         each user in users
-            article
-                h3 Usuario:
-                p Id usuario: #{user.id}
-                p # #{user.email}
-                p Password: #{user.password}
-                p Name: #{user.full_name}
-                p Role: #{user.role}
-                button.DeleteBtn(value="Delete" user_email=user.email) Delete
+        section#users-container
+            each user in users
+                article#user-box
+                    p Id usuario: #{user.id}
+                    p # #{user.email}
+                    p Password: #{user.password}
+                    p Name: #{user.full_name}
+                    p Role: #{user.role}
+                    button.DeleteBtn(value="Delete" user_email=user.email) Delete
+            section#create-box
+                
+                form#userCreate(action="/users" method="POST")  
+                    input#id(type="text" name="id" placeholder="ID de usuario...") 
+                    input#email(type="text" name="email" placeholder="Email...")
+                    input#password(type="text" name="password" placeholder="Contraseña...")  
+                    input#fullName(type="text" name="full_name" placeholder="Nombre completo...") 
+                    input#role(placeholder="Rol de usuario (admin o client)" type="text" name="role")
+                    input#logged(placeholder="Logeado: true or false" type="boolean" name="logged")
+                    button#createBtn(type="submit" value="Create") Crear usuario
 
-         form#userCreate(action="/users" method="POST")
-            h2 CREAR USUARIO 
-            label(for="") ID de usuario: 
-            input#id(type="text" name="id")
-            label(for="") Email:  
-            input#email(type="text" name="email")
-            label(for="") Password
-            input#password(type="text" name="password")
-            label(for="") Nombre Completo:  
-            input#fullName(type="text" name="full_name")
-            label(for="") Rol de usuario:  
-            input#role(placeholder="admin o client" type="text" name="role")
-            label(for="") Logeado:
-            input#logged(placeholder="true or false" type="boolean" name="logged")
-            button#createBtn(type="submit" value="Create") Crear
+            section#update-box
+                form#userUpdate(action="/users" method="POST")   
+                    input#2email(type="text" name="email2" placeholder="Email...")
+                    input#fullName2(type="text" name="full_name2" placeholder="Nombre completo...")
+                    button#updateBtn(type="submit" value="POST") Actualizar usuario 
+                ul#usersList(action="/users" method="POST")
 
-           
-         form#userUpdate(action="/users" method="POST")
-           h2 ACTUALIZAR USUARIO 
-            br
-            label(for="") Email:  
-            input#2email(type="text" name="email2")
-            label(for="") Nombre Completo:  
-            input#fullName2(type="text" name="full_name2")
-            button#updateBtn(type="submit" value="POST") Actualizar  
-         ul#usersList(action="/users" method="POST")
-
-         script(src="/scripts/usersAdmin.js") 
+        script(src="/scripts/usersAdmin.js") 
