@@ -71,11 +71,25 @@ const createUsermodel = async (user) => {
 }
 
 const updateUser = async (userUpdated) => {
+    
     const {full_name,email} = userUpdated;
     let client,result;
     try{
         const data = await pool.query(query.updateUser,
                                         [full_name,email])
+        result = data.rowCount
+        return result
+    }catch(err){
+        console.log(err);
+        throw err;
+    }
+}
+
+const updateByUser = async (userUpdated)=>{
+    let client,result;
+    try{
+        const data = await pool.query(query.updateUser,
+                                        [userUpdate.newName,userUpdate.email])
         result = data.rowCount
         return result
     }catch(err){
@@ -251,7 +265,24 @@ const checkAdmin = async(email)=>{
        
     }
     catch(error){
+        console.log(error);
+    }
+}
 
+const checkLoggedQ = async(email)=>{
+    try{
+       const data = await pool.query(query.checkLogged,[email]);
+       console.log(data.rows[0]);
+       if(data.rows[0].logged == true){
+            // console.log("logged");
+            return data.rows[0];
+       }
+       else{
+        console.log("not")
+       }
+    }
+    catch(error){
+        console.log(error)
     }
 }
 
@@ -275,5 +306,6 @@ module.exports={
     getUserProfile,
     turnToNoLogged,
     getUserByEmail,
-    checkAdmin
+    checkAdmin,
+    checkLoggedQ
 }

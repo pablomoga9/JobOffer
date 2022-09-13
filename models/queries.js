@@ -8,6 +8,7 @@ const queries = {
     "updateUser":`UPDATE users SET full_name= $1 WHERE users.email = $2;`,
     "turnToLogged":`UPDATE users SET logged=true WHERE users.email=$1`,
     "turnToNoLogged":'UPDATE users SET logged=false WHERE users.email=$1',
+    "checkLogged":'SELECT logged FROM users WHERE users.email=$1',
     "deleteUser":`DELETE FROM users WHERE email=$1;`,
     "checkAdmin":`SELECT role FROM users WHERE users.email=$1`,
     "loginUser":`SELECT * FROM users WHERE users.email=$1`,

@@ -1,9 +1,31 @@
 doctype html
 html(lang="en")
     head
-        meta(charset="UTF-8")
-        meta(http-equiv="X-UA-Compatible", content="IE=edge")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Document
-    body 
-        p fwefwefwefewfwefwe
+        title Home No Log
+        style 
+            include ./styles.css
+    //- include ../public/scripts/search.js
+        
+          
+    body
+        header
+        nav#menu-nav
+          #navHolder    
+            ul#menu-list
+                li
+                    a#favourites(href='/favourites')  Favoritos
+                li
+                    a#profile(href='/profile') Mi Perfil
+                li
+                    button#logout(type="button") Cerrar Sesión
+            p#homeName  Bienvenido: #{userName}
+        form#searchForm(action="/search" method="POST") 
+            input#search(type="text" name="job" placeholder=" Busca un empleo...")
+            input#city(type="text" name="city" placeholder=" ...en esta ciudad")
+            button#submitBtn(type="submit" value="Search") Buscar 
+        ul#searchList
+        dialog#modal4
+            .spinner
+ 
+        script(src="/scripts/search.js")
+        
