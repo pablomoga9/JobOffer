@@ -251,7 +251,24 @@ const checkAdmin = async(email)=>{
        
     }
     catch(error){
+        console.log(error);
+    }
+}
 
+const checkLoggedQ = async(email)=>{
+    try{
+       const data = await pool.query(query.checkLogged,[email]);
+       console.log(data.rows[0]);
+       if(data.rows[0].logged == true){
+            // console.log("logged");
+            return data.rows[0];
+       }
+       else{
+        console.log("not")
+       }
+    }
+    catch(error){
+        console.log(error)
     }
 }
 
@@ -275,5 +292,6 @@ module.exports={
     getUserProfile,
     turnToNoLogged,
     getUserByEmail,
-    checkAdmin
+    checkAdmin,
+    checkLoggedQ
 }

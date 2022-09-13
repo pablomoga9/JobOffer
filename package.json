@@ -43,7 +43,8 @@
     "pg": "^8.8.0",
     "postgre": "^0.1.8",
     "pug": "^3.0.2",
-    "puppeteer": "^17.1.0"
+    "puppeteer": "^17.1.0",
+    "sweetalert2": "^11.4.32"
   },
   "devDependencies": {
     "jest": "^29.0.2",

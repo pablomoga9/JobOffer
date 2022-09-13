@@ -2,6 +2,7 @@ const userCheck = require('../middlewares/verifiedToken')
 const client = require("../models/admin");
 const jwt = require('jsonwebtoken');
 const adsSchema = require('../schemas/adsSchemas');
+require('dotenv').config();
 // const pool= require('../utils/dbElephant')
 // const query= require('../models/queries')
 
@@ -11,7 +12,7 @@ const getMyFavs = async (req, res) => {
       let getData = [];
       let getData2 = [];
       let cookies = (req.headers.cookie).slice(12);
-      let decoded = jwt.verify(cookies,'keyDePrueba')
+      let decoded = jwt.verify(cookies,process.env.SECRET)
       let favs = await client.getFavAds(decoded.email);
     
       for(i=0;i<favs.length;i++){
@@ -35,7 +36,7 @@ const createFav = async(req,res)=>{
     let cookies = (req.headers.cookie).slice(12); 
     try{
       if(cookies){
-        let decoded = jwt.verify(cookies,'keyDePrueba')
+        let decoded = jwt.verify(cookies,process.env.SECRET)
           let favData = {
             email:decoded.email,
             id:req.body.id

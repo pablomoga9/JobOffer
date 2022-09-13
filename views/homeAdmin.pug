@@ -1,9 +1,21 @@
 doctype html
 html(lang="en")
     head
-        meta(charset="UTF-8")
-        meta(http-equiv="X-UA-Compatible", content="IE=edge")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Document
-    body 
-        p weoifjwoeijoweg
+        title Home No Log
+        style 
+            include ./styles.css
+   
+        
+          
+    body
+        header
+        nav#menu-nav
+            ul#menu-list
+                li
+                    a#logout(href='#') Cerrar Sesión
+            p#homeName Admin:#{userName}
+        #buttonContainer 
+                a#advertsAdmin(href='/dashboard') Anuncios
+                a#usersAdmin(href='/users') Usuarios
+               
+        script(src="/scripts/search.js")
