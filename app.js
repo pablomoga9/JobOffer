@@ -3,24 +3,7 @@ const cookieParser= require('cookie-parser')
 const morgan = require('./config/morganConfig')
 const helmet = require('helmet');
 const cors = require('cors');
-<<<<<<< HEAD
-const jsonwebtoken= require('jsonwebtoken')
 
-//heroku port
-const port = process.env.PORT || 4000;
-
-
-
-
-
-
-
-
-=======
-const userController = require('./controllers/userControllers');
-const jwt = require('jsonwebtoken');
-require('dotenv').config();
->>>>>>> a8f3bcb53ce6ce24432b0771bb66aba765cc1582
 require('./utils/dbMongo.js');
 require('./utils/dbElephant.js')
 
@@ -61,15 +44,7 @@ app.use(cookieParser())
 
 //Home(no log, user & admin)
 
-<<<<<<< HEAD
-// app.get('/', (req,res)=>{
-//     try{
-//     //  res.send("Hola desde heroku!")
-//     // res.render('homeNoLog');
-//     }
-//     catch(error){
-//         console.log(error.stack)
-=======
+
 app.get('/', async (req,res)=>{
     try{
        let cookies = req.headers.cookie
@@ -91,10 +66,10 @@ app.get('/', async (req,res)=>{
     }
     catch(error){
         console.log(error.stack)
->>>>>>> a8f3bcb53ce6ce24432b0771bb66aba765cc1582
+
         
-//     }
-// })
+     }
+})
 
 //Login
 
@@ -240,9 +215,6 @@ app.use(middle404);
 
 
 
-app.listen(port, () => {
-    console.log(`Server working in port ${port}`)
+app.listen(process.env.PORT|| 3000, () => {
+    console.log(`Server working in port ${process.env.PORT|| 3000}`)
 })
-
-
-
