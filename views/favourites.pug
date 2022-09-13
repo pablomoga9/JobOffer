@@ -7,14 +7,7 @@ html(lang="en")
         title Favourites
     body 
 
-        section#favs-container
-            each favAd in favs
-                article#favs-box
-                    p Id anuncio favorito: #{favAd.id}
-                    p # #{favAd.user_id}
-                    p Anuncio: #{favAd.ad}
-                    button.DeleteButton(value="Delete" adId=favAd.id) Delete
-
+        
          
         ul#favsList(action="api/favourites" method="GET")
         script(src="/scripts/favourites.js")

@@ -770,7 +770,9 @@ hr {
     box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
     border-radius: 4px;
     cursor: pointer;
-=======
+
+}
+
 #homeName{
     position: relative;
     right: 20;
