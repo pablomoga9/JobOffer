@@ -1,0 +1,850 @@
+
+
+
+
+
+
+#menu-box {
+    background-color: rgba(186, 13, 239, 0.5);
+    width: 100%;
+    height: 80px;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    list-style-type: none;
+}
+
+#search-box {
+    width: 100%;
+    height: 220px;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content:center;
+    align-items: center;
+}
+
+#title-box {
+    margin-bottom: 20px;;
+}
+
+#title-box h2 {
+    margin: 0;
+}
+
+#form-box {
+    background-color: rgb(13, 220, 239, 0.5);
+    width:90%;
+    border-radius: 7px;
+    padding: 10px;
+}
+
+form ul {
+    margin: 0;
+    padding: 0;
+}
+
+form ul li {
+    list-style-type: none;
+}
+
+#list-main-form {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: right;
+}
+
+#list-main-form li input {
+    width: 400px;
+    margin-right: 200px;
+}
+
+#btnCloseLogin,#btnCloseSignUp{
+    border-radius: 50%;
+    border-color: #eaeaea;
+    border-width: 3px;
+    color: #7e1d1d;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    cursor: pointer;
+}
+#btnCloseLogin:hover{
+    color: #3f0606;
+    background: none;
+}
+/*
+#sendSignIn,#sendSignUp{
+    border-radius: 20px;
+    padding: 10px;
+    background: none;
+    border-color: #c2a8ee;
+    cursor: pointer;
+    width: 100%;
+    border-width: 2.5px;
+}
+*/
+/*
+#sendSignIn:hover,#sendSignUp:hover{
+    background: #bbaed8;
+    color: white;
+}
+*/
+/*
+#emailInput,#email2,#pass1,#pass2, #passInput,#nameInput{
+    width: 100%;
+    height: 30px;
+    border-radius: 3px;
+    border: 2px solid #eaeaea;
+    padding: 5px 10px;
+    font-size: 12px;
+    margin: 20px 0px 20px 0px;
+}
+*/
+/*
+#modal::backdrop{
+    background-color: rgba(0, 0, 0, 0.6);
+    }
+
+#modal2::backdrop{
+    background-color: rgba(0, 0, 0, 0.6);
+}
+#modal3::backdrop{
+    background-color: rgba(0, 0, 0, 0.6);
+}
+#modal,#modal2{
+   
+    border-radius: 40px;
+    padding: 30px;
+    border: 5px solid rgba(66, 19, 83, 0.8) ;
+}
+
+#modal3{
+    border-radius: 40px;
+    padding: 30px;
+    border: 5px solid rgba(66, 19, 83, 0.8) ;
+    width: 50%;
+}
+*/
+#userNav{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    position: relative;
+    top: -20px
+}
+
+a{
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#goHome,#register,#logIn{
+    padding: 10px 15px 10px 15px;
+    margin: 0px 10px 0px 10px;
+    background: #3f0606;
+    border-radius: 20px;
+    color: white;
+}
+
+#infoBox{
+    background: rgb(69, 48, 101);
+    width: 10%;
+    border-radius: 50px;
+    text-align: center;
+    color: white;
+    margin: 20px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#infoContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#commentBox{
+    display: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*{
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: sans-serif;
+    margin: 0;
+}
+
+
+
+/* COVER DE BIENVENIDA */
+
+header {
+    background-image: url("./assets/img/caso-exito-rey-ardid-bolsa-empleo-header1.jpg");
+    background-size: cover;
+    width: 100%;
+    height: 300px;
+}
+
+
+
+/* MENÚ DE NAVEGACIÓN */
+
+#menu-nav {
+    width: 100%;
+    margin-top: 20px;
+}
+
+#menu-list {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-evenly;
+    padding: 0;
+    margin: 0;
+    border-radius: 4px;
+    width: 100%;
+}
+
+#menu-list li {
+    display: block;
+    background: rgb(255, 255, 255);
+    margin: 0;
+    padding: 10px;
+    list-style: none;
+}
+
+#menu-list li a {
+    font-family: sans-serif;
+    text-decoration: none;
+    color: rgb(88, 88, 88);
+}
+
+
+
+
+/* BARRA DE BÚSQUEDA */
+
+#searchForm{
+    margin: 20px;
+    margin-top: 20px;
+    padding: 30px;
+    width: 90%;
+    background-color: rgb(236, 236, 236);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+
+#searchForm input{
+    font-size: larger;
+    width: 85%;
+    height: 35px;
+    border: solid 1px rgb(191, 191, 191);
+    border-radius: 4px;
+    outline: none;
+    margin-right: 30px;
+    
+}
+
+
+#searchForm button{
+    background-color: white;
+    color: rgb(88, 88, 88);
+    font-size: 1rem;
+    height: 39px;
+    width: 130px;
+    border: 1px solid rgb(231, 231, 231);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+
+
+
+/* TARJETAS DE ANUNCIOS */
+
+#searchList{
+    display: flex;
+    flex-wrap: wrap;
+    align-items:center;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+}
+#searchList li{
+    background: white;
+    width: 70%;
+    margin: 30px;
+    padding: 30px;
+    border: 1px solid rgb(231, 231, 231);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+.elementTitle{
+    margin: 0;
+    text-align: left;
+}
+
+.elementUrl{
+    text-decoration: none;
+    color: rgb(88, 88, 88);
+    text-align: left;
+}
+
+
+#company {
+    margin-top: 5px;
+    color:rgb(22, 125, 183);
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-align: left;
+}
+
+#description {
+    color:rgb(88, 88, 88);
+    font-size: 0.9rem;
+    text-align: left;
+    margin-bottom: 40px;
+}
+
+#cities {
+    margin-bottom: 5px;
+    color:rgb(88, 88, 88);
+    font-size: 0.9rem;
+    text-align: right;
+}
+
+#date {
+    margin-top: 5px;
+    margin-bottom: 0;
+    color:rgb(88, 88, 88);
+    font-size: 0.9rem;
+    text-align: right;
+}
+
+.favBtn{
+    cursor: pointer;
+}
+.favBtn:hover{
+    filter: brightness(1);
+}
+
+
+
+
+/* VISTA LOGIN */
+
+#search-container {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#modal {
+    font-family: sans-serif;
+    color: rgb(78, 78, 78);
+    margin-top:30px;
+    margin-bottom: 30px;
+    padding: 30px;
+    width: 400px;
+    height: 500px;
+    background-color: rgb(236, 236, 236);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+}
+
+#modal2 {
+    font-family: sans-serif;
+    color: rgb(78, 78, 78);
+    margin-top:30px;
+    margin-bottom: 30px;
+    padding: 30px;
+    width: 400px;
+    height: 500px;
+    background-color: rgb(236, 236, 236);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-between;
+}
+
+#form1 {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 200px;
+}
+
+
+#form2 {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 300px;
+}
+
+
+#emailInput, #passlInput, #passInput, #nameInput, #email2, #pass1 {
+    font-size: larger;
+    width: 85%;
+    height: 35px;
+    border: solid 1px rgb(191, 191, 191);
+    border-radius: 4px;
+    outline: none;
+}
+
+
+
+#main-form2 input {
+    font-size: larger;
+    width: 85%;
+    height: 35px;
+    border: solid 1px rgb(191, 191, 191);
+    border-radius: 4px;
+    outline: none;
+}
+
+#signup-text {
+    margin-bottom: 40px;
+}
+
+#sendSignUp, #sendSignIn, #main-form button {
+    background-color: white;
+    color: rgb(88, 88, 88);
+    height: 39px;
+    width: 110px;
+    border: 1px solid rgb(231, 231, 231);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+hr {
+    margin-top: 0;
+    margin-bottom: 0;
+    width: 100%;
+    border-top: 0;
+    border-right: 0;
+    border-left: 0;
+    border-bottom: solid 1.5px rgb(218, 218, 218);
+}
+
+#google-log-box {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#google-log-box button {
+    background-color: white;
+    color: rgb(88, 88, 88);
+    height: 39px;
+    width: 90px;
+    border: 1px solid rgb(231, 231, 231);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#register-box {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+#register-box button {
+    background-color: white;
+    color: rgb(88, 88, 88);
+    height: 39px;
+    width: 100px;
+    border: 1px solid rgb(231, 231, 231);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 30px;
+}
+
+.space {
+    width: 10px;
+}
+
+#recov-pass {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-content: flex-end;
+}
+
+#recov-pass a {
+    color: rgb(78, 78, 78);
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+
+
+/* VISTA USUARIOS */
+
+#users-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+#user-box {
+    margin: 20px;
+    margin-top: 20px;
+    padding: 30px;
+    width: 90%;
+    background-color: white;
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#user-box p {
+    color: rgb(88, 88, 88);
+}
+
+#user-box button {
+    background-color: white;
+    color: rgb(88, 88, 88);
+    height: 30px;
+    width: 110px;
+    border: 1px solid rgb(231, 231, 231);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#create-box, #update-box {
+    margin: 20px;
+    margin-top: 20px;
+    padding: 30px;
+    width: 90%;
+    background-color: rgb(236, 236, 236);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+#userCreate, #userUpdate {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+#userCreate input, #userUpdate input {
+    width: 40%;
+    height: 39px;
+    font-size: large;
+    border: solid 1px rgb(191, 191, 191);
+    border-radius: 4px;
+    outline: none;
+    margin: 10px;
+}
+
+#userCreate button, #userUpdate button {
+    background-color: white;
+    color: rgb(88, 88, 88);
+    font-size: 1rem;
+    height: 39px;
+    width: 82%;
+    border: 1px solid rgb(231, 231, 231);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top:20px
+}
+
+
+
+
+
+/* VISTA DASHBOARD */
+
+#ad-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+#adCreate-box {
+    margin: 20px;
+    margin-top: 20px;
+    padding: 30px;
+    width: 90%;
+    background-color: white;
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#ad-box ul li {
+    color: rgb(88, 88, 88);
+}
+
+#adCreate-box, #adUpdate-box {
+    margin: 20px;
+    margin-top: 20px;
+    padding: 30px;
+    width: 90%;
+    background-color: rgb(236, 236, 236);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+}
+
+#adCreate, #adUpdate {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+#adCreate input, #adUpdate input {
+    width: 40%;
+    height: 39px;
+    font-size: large;
+    border: solid 1px rgb(191, 191, 191);
+    border-radius: 4px;
+    outline: none;
+    margin: 10px;
+}
+
+
+#adCreate button {
+    background-color: white;
+    color: rgb(88, 88, 88);
+    font-size: 1rem;
+    height: 39px;
+    width: 82%;
+    border: 1px solid rgb(231, 231, 231);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top:20px
+}
+
+#adUpdate button {
+    background-color: white;
+    color: rgb(88, 88, 88);
+    font-size: 1rem;
+    height: 39px;
+    width: 40%;
+    border: 1px solid rgb(231, 231, 231);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    cursor: pointer;
+    margin:10px
+}
+
+
+#ad-box {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 100%;
+}
+
+#adsList{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content:center;
+    flex-direction: row;
+    list-style: none;
+    padding: 0;
+    width: 90%;
+}
+#adsList li{
+    background: white;
+    width: 70%;
+    margin: 30px;
+    padding: 30px;
+    border: 1px solid rgb(231, 231, 231);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    text-decoration: none;
+}
+
+#adsList button {
+    background-color: white;
+    color: rgb(88, 88, 88);
+    height: 30px;
+    width: 110px;
+    border: 1px solid rgb(231, 231, 231);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+
+
+/* VISTA FAVORITOS */
+
+#favs-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+#favs-box {
+    margin: 20px;
+    margin-top: 20px;
+    padding: 30px;
+    width: 90%;
+    background-color: white;
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#favs-box p {
+    color: rgb(88, 88, 88);
+}
+
+#favs-box button {
+    background-color: white;
+    color: rgb(88, 88, 88);
+    height: 30px;
+    width: 110px;
+    border: 1px solid rgb(231, 231, 231);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    cursor: pointer;
+=======
+#homeName{
+    position: relative;
+    right: 20;
+    font-weight: bold;
+    margin-right: 50px;
+}
+#navHolder{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between ;
+}
+#logout{
+    background: none;
+}
+
+.spinner{
+    border: 9px solid rgb(99, 99, 99);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border-left-color: rgb(182, 103, 196);
+    /* filter: blur(0px) brightness(200%); */
+    box-shadow: 0 0 10px #5b0583, 0 0 40px #c06dbb, 0 0 80px #9936a4;
+
+    animation:spin 1s ease infinite;
+}
+@keyframes spin{
+    0%{
+        transform:rotate(0deg);
+    }
+    100%{
+        transform:rotate(360deg);
+    }
+}
+#modal4{
+    background: rgba(0, 0, 0, 0);
+    border: none;
+    overflow: hidden;
+    border-radius: 80px;
+}
+
+#buttonContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+#advertsAdmin{
+    padding: 20px;
+    background: #c2a8ee;
+    border-radius: 20px;
+    margin: 20px;
+}
+#usersAdmin{
+    padding: 20px;
+    background: #c2a8ee;
+    border-radius: 20px;
+    margin: 20px;
+}
+#profileAdmin{
+    padding: 20px;
+    background: #c2a8ee;
+    border-radius: 20px;
+    margin: 20px;
+}
+
+#profileAdmin:hover{
+    filter: brightness(1.20);
+}
+
+#advertsAdmin:hover{
+    filter: brightness(1.20);
+}
+
+#usersAdmin:hover{
+    filter: brightness(1.20);
+}
