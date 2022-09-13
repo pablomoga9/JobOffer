@@ -6,8 +6,8 @@ let cityInput = document.getElementById('city');
 let submitBtn = document.getElementById('submitBtn')
 let searchList = document.getElementById('searchList');
 let searchForm=document.getElementById('searchForm');
-
-
+let logoutBtn = document.getElementById('logout');
+let spinner = document.getElementById('modal4')
 let favButtons;
 
 
@@ -15,7 +15,7 @@ let favButtons;
     event.preventDefault();
     searchList.innerHTML = "";
     async function callApi(searchJob,searchCity){
-        
+        spinner.showModal()
         await fetch(`api/search?job=${searchJob}&city=${searchCity}`)
         .then(response=>response.json())
         .then(data=>{
@@ -23,11 +23,11 @@ let favButtons;
             const liContent = data.map((element)=>{
                 return `
                 <li class="listElements">
-                <a href="${element.titleUrl}"><h2 class="elementTitle">${element.title}</h2></a>
-                <p>${element.city}</p>
-                <p>${element.date}</p>
-                <p>${element.description}</p>
-                <p>${element.company}</p>
+                <a href="${element.titleUrl}" class="elementUrl"><h2 class="elementTitle">${element.title}</h2></a>
+                <p id="company">${element.company}</p>
+                <p id="description">${element.description}</p>
+                <p id="cities">${element.city}</p>
+                <p id="date">${element.date}</p>  
                 <button class="favBtn">❤</button>
                 </li>
                 `
@@ -35,7 +35,7 @@ let favButtons;
             .join('')
             searchList.innerHTML = liContent;
             favButtons = document.querySelectorAll('.favBtn');
-
+            spinner.close()
 
             for(i=0;i<favButtons.length;i++){
                 console.log(favButtons[i]);
@@ -53,13 +53,17 @@ let favButtons;
 
 async function saveFav(title){
    let ad;
-   try{ const getId = await fetch(`api/search?title=${title}`)
+   try{ 
+   
+    const getId = await fetch(`api/search?title=${title}`)
    .then(response=>response.json())
    .then(data=>{
+        
         ad = {id: data[0]._id};
      
    })
    console.log(ad);
+   
     const addFav = await fetch('api/favourites',{
         method:'POST',
         body: JSON.stringify(ad),
@@ -68,32 +72,49 @@ async function saveFav(title){
         }
     }).then(response=>response.json())
     .then(data=>{
-        insertFavsList();
+        
+        // insertFavsList();
+        
     })}catch(error){
         console.log(error);
     } 
 }saveFav()
 
 
-async function insertFavsList(){
+// async function insertFavsList(){
     
-    let favsList=document.getElementById('favsList').innerHTML = "";
-    await fetch('/favourites')
-    .then(response=>response.json())
-    .then(data=>{
+//     let favsList=document.getElementById('favsList').innerHTML = "";
+    
+//     await fetch('/favourites')
+//     .then(response=>response.json())
+//     .then(data=>{
        
-        for(i=0;i<data.length;i++){
-            let createElement = document.createElement('li');
-            favsList.appendChild(createElement);
-            createElement.innerHTML = `
-            <h2>${data[i].id}</h2>
-            <p>${data[i].user_id}</p>
-            <p>${data[i].ad}</p>
-            <button>Borrar</button>
-            `
-        }
-    })
-}
+//         for(i=0;i<data.length;i++){
+//             let createElement = document.createElement('li');
+//             favsList.appendChild(createElement);
+//             createElement.innerHTML = `
+//             <h2>${data[i].id}</h2>
+//             <p>${data[i].user_id}</p>
+//             <p>${data[i].ad}</p>
+//             <button>Borrar</button>
+//             `
+//         }
+
+        
+//     })
+// }
+
+
+logoutBtn.addEventListener('click',async (event)=>{
+    event.preventDefault();
+    try{
+        console.log("ininin");
+        await fetch(`/api/logout`);
+    }
+    catch(error){
+
+    }
+})
 
 
 

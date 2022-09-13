@@ -18,7 +18,7 @@ const extractAdsData = async(province,browser,search)=>{
         const titles = await page.$$('td.resultContent > div > h2 > a > span');
         const companyName = await page.$$('span.companyName > a'&&'span.companyName');
         const city = await page.$$('div.companyLocation');
-        const description = await page.$$('div.job-snippet > ul > li');
+        const description = await page.$$('div.job-snippet > ul > li'||'div.job-snipet');
         const publishDate = await page.$$('span.date')
         const offerUrl = await page.$$('h2.jobTitle > a'); 
         
@@ -139,9 +139,9 @@ const extractAdsData2 = async(province,browser,search)=>{
 const extractAllData = async(province,browser,search)=>{
     try{
         const scrap1 = await extractAdsData(province,browser,search);
-        const scrap2 = await extractAdsData2(province,browser,search);
-
-        return scrap1.concat(scrap2);
+        // const scrap2 = await extractAdsData2(province,browser,search);
+        return scrap1;
+        // return scrap1.concat(scrap2);
     }
     catch(error){
 

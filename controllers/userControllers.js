@@ -1,49 +1,42 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const nodemailer = require('../config/nodemailer');
+const Transporter = require('../config/nodemailer');
 const regex = require('../utils/regex');
-const queries = require('../models/queries');
-const {Pool} = require('pg');
-const pool = require('../utils/dbElephant');
 const bcrypt = require('bcrypt');
 const saltRounds =  10;
 const client = require("../models/admin");
-const { transporter } = require('../config/nodemailer');
 const sendUrl = 'http://localhost:3000';
 const jwtSecret = process.env.SECRET;
 
 
 const loginUser = async(req,res)=>{
-    try{
+    
         try{
-            console.log(req.body);
-            data = await client.getloginUser(req.body.email)
-            console.log(data);
+        
+            let data = await client.getloginUser(req.body.email)
+           
             if (!data) {
               res.status(200).json({ msg: "Usuario o contaseña incorrecta" });
             } else {
               const password = req.body.pass;
               const hash = bcrypt.hashSync(password, saltRounds);
-              console.log(typeof hash);
               const match = await bcrypt.compare(password, hash);
+
               if (match) {
-                console.log("estoy en match");
-                await client.turnToLogged(req.body.email);
-                const { email, username } = data;
+                 await client.turnToLogged(data[0].email);
                 const userForToken = {
-                  email: email,
-                  username: username,
+                  email: data[0].email,
+                  username: data[0].full_name,
                 };
-                res.json({ success: "welcome" });
-                const token = jwt.sign(userForToken, "keyDePrueba", {
-                  expiresIn: "20m",
+     
+                const token = jwt.sign(userForToken, process.env.SECRET, {
+                  expiresIn: 5000,
                 });
-                res.cookie("keyDePrueba", token, { httpOnly: true });
-                res.status(200).json({
-                  msg: res.cookie("keyDePrueba", token, { httpOnly: true }),
-                  token: token,
-                });
-              } else {
+                res.cookie("acces-token", token, { httpOnly: true,
+                sameSite:"strict" }).send();
+                }
+              else {
+              
                 res.status(400).json({ msg: "Usuario o contaseña incorrecta" });
               }
             }
@@ -51,10 +44,7 @@ const loginUser = async(req,res)=>{
         catch(error){
             console.log(error);
         }
-    }
-    catch(error){
-        console.log(error.message);
-    }
+   
 }
 
 
@@ -64,7 +54,7 @@ const registerUser = async(req,res)=>{
         // const hashPassword = bcrypt.hashSync(req.body.pass,11);
         let userRegisted= req.body
         try{
-            console.log("hola 3");
+          
              const hashPassword = bcrypt.hashSync(userRegisted.password,saltRounds);
             const data = await client.createRegisterUser(userRegisted,{ method: "POST",
             headers: {
@@ -86,12 +76,12 @@ const registerUser = async(req,res)=>{
 
 const recoverPassword = async(req,res)=>{
     try{
-        console.log("okok");
+       
         let data = await client.getUserByEmail(req.params.email)
         if(data){
-            const recoverToken = jwt.sign({email:req.params.email},'keyDePrueba',{expiresIn: '20m'});
+            const recoverToken = jwt.sign({email:req.params.email},process.env.SECRET,{expiresIn: '20m'});
             const url = `${sendUrl}/api/resetpassword/${recoverToken}`;
-            await transporter.sendEmail({
+            await Transporter.sendEmail({
                 to:req.params.email,
                 subject: 'Recuperar contraseña',
                 html:`<h3>Recuperar contraseña</h3>
@@ -115,7 +105,7 @@ const recoverPassword = async(req,res)=>{
 const restorePassword = async(req,res)=>{
     try{
         const recoverToken = req.params.recoverToken;
-        const payload = jwt.verify(recoverToken,'keyDePrueba');
+        const payload = jwt.verify(recoverToken,process.env.SECRET);
         const password = req.body.password;
         if(regex.validatePassword(password)){
             const hashPassword = await bcrypt.hash(password, saltRounds);
@@ -143,10 +133,54 @@ const restorePassword = async(req,res)=>{
 const logout = async(req, res) => {
     let data;
     try {
-        data = await client.turnToNoLogged(req.params.email)
-        res.status(200).json({message: 'Token deleted'});
+        console.log("doing");
+        let cookies = req.headers.cookie;
+        let cookiesSlice = cookies.slice(12);
+        let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+        
+        data = await client.turnToNoLogged(decoded.email);
+        res.status(200).json({Msg: 'Logout'})
+        
+        
     } catch (error) {
         console.log('Error:', error);
+    }
+}
+
+const checkUser = async(req,res)=>{
+    try{
+       
+        const cookies = req.slice(12); 
+        let decoded = jwt.verify(cookies,process.env.SECRET)
+        let check = await client.checkAdmin(decoded.email);
+        
+        if(check.role =="admin"){
+            // console.log(check);
+            return true;
+        }
+        if(check.role !== "admin"){
+            return false
+        }
+        
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
+
+const checkLogged = async(req,res)=>{
+    try{
+        const cookies = req.slice(12);
+        let decoded = jwt.verify(cookies,process.env.SECRET);
+        let loggedUser = await client.checkLoggedQ(decoded.email);
+        
+        if(loggedUser.logged==true){
+            return true
+        }
+    }
+    catch(error){
+        console.log(error);
     }
 }
 
@@ -155,5 +189,7 @@ module.exports = {
     registerUser,
     recoverPassword,
     restorePassword,
-    logout
+    logout,
+    checkUser,
+    checkLogged
 }

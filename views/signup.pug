@@ -11,11 +11,12 @@ head
 
 body
     section#search-container
-        div#modal(method='dialog' open='')
-            form#form1(action="/api/login" method='POST')
-                input#emailInput(type='text' name='email' placeholder='Introduce email...')
+        #main-form-box(method='dialog' open='')
+            form#main-form2(action="/api/signup" method='POST')
+                input#emailInput(type='text' name='full_name' placeholder='Introduce nombre...')
+                input#emailInput(type='email' name='email' placeholder='Introduce email...')
                 input#passInput(type='password' name='pass' placeholder='Introduce contraseña...')
-                button#sendSignIn(type='submit') LOGIN
+                button#sendSignUp(type='submit') REGISTRO
             hr
             #google-log-box
                 p o haz login con Google:
@@ -24,8 +25,7 @@ body
             #register-box
                 p#signup-text Si no estás registrado:
                 .space
-                button REGISTRO
+                button SALIR
             #recov-pass
                 a(href='#') ¿Olvidaste tu contraseña?
-    script(src="/scripts/login.js") 
-
+    script(src="/scripts/signUp.js") 

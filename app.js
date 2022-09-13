@@ -1,20 +1,9 @@
-
-
-
-
-
-
-
-
-// **********************************
 const express = require('express');
 const cookieParser= require('cookie-parser')
-const users= require('./controllers/adminControllers')
-const usersControllers= require('./controllers/userControllers')
 const morgan = require('./config/morganConfig')
 const helmet = require('helmet');
-const jwt = require('express-jwt');
 const cors = require('cors');
+<<<<<<< HEAD
 const jsonwebtoken= require('jsonwebtoken')
 
 //heroku port
@@ -27,6 +16,11 @@ const port = process.env.PORT || 4000;
 
 
 
+=======
+const userController = require('./controllers/userControllers');
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
+>>>>>>> a8f3bcb53ce6ce24432b0771bb66aba765cc1582
 require('./utils/dbMongo.js');
 require('./utils/dbElephant.js')
 
@@ -37,9 +31,8 @@ const userRouter = require('./routes/userRoutes.js');
 const favsRouter = require('./routes/favsRoutes.js');
 
 //Middlewares
+const verifyToken = require('./middlewares/verifiedToken')
 const middle404 = require('./middlewares/error404.js');
-const {requireAuth,checkUser} = require('./middlewares/verifiedToken.js');
-const res = require('express/lib/response');
 
 const app = express();
 
@@ -52,12 +45,9 @@ app.set('views','./views');
 
 app.use(helmet());
 app.use(express.json());
-
 app.use(morgan(':method :host :status :param[id] - :response-time ms :body'));
-
 app.use(express.urlencoded({extended:true}));
 app.use(cors());
-// app.use(express.static('public'))
 app.use('/api/', adRouter);
 app.use('/', adminRouter);
 app.use('/api',adminRouter)
@@ -66,23 +56,12 @@ app.use('/api',favsRouter);
 app.use(express.static('public'))
 app.use(cookieParser())
 
-
-app.post('api/login', (req, res) => {
-      app.use(
-          jwt(
-          { 
-            secret: 'keyDePrueba', 
-            algorithms: ['HS256'],
-            getToken: req => req.cookies.token
-          }));
-});
-
-
 //WEB ROUTES
 
-// app.get('*',checkUser);
+
 //Home(no log, user & admin)
 
+<<<<<<< HEAD
 // app.get('/', (req,res)=>{
 //     try{
 //     //  res.send("Hola desde heroku!")
@@ -90,6 +69,29 @@ app.post('api/login', (req, res) => {
 //     }
 //     catch(error){
 //         console.log(error.stack)
+=======
+app.get('/', async (req,res)=>{
+    try{
+       let cookies = req.headers.cookie
+       const logged = await userController.checkLogged(cookies);
+       const check = await userController.checkUser(cookies);
+       let cookiesSlice = cookies.slice(12);
+       let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+       console.log(logged);
+        if(logged!=true){
+            res.render('homeNoLog');
+         }
+        else if(check == true){
+            res.render('homeAdmin',{userName:decoded.username});
+        }
+        else{
+            res.render('homeUser',{userName:decoded.username});
+        }
+        
+    }
+    catch(error){
+        console.log(error.stack)
+>>>>>>> a8f3bcb53ce6ce24432b0771bb66aba765cc1582
         
 //     }
 // })
@@ -117,23 +119,51 @@ app.get('/signup', (req,res)=>{
 })
 
 //Favourites
-app.use('/',favsRouter)
-// app.get('/favourites',(req,res)=>{
-//     try{
-//         res.render("favourites",{})
-//     }
-//     catch(error){
-//         console.log(error.stack);
-//     }
-// }) 
 
-// ruta search desde donde se guardan los favoritos
-app.use('/',adRouter)
+app.get('/favourites',async (req,res)=>{
+    try{
+        let cookies = req.headers.cookie
+       const logged = await userController.checkLogged(cookies);
+       const check = await userController.checkUser(cookies);
+       let cookiesSlice = cookies.slice(12);
+       let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+       console.log(logged);
+        if(logged!=true){
+            res.redirect('/');
+         }
+        else if(check == true){
+            res.redirect('/');
+        }
+        else{
+            res.render('favourites');
+        }
+        
+        }
+      
+    catch(error){
+        console.log(error.stack);
+    }
+}) 
 //Dashboard Admin
 
-app.get('/dashboard',(req,res)=>{
+app.get('/dashboard',async (req,res)=>{
     try{
-        res.render("dashboardAdmin")
+        let cookies = req.headers.cookie
+        const logged = await userController.checkLogged(cookies);
+        const check = await userController.checkUser(cookies);
+        let cookiesSlice = cookies.slice(12);
+        let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+        console.log(logged);
+         if(logged!=true){
+             res.redirect('/');
+          }
+         else if(check == true){
+             res.render('dashboardAdmin');
+         }
+         else{
+             res.redirect('/');
+         }
+        
     }
     catch(error){
         console.log(error.stack);
@@ -143,20 +173,55 @@ app.get('/dashboard',(req,res)=>{
 
 //Profile
 
-app.get('/profile',(req,res)=>{
+app.get('/profile',async (req,res)=>{
     try{
-        //Comprobar de qué tipo es el usuario logueado y hacer un rend u otro
-        if(userType==0){
-            res.render("profileUser",{});
+        let cookies = req.headers.cookie
+       const logged = await userController.checkLogged(cookies);
+       const check = await userController.checkUser(cookies);
+       let cookiesSlice = cookies.slice(12);
+       let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+       console.log(logged);
+        if(logged!=true){
+            res.redirect('/');
+         }
+        else if(check == true){
+            res.render('profileAdmin',{userName:decoded.username});
         }
-        else if(userType==1){
-            res.render("profileAdmin",{});
+        else{
+            res.render('profileUser',{userName:decoded.username});
         }
+        
+        
+          
+        
        }
     catch(error){
         console.log(error.stack);
     }
 })
+
+app.get('api/users'),async (req,res)=>{
+    try{
+        let cookies = req.headers.cookie
+       const logged = await userController.checkLogged();
+       const check = await userController.checkUser(cookies);
+       let cookiesSlice = cookies.slice(12);
+       let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+    //    console.log(logged);
+        if(!cookies){
+            res.redirect('/');
+         }
+        else if(check == true){
+            res.render('usersAdmin');
+        }
+        else if(cookies){
+            res.redirect('/');
+        }
+    }
+    catch(error){
+
+    }
+}
 
 app.get('/recoverPassword',(req,res)=>{
     try{
@@ -170,7 +235,7 @@ app.get('/recoverPassword',(req,res)=>{
 
 
 
-
+// app.use(verifyToken);
 app.use(middle404);
 
 
