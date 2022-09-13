@@ -6,13 +6,13 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Favourites
     body 
-        each favAd in favs
-            article
-                h3 AnunciosFavoritos:
-                p Id anuncio favorito: #{favAd.id}
-                p # #{favAd.user_id}
-                p Anuncio: #{favAd.ad}
-                button.DeleteButton(value="Delete" adId=favAd.id) Delete
+        section#favs-container
+            each favAd in favs
+                article#favs-box
+                    p Id anuncio favorito: #{favAd.id}
+                    p # #{favAd.user_id}
+                    p Anuncio: #{favAd.ad}
+                    button.DeleteButton(value="Delete" adId=favAd.id) Delete
          
         ul#favsList(action="/favourites" method="POST")
         script(src="/scripts/favourites.js")

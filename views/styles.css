@@ -730,3 +730,43 @@ hr {
     border-radius: 4px;
     cursor: pointer;
 }
+
+
+
+
+/* VISTA FAVORITOS */
+
+#favs-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+}
+
+#favs-box {
+    margin: 20px;
+    margin-top: 20px;
+    padding: 30px;
+    width: 90%;
+    background-color: white;
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#favs-box p {
+    color: rgb(88, 88, 88);
+}
+
+#favs-box button {
+    background-color: white;
+    color: rgb(88, 88, 88);
+    height: 30px;
+    width: 110px;
+    border: 1px solid rgb(231, 231, 231);
+    box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
+    border-radius: 4px;
+    cursor: pointer;
+}
