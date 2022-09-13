@@ -12,17 +12,10 @@ html(lang="en")
         nav#menu-nav
             ul#menu-list
                 li
-                    a#favourites(href='#') Favoritos
-                li
-                    a#adverts(href='#') Anuncios
-                li
-                    a#users(href='#') Usuarios
-                li
-                    a#profile(href='#') Mi Perfil
-                li
                     a#login(href='/login') Iniciar Sesión
                 li
-                    a#logout(href='#') Cerrar Sesión
+                    a#signup(href='/signup') Registro
+
         form#searchForm(action="/search" method="POST") 
             input#search(type="text" name="job" placeholder=" Busca un empleo...")
             input#city(type="text" name="city" placeholder=" ...en esta ciudad")

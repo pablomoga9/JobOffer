@@ -44,11 +44,12 @@ const getAds = async(req,res)=>{
                                     let saveAd = await adDoc.save();
                                 
                             }
-                        
+                            console.log(getByInputValue);
                             return    res.status(200).json(getByInputValue);         
                 }
                 else{
-                            return res.status(200).json(findJob);//Si ya hay documentos en Mongo con este título de empleo, hacemos render de aquellos que se hayan encontrado con findJob
+                    console.log(findJob);       
+                    return res.status(200).json(findJob);//Si ya hay documentos en Mongo con este título de empleo, hacemos render de aquellos que se hayan encontrado con findJob
                 }
         
             }

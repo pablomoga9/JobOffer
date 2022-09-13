@@ -12,7 +12,7 @@ const jwtSecret = process.env.SECRET;
 const loginUser = async(req,res)=>{
     
         try{
-            
+        
             let data = await client.getloginUser(req.body.email)
            
             if (!data) {
@@ -23,18 +23,17 @@ const loginUser = async(req,res)=>{
               const match = await bcrypt.compare(password, hash);
 
               if (match) {
-                
-                await client.turnToLogged(data[0].email);
+                 await client.turnToLogged(data[0].email);
                 const userForToken = {
                   email: data[0].email,
                   username: data[0].full_name,
-                  check:true
                 };
-                const token = jwt.sign(userForToken, "keyDePrueba", {
+     
+                const token = jwt.sign(userForToken, process.env.SECRET, {
                   expiresIn: 5000,
                 });
                 res.cookie("acces-token", token, { httpOnly: true,
-                sameSite:"strict" })
+                sameSite:"strict" }).send();
                 }
               else {
               
@@ -80,7 +79,7 @@ const recoverPassword = async(req,res)=>{
        
         let data = await client.getUserByEmail(req.params.email)
         if(data){
-            const recoverToken = jwt.sign({email:req.params.email},'keyDePrueba',{expiresIn: '20m'});
+            const recoverToken = jwt.sign({email:req.params.email},process.env.SECRET,{expiresIn: '20m'});
             const url = `${sendUrl}/api/resetpassword/${recoverToken}`;
             await Transporter.sendEmail({
                 to:req.params.email,
@@ -106,7 +105,7 @@ const recoverPassword = async(req,res)=>{
 const restorePassword = async(req,res)=>{
     try{
         const recoverToken = req.params.recoverToken;
-        const payload = jwt.verify(recoverToken,'keyDePrueba');
+        const payload = jwt.verify(recoverToken,process.env.SECRET);
         const password = req.body.password;
         if(regex.validatePassword(password)){
             const hashPassword = await bcrypt.hash(password, saltRounds);
@@ -134,10 +133,54 @@ const restorePassword = async(req,res)=>{
 const logout = async(req, res) => {
     let data;
     try {
-        data = await client.turnToNoLogged(req.params.email)
-        res.status(200).json({message: 'Token deleted'});
+        console.log("doing");
+        let cookies = req.headers.cookie;
+        let cookiesSlice = cookies.slice(12);
+        let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+        
+        data = await client.turnToNoLogged(decoded.email);
+        res.status(200).json({Msg: 'Logout'})
+        
+        
     } catch (error) {
         console.log('Error:', error);
+    }
+}
+
+const checkUser = async(req,res)=>{
+    try{
+       
+        const cookies = req.slice(12); 
+        let decoded = jwt.verify(cookies,process.env.SECRET)
+        let check = await client.checkAdmin(decoded.email);
+        
+        if(check.role =="admin"){
+            // console.log(check);
+            return true;
+        }
+        if(check.role !== "admin"){
+            return false
+        }
+        
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
+
+const checkLogged = async(req,res)=>{
+    try{
+        const cookies = req.slice(12);
+        let decoded = jwt.verify(cookies,process.env.SECRET);
+        let loggedUser = await client.checkLoggedQ(decoded.email);
+        
+        if(loggedUser.logged==true){
+            return true
+        }
+    }
+    catch(error){
+        console.log(error);
     }
 }
 
@@ -146,5 +189,7 @@ module.exports = {
     registerUser,
     recoverPassword,
     restorePassword,
-    logout
+    logout,
+    checkUser,
+    checkLogged
 }

@@ -71,11 +71,25 @@ const createUsermodel = async (user) => {
 }
 
 const updateUser = async (userUpdated) => {
+    
     const {full_name,email} = userUpdated;
     let client,result;
     try{
         const data = await pool.query(query.updateUser,
                                         [full_name,email])
+        result = data.rowCount
+        return result
+    }catch(err){
+        console.log(err);
+        throw err;
+    }
+}
+
+const updateByUser = async (userUpdated)=>{
+    let client,result;
+    try{
+        const data = await pool.query(query.updateUser,
+                                        [userUpdate.newName,userUpdate.email])
         result = data.rowCount
         return result
     }catch(err){
@@ -180,9 +194,8 @@ const getFavAds= async (email) => {
     try{
        
         const data = await pool.query(query.getFavAds,[email])
-        console.log("getfavAds",data);
-        result = data.rows
-        return result
+        
+        return data.rows;
     }catch(err){
         console.log(err);
         throw err;
@@ -191,18 +204,18 @@ const getFavAds= async (email) => {
 
 
 const createFavAd = async (favAd) => {
-    checkedUser=tokenUser.checkUser()
-    console.log(checkedUser);
     const favparameters= {
-        checkedUser:checkedUser,
-        favAd:favAd
+        checkedUser:favAd.email,
+        adId:favAd.id
     }
-    console.log("soy el console log",favparameters);
+    
     let client,result;
     try{
-        const data = await pool.query(query.saveFavAd,[favparameters.checkedUser,favparameters.favAd])
-        console.log(data);
+       
+        const data = await pool.query(query.saveFavAd,[favparameters.checkedUser,favparameters.adId])
+        
         result = data.rowCount
+        // console.log(result);
         return result
     }catch(err){
         console.log(err);
@@ -239,6 +252,40 @@ const getUserProfile = async () => {
     return result
 }
 
+const checkAdmin = async(email)=>{
+    try{
+       
+        const data = await pool.query(query.checkAdmin,[email]);
+       
+        if(data.rows[0].role == 'admin'){
+           
+            return data.rows[0];
+            
+        }
+       
+    }
+    catch(error){
+        console.log(error);
+    }
+}
+
+const checkLoggedQ = async(email)=>{
+    try{
+       const data = await pool.query(query.checkLogged,[email]);
+       console.log(data.rows[0]);
+       if(data.rows[0].logged == true){
+            // console.log("logged");
+            return data.rows[0];
+       }
+       else{
+        console.log("not")
+       }
+    }
+    catch(error){
+        console.log(error)
+    }
+}
+
 
 
 
@@ -258,5 +305,7 @@ module.exports={
     deleteFavAd,
     getUserProfile,
     turnToNoLogged,
-    getUserByEmail
+    getUserByEmail,
+    checkAdmin,
+    checkLoggedQ
 }

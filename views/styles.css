@@ -359,6 +359,7 @@ header {
 
 
 
+
 /* VISTA LOGIN */
 
 #search-container {
@@ -769,4 +770,81 @@ hr {
     box-shadow: 1px 1px 2px 0px rgb(200, 200, 200);
     border-radius: 4px;
     cursor: pointer;
+=======
+#homeName{
+    position: relative;
+    right: 20;
+    font-weight: bold;
+    margin-right: 50px;
+}
+#navHolder{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between ;
+}
+#logout{
+    background: none;
+}
+
+.spinner{
+    border: 9px solid rgb(99, 99, 99);
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border-left-color: rgb(182, 103, 196);
+    /* filter: blur(0px) brightness(200%); */
+    box-shadow: 0 0 10px #5b0583, 0 0 40px #c06dbb, 0 0 80px #9936a4;
+
+    animation:spin 1s ease infinite;
+}
+@keyframes spin{
+    0%{
+        transform:rotate(0deg);
+    }
+    100%{
+        transform:rotate(360deg);
+    }
+}
+#modal4{
+    background: rgba(0, 0, 0, 0);
+    border: none;
+    overflow: hidden;
+    border-radius: 80px;
+}
+
+#buttonContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+#advertsAdmin{
+    padding: 20px;
+    background: #c2a8ee;
+    border-radius: 20px;
+    margin: 20px;
+}
+#usersAdmin{
+    padding: 20px;
+    background: #c2a8ee;
+    border-radius: 20px;
+    margin: 20px;
+}
+#profileAdmin{
+    padding: 20px;
+    background: #c2a8ee;
+    border-radius: 20px;
+    margin: 20px;
+}
+
+#profileAdmin:hover{
+    filter: brightness(1.20);
+}
+
+#advertsAdmin:hover{
+    filter: brightness(1.20);
+}
+
+#usersAdmin:hover{
+    filter: brightness(1.20);
 }
