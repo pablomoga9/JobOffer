@@ -216,5 +216,5 @@ app.use(middle404);
 
 
 app.listen(process.env.PORT|| 3000, () => {
-    console.log(`Server working in port ${process.env.PORT|| 3000}`)
+    console.log(`Server working in port ${port}`)
 })
