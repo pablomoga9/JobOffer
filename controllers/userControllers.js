@@ -1,12 +1,13 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const Transporter = require('../config/nodemailer');
+const transporter = require('../nodemailer');
 const regex = require('../utils/regex');
 const bcrypt = require('bcrypt');
 const saltRounds =  10;
 const client = require("../models/admin");
 const sendUrl = 'http://localhost:3000';
 const jwtSecret = process.env.SECRET;
+require("pug")
 
 
 const loginUser = async(req,res)=>{
@@ -76,18 +77,12 @@ const registerUser = async(req,res)=>{
 
 const recoverPassword = async(req,res)=>{
     try{
-       
+       console.log("")
         let data = await client.getUserByEmail(req.params.email)
         if(data){
             const recoverToken = jwt.sign({email:req.params.email},process.env.SECRET,{expiresIn: '20m'});
-            const url = `${sendUrl}/api/resetpassword/${recoverToken}`;
-            await Transporter.sendEmail({
-                to:req.params.email,
-                subject: 'Recuperar contraseña',
-                html:`<h3>Recuperar contraseña</h3>
-                    <a href=${url}>Click para recuperar</a>
-                    <p>El link expirará en 20 minutos</p>`
-            });
+            const url = `${sendUrl}/resetPassword?token=${recoverToken}`;
+            await transporter.send_mail(req.params.email,url)
             res.status(200).json({
                 message:'Un email de recuperación ha sido enviado a tu dirección de email'
             })
@@ -104,7 +99,8 @@ const recoverPassword = async(req,res)=>{
 
 const restorePassword = async(req,res)=>{
     try{
-        const recoverToken = req.params.recoverToken;
+        const recoverToken = req.params.token;
+        console.log(recoverToken);
         const payload = jwt.verify(recoverToken,process.env.SECRET);
         const password = req.body.password;
         if(regex.validatePassword(password)){
