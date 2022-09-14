@@ -176,11 +176,11 @@ const getrecoverPassword = async () => {
 }
 
 const updatePassword = async (passwordUpdated) => {
-    const {password,email} = passwordUpdated;
+    const {email,password} = passwordUpdated;
     let client,result;
     try{
         const data = await pool.query(query.changePassword,
-                                        [password,email])
+                                        [email,password])
         result = data.rowCount
     }catch(err){
         console.log(err);

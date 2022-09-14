@@ -11,7 +11,7 @@ document.getElementById('resetForm').addEventListener('submit',(event)=>{
         
         await fetch(`api/resetPassword/${token}`,{
             method:'PUT',
-            body: JSON.stringify({password:resetInput}),
+            body: JSON.stringify({password:resetInput.value}),
             headers:{
                 'Content-Type': 'application/json'
               }

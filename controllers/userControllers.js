@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const transporter = require('../nodemailer');
 const regex = require('../utils/regex');
 const bcrypt = require('bcrypt');
-const saltRounds =  10;
+const saltRounds = 10;
 const client = require("../models/admin");
 const sendUrl = 'http://localhost:3000';
 const jwtSecret = process.env.SECRET;
@@ -100,26 +100,15 @@ const recoverPassword = async(req,res)=>{
 const restorePassword = async(req,res)=>{
     try{
         const recoverToken = req.params.token;
-        console.log(recoverToken);
         const payload = jwt.verify(recoverToken,process.env.SECRET);
         const password = req.body.password;
-        if(regex.validatePassword(password)){
-            const hashPassword = await bcrypt.hash(password, saltRounds);
-            const newData = {
-                email: payload.email,
-                password: hashPassword
-            }
-            await client.updateUser(newData,{ method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newData)})
+        const hashPassword = await bcrypt.hash(password, saltRounds);
+        const newData = {
+            email: payload.email,
+            password: hashPassword
         }
-        else{
-            res.status(400).json({msg: 'Password debe tener 8 caracteres, una minúscula, una mayúscula y un caracter especial'});
-        }
-        res.status(200).json({message: 'Password actualized'});
+        await client.updatePassword(newData)
+        return res.status(200).json({message: 'Password actualized'});
     }
     catch(error){
         console.log(error)
