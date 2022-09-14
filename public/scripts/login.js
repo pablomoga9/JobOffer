@@ -15,7 +15,9 @@ document.getElementById("form1").addEventListener("submit",(event)=>{
                 headers:{
                     'Content-Type': 'application/json'
                   }
-            }).then(emailInput.value = "",passInput.value="")
+            })
+            //  await emailInput.value == "";
+            // await passInput.value==""
             // .then(response=>response.json())
             // .then(data=>{
             //     console.log(data);

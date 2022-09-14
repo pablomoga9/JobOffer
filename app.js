@@ -9,6 +9,7 @@ require('dotenv').config();
 require('./utils/dbMongo.js');
 require('./utils/dbElephant.js')
 
+
 //Routes
 const adRouter = require('./routes/adRoutes.js');
 const adminRouter= require('./routes/adminRoutes')
@@ -204,6 +205,16 @@ app.get('/recoverPassword',(req,res)=>{
     }
     catch{
         console.log(error)
+    }
+})
+
+app.get('/resetPassword',(req,res)=>{
+    try{
+       
+         res.render('restorePass')
+        }
+    catch(error){
+        console.log(error);
     }
 })
 

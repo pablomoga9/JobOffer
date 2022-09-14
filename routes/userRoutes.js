@@ -5,6 +5,6 @@ routes.post('/login', userController.loginUser)
 routes.post('/signup',userController.registerUser);
 routes.get('/logout/:email',userController.logout);
 routes.get('/recoverPassword/:email', userController.recoverPassword);
-routes.put('/resetPassword/:recoverToken', userController.restorePassword);
+routes.put('/resetPassword/:token', userController.restorePassword);
 
 module.exports  = routes;
