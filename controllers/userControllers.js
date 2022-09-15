@@ -15,7 +15,7 @@ const loginUser = async(req,res)=>{
         try{
         
             let data = await client.getloginUser(req.body.email)
-           
+            
             if (!data) {
               res.status(200).json({ msg: "Usuario o contaseña incorrecta" });
             } else {
@@ -34,8 +34,9 @@ const loginUser = async(req,res)=>{
                   expiresIn: 5000,
                 });
                 res.cookie("acces-token", token, { httpOnly: true,
-                sameSite:"strict" }).send();
+                sameSite:"strict" }).send()
                 }
+              
               else {
               
                 res.status(400).json({ msg: "Usuario o contaseña incorrecta" });

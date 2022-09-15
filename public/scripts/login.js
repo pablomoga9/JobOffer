@@ -16,17 +16,8 @@ document.getElementById("form1").addEventListener("submit",(event)=>{
                     'Content-Type': 'application/json'
                   }
             })
-            //  await emailInput.value == "";
-            // await passInput.value==""
-            // .then(response=>response.json())
-            // .then(data=>{
-            //     console.log(data);
-            //     emailInput.value = ""
-            //     passInput.value=""
-            //     emailInput.style.background="green"
-            //     passInput.style.background="green"
-            // })
-            
+          
+            // window.location.href('/dashboard');
         }
         catch(error){
             console.log("error");
