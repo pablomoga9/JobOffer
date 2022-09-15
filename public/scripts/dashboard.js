@@ -105,6 +105,7 @@ async function displayAdminList(){
     .then(data=>{
        
         for(i=0;i<data.length;i++){
+           
             let createElement = document.createElement('li');
             adsList.appendChild(createElement);
             createElement.innerHTML = `
@@ -116,6 +117,7 @@ async function displayAdminList(){
             `
             // <button onclick="${deleteAd(data[i]._id)}" action="api/ads/delete?email" method="DELETE">Borrar</button>
         }
+        
     })
 }
 

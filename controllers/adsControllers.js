@@ -11,8 +11,6 @@ const getAds = async(req,res)=>{
                 return res.status(200).json(findAdmin);
             }
             else if(req.query.title){
-                console.log(req.query.title);
-                
                 const findId = await adsSchema.find({title:req.query.title})
                 return res.status(200).json(findId);
             }
@@ -31,12 +29,10 @@ const getAds = async(req,res)=>{
                                     let saveAd = await adDoc.save();
                                 
                             }
-                            console.log(getByInputValue);
-                            return    res.status(200).json(getByInputValue);         
+                            return res.status(200).json(getByInputValue);         
                 }
                 else{
-                    console.log(findJob);       
-                    return res.status(200).json(findJob);//Si ya hay documentos en Mongo con este título de empleo, hacemos render de aquellos que se hayan encontrado con findJob
+                         return res.status(200).json(findJob);//Si ya hay documentos en Mongo con este título de empleo, hacemos render de aquellos que se hayan encontrado con findJob
                 }
         
             }
@@ -64,7 +60,6 @@ const createAd = async(req,res)=>{
 const updateAd = async(req,res)=>{
     try{
         const update = req.body;
-        console.log(req.body);
         const findById = await adsSchema.findByIdAndUpdate({_id:(req.body._id).toString()},update);
         findById.overwrite(update);
         findById.save();
@@ -88,24 +83,23 @@ const deleteAd = async(req,res)=>{
     }
 }
 
-// const sendPdf = async(req,res)=>{
-//     try{
-//             console.log("hi")
-//             const findAdmin = await adsSchema.find({adminAd:true});
-//             const stringPdf = findAdmin.toString();
-//             const stream = res.writeHead(200,{
-//                 'Content-Type':'application/pdf',
-//                 'Content-Disposition':'attachment;filename=invoice.pdf'
-//             });
-//             pdfService.buildPDF(
-//                 ()=> stream.write(stringPdf),
-//                 () => stream.end()
-//             )
-//     }
-//     catch(error){
-//         console.log(error);
-//     }
-// }
+const sendPdf = async(req,res)=>{
+    try{
+            const findAdmin = await adsSchema.find({adminAd:true});
+            const stringPdf = findAdmin.toString();
+            const stream = await res.writeHead(200,{
+                'Content-Type':'application/pdf',
+                'Content-Disposition':'attachment;filename=AdminAds.pdf'
+            });
+            await pdfService.buildPDF(
+                ()=> stream.write(stringPdf),
+                () => stream.end()
+            )
+    }
+    catch(error){
+        console.log(error);
+    }
+}
 
 
 
@@ -114,5 +108,5 @@ module.exports = {
     createAd,
     updateAd,
     deleteAd,
-    // sendPdf
+    sendPdf
 }

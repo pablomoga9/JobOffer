@@ -54,7 +54,7 @@ app.get('/', async (req,res)=>{
        const check = await userController.checkUser(cookies);
        let cookiesSlice = cookies.slice(12);
        let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
-       console.log(logged);
+       
         if(logged!=true){
             res.render('homeNoLog');
          }
@@ -103,7 +103,7 @@ app.get('/favourites',async (req,res)=>{
        const check = await userController.checkUser(cookies);
        let cookiesSlice = cookies.slice(12);
        let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
-       console.log(logged);
+       
         if(logged!=true){
             res.redirect('/');
          }
@@ -129,7 +129,7 @@ app.get('/dashboard',async (req,res)=>{
         const check = await userController.checkUser(cookies);
         let cookiesSlice = cookies.slice(12);
         let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
-        console.log(logged);
+       
          if(logged!=true){
              res.redirect('/');
           }
@@ -156,7 +156,7 @@ app.get('/profile',async (req,res)=>{
        const check = await userController.checkUser(cookies);
        let cookiesSlice = cookies.slice(12);
        let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
-       console.log(logged);
+      
         if(logged!=true){
             res.redirect('/');
          }
@@ -183,7 +183,7 @@ app.get('api/users'),async (req,res)=>{
        const check = await userController.checkUser(cookies);
        let cookiesSlice = cookies.slice(12);
        let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
-    //    console.log(logged);
+   
         if(!cookies){
             res.redirect('/');
          }
