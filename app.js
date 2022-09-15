@@ -16,7 +16,7 @@ const favsRouter = require('./routes/favsRoutes.js');
 //Middlewares
 const verifyToken = require('./middlewares/verifiedToken')
 const middle404 = require('./middlewares/error404.js');
-
+const port =  process.env.PORT || 5000;
 const app = express();
 
 
