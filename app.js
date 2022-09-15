@@ -4,6 +4,7 @@ const morgan = require('./config/morganConfig')
 const helmet = require('helmet');
 const cors = require('cors');
 const userControllers= require('./controllers/userControllers')
+const jwt = require('jsonwebtoken');
 
 require('./utils/dbMongo.js');
 require('./utils/dbElephant.js')
