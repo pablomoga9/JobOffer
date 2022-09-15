@@ -1,9 +1,9 @@
 section#search-container
-  #main-form-box
-    form#main-form
-      input(type='email' placeholder='Introduce email...')
-      input(type='password' placeholder='Introduce contraseña...')
-      button LOGIN
+  #main-form-box(method='dialog' open='')
+    form#main-form(action="/api/login" method='POST')
+      input#emailInput(type='email' name='email' placeholder='Introduce email...')
+      input#passInput(type='password' name='pass' placeholder='Introduce contraseña...')
+      button#sendSignIn(type='submit') LOGIN
     hr
     #google-log-box
       p o haz login con Google:

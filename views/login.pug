@@ -1,43 +1,33 @@
 doctype html
 html 
 head
-  meta(charset='UTF-8')
-  meta(http-equiv='X-UA-Compatible' content='IE=edge')
-  meta(name='viewport' content='width=device-width, initial-scale=1.0')
-  style 
-    include ./styles.css
-  title Job Scanner
-header
+    meta(charset='UTF-8')
+    meta(http-equiv='X-UA-Compatible' content='IE=edge')
+    meta(name='viewport' content='width=device-width, initial-scale=1.0')
+    style 
+        include ./styles.css
+    title Login
     
-    #menu-box
-        nav
-            ul
-                li
-                    a Perfil
-                li
-                    a Favoritos
-            ul
-                li
-                    a Acceso
-            ul#userNav  
-                li 
-                    a#goHome(href="/")  Home
-                li
-                    a#register(href="/signup")  Registro    
-dialog#modal(method='dialog' open='')
-    h2 Inicio de sesi&oacute;n
-    form#form1(action="/api/login" method='POST')
-            button#btnCloseLogin X
-            label
-                | Email
-                input#emailInput(type='text' name='email' placeholder='Introduce tu correo electrónico')
-            br
-            label
-                | Contrase&ntilde;a 
-                input#passInput(type='password' name='pass' placeholder='Introduce tu contraseña')
-            button#sendSignIn(type='submit') Enviar
-body 
-    article
-    article
+
+body
+    section#search-container
+        div#modal(method='dialog' open='')
+            form#form1(action="/api/login" method='POST')
+                h3 Iniciar Sesión
+                input#emailInput(type='text' name='email' placeholder='Introduce email...')
+                input#passInput(type='password' name='pass' placeholder='Introduce contraseña...')
+                br
+                button#sendSignIn(type='submit') LOGIN
+            hr
+            #google-log-box
+                p o haz login con Google:
+                .space
+                button GOOGLE
+            #register-box
+                p#signup-text Si no estás registrado:
+                .space
+                button REGISTRO
+            #recov-pass
+                a(href='#') ¿Olvidaste tu contraseña?
     script(src="/scripts/login.js") 
-    footer
+
