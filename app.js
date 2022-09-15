@@ -3,6 +3,7 @@ const cookieParser= require('cookie-parser')
 const morgan = require('./config/morganConfig')
 const helmet = require('helmet');
 const cors = require('cors');
+const userControllers= require('./controllers/userControllers')
 
 require('./utils/dbMongo.js');
 require('./utils/dbElephant.js')
@@ -48,8 +49,8 @@ app.use(cookieParser())
 app.get('/', async (req,res)=>{
     try{
        let cookies = req.headers.cookie
-       const logged = await userController.checkLogged(cookies);
-       const check = await userController.checkUser(cookies);
+       const logged = await userControllers.checkLogged(cookies);
+       const check = await userControllers.checkUser(cookies);
        let cookiesSlice = cookies.slice(12);
        let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
        console.log(logged);
