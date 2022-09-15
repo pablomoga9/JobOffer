@@ -12,11 +12,13 @@ html(lang="en")
         section#search-container
             div#modal2(method='dialog' open='')
                 form#form2(action="/api/signup" method='POST')
+                    h3 Crea tu cuenta
                     input#nameInput(type='text' name='full_name' placeholder='Introduce nombre...')
                     input#email2(type='email' name='email2' placeholder='Introduce email...')
                     input#pass1(type='password' name='pass1' placeholder='Introduce contraseña...')
+                    br
                     button#sendSignUp(type='submit') REGISTRO
-                hr
+                    br
                 #register-box
                     button VOLVER
 

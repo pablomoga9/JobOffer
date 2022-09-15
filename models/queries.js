@@ -4,7 +4,7 @@ const queries = {
     "getUserByEmail":"SELECT * FROM users WHERE email=$1",
     // "getUsersById": "SELECT id FROM users",
     "getUsersById": "SELECT * FROM users WHERE id=$1",
-    "createUser": `INSERT INTO users (id, email,password, full_name, role,logged) VALUES ($1,$2,crypt($3, gen_salt('bf')),$4,$5,$6)`,
+    "createUser": `INSERT INTO users (email,password, full_name, role) VALUES ($1,crypt($2, gen_salt('bf')),$3,$4)`,
     "updateUser":`UPDATE users SET full_name= $1 WHERE users.email = $2;`,
     "turnToLogged":`UPDATE users SET logged=true WHERE users.email=$1`,
     "turnToNoLogged":'UPDATE users SET logged=false WHERE users.email=$1',

@@ -13,8 +13,10 @@ body
     section#search-container
         div#modal(method='dialog' open='')
             form#form1(action="/api/login" method='POST')
+                h3 Iniciar Sesión
                 input#emailInput(type='text' name='email' placeholder='Introduce email...')
                 input#passInput(type='password' name='pass' placeholder='Introduce contraseña...')
+                br
                 button#sendSignIn(type='submit') LOGIN
             hr
             #google-log-box
