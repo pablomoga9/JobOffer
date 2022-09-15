@@ -99,8 +99,8 @@ app.get('/signup', (req,res)=>{
 app.get('/favourites',async (req,res)=>{
     try{
         let cookies = req.headers.cookie
-       const logged = await userController.checkLogged(cookies);
-       const check = await userController.checkUser(cookies);
+       const logged = await userControllers.checkLogged(cookies);
+       const check = await userControllers.checkUser(cookies);
        let cookiesSlice = cookies.slice(12);
        let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
        console.log(logged);
@@ -125,8 +125,8 @@ app.get('/favourites',async (req,res)=>{
 app.get('/dashboard',async (req,res)=>{
     try{
         let cookies = req.headers.cookie
-        const logged = await userController.checkLogged(cookies);
-        const check = await userController.checkUser(cookies);
+        const logged = await userControllers.checkLogged(cookies);
+        const check = await userControllers.checkUser(cookies);
         let cookiesSlice = cookies.slice(12);
         let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
         console.log(logged);
@@ -152,8 +152,8 @@ app.get('/dashboard',async (req,res)=>{
 app.get('/profile',async (req,res)=>{
     try{
         let cookies = req.headers.cookie
-       const logged = await userController.checkLogged(cookies);
-       const check = await userController.checkUser(cookies);
+       const logged = await userControllers.checkLogged(cookies);
+       const check = await userControllers.checkUser(cookies);
        let cookiesSlice = cookies.slice(12);
        let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
        console.log(logged);
@@ -179,8 +179,8 @@ app.get('/profile',async (req,res)=>{
 app.get('api/users'),async (req,res)=>{
     try{
         let cookies = req.headers.cookie
-       const logged = await userController.checkLogged();
-       const check = await userController.checkUser(cookies);
+       const logged = await userControllers.checkLogged();
+       const check = await userControllers.checkUser(cookies);
        let cookiesSlice = cookies.slice(12);
        let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
     //    console.log(logged);
