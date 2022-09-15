@@ -23,13 +23,11 @@ const showFavAds = async()=>{
                 <p>${element[0].date}</p>
                 <p>${element[0].description}</p>
                 <p>${element[0].company}</p>
-                <button class="deleteBtn">🗑️</button>
                 </li>
                 `
             })
             .join('')
             favsList.innerHTML = liContent;
-            dele
         })
         // const data = await response.json();
         // console.log(data);
