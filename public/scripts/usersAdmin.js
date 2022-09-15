@@ -5,7 +5,7 @@ let emailPost=document.getElementById('email');
 let passwordPost = document.getElementById('password');
 let namePost = document.getElementById('fullName');
 let rolePost = document.getElementById('role');
-let loggedPost= document.getElementById('logged');
+
 
 let usersList = document.getElementById('usersList');
 
@@ -23,12 +23,10 @@ let loggedPut= document.getElementById('logged2');
 document.getElementById('userCreate').addEventListener('submit',(event)=>{
     event.preventDefault();
     let createUser = {
-        id:idPost.value,
         email: emailPost.value,
         password: passwordPost.value,
         full_name:namePost.value,
         role:rolePost.value,
-        logged: loggedPost.value
     }
     
     async function userCreate(){
@@ -101,7 +99,6 @@ async function insertUsersList(){
             <p>${data[i].password}</p>
             <p>${data[i].full_name}</p>
             <p>${data[i].role}</p>
-            <p>${data[i].logged}</p>
             <button>Borrar</button>
             `
         }
