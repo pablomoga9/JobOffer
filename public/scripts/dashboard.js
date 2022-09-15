@@ -17,6 +17,8 @@ let descriptionUpdate = document.getElementById('descriptionUpdate');
 
 let adsList = document.getElementById('adsList');
 
+const pdfBtn = document.getElementById('pdfBtn');
+
 document.getElementById('adCreate').addEventListener('submit',(event)=>{
     event.preventDefault();
     let today = new Date();
@@ -145,21 +147,25 @@ displayAdminList();
 //     }
 // }
 
+    // pdfBtn.addEventListener('click',(event)=>{
+    //     event.preventDefault();
+    //     async function downloadPdf(){
+    //         try{
+    //             console.log("in")
+    //             await fetch('api/search?pdf=true')
+    //             .then(response=>response.json())
+    //             .then(data=>{
+    //                 console.log("done");
+    //             })
+    //         }
+    //         catch(error){
+    //             console.log(error.message);
+    //         }
+    //     }
+    //     downloadPdf();
+    // })
 
-
-    async function downloadPdf(){
-        try{
-            console.log("in")
-            await fetch('api/search?pdf=true')
-            .then(response=>response.json())
-            .then(data=>{
-                console.log("done");
-            })
-        }
-        catch(error){
-            console.log(error.message);
-        }
-    }
+  
    
 
 

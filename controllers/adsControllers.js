@@ -16,19 +16,6 @@ const getAds = async(req,res)=>{
                 const findId = await adsSchema.find({title:req.query.title})
                 return res.status(200).json(findId);
             }
-            else if(req.query.pdf){
-                console.log("hi")
-                const findAdmin = await adsSchema.find({adminAd:true});
-                const stringPdf = findAdmin.toString();
-                const stream = res.writeHead(200,{
-                    'Content-Type':'application/pdf',
-                    'Content-Disposition':'attachment;filename=invoice.pdf'
-                });
-                pdfService.buildPDF(
-                    ()=> stream.write(stringPdf),
-                    () => stream.end()
-                )
-            }
             else{
                 
                 const searchJob = req.query.job;//Esto será el valor del input de la barra de búsqueda de puesto de trabajo
@@ -101,10 +88,31 @@ const deleteAd = async(req,res)=>{
     }
 }
 
+// const sendPdf = async(req,res)=>{
+//     try{
+//             console.log("hi")
+//             const findAdmin = await adsSchema.find({adminAd:true});
+//             const stringPdf = findAdmin.toString();
+//             const stream = res.writeHead(200,{
+//                 'Content-Type':'application/pdf',
+//                 'Content-Disposition':'attachment;filename=invoice.pdf'
+//             });
+//             pdfService.buildPDF(
+//                 ()=> stream.write(stringPdf),
+//                 () => stream.end()
+//             )
+//     }
+//     catch(error){
+//         console.log(error);
+//     }
+// }
+
+
 
 module.exports = {
     getAds,
     createAd,
     updateAd,
-    deleteAd
+    deleteAd,
+    // sendPdf
 }
