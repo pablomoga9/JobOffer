@@ -16,13 +16,9 @@ document.getElementById("form1").addEventListener("submit",(event)=>{
                     'Content-Type': 'application/json'
                   }
             })
-          
-            // window.location.href('/dashboard');
         }
         catch(error){
-            console.log("error");
-            // emailInput.style.background="red"
-            // passInput.style.background="red"
+            console.log(error);
         }
         
     }

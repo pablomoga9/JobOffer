@@ -36,7 +36,8 @@ const createUser = async(req,res) =>{
 const updateUser = async(req,res)=>{
   const updatedUser= req.body
   try{
-          const response = await admin.updateUser(updatedUser,{ method: "PUT",
+    console.log("not controller")      
+    const response = await admin.updateUser(updatedUser,{ method: "PUT",
           headers: {
               'Accept': 'application/json',
               'Content-Type': 'application/json'
@@ -52,7 +53,7 @@ const updateUser = async(req,res)=>{
 const updateByUser = async(req,res)=>{
   let updatedUser;
   try{
-          console.log("inController")
+         
           let cookies = (req.headers.cookie).slice(12);
           let decoded = jwt.verify(cookies,process.env.SECRET);
           updatedUser = {
@@ -60,7 +61,7 @@ const updateByUser = async(req,res)=>{
             email:decoded.email
           }
           console.log(updatedUser);
-          const response = await admin.updateUser(updatedUser)
+          const response = await admin.updateByUser(updatedUser)
           //   ,{ 
           //   method: "PUT",
           //   headers: {

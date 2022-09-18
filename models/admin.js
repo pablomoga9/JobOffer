@@ -88,8 +88,9 @@ const updateUser = async (userUpdated) => {
 const updateByUser = async (userUpdated)=>{
     let client,result;
     try{
+        
         const data = await pool.query(query.updateUser,
-                                        [userUpdate.newName,userUpdate.email])
+                                        [userUpdated.name,userUpdated.email])
         result = data.rowCount
         return result
     }catch(err){
@@ -307,5 +308,6 @@ module.exports={
     turnToNoLogged,
     getUserByEmail,
     checkAdmin,
-    checkLoggedQ
+    checkLoggedQ,
+    updateByUser
 }

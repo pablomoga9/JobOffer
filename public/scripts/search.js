@@ -106,14 +106,13 @@ async function saveFav(title){
 
 
 logoutBtn.addEventListener('click',async (event)=>{
-    event.preventDefault();
-    try{
-       
-        await fetch(`/api/logout`);
-    }
-    catch(error){
-
-    }
+    
+        event.preventDefault();
+    
+      await fetch('api/logout/')
+    //   location.reload();
+        
+   
 })
 
  document.getElementById('pdfForm').addEventListener('submit',(event)=>{
