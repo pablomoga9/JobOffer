@@ -28,6 +28,7 @@ const loginUser = async(req,res)=>{
                 const userForToken = {
                   email: data[0].email,
                   username: data[0].full_name,
+                  check:true
                 };
      
                 const token = jwt.sign(userForToken, process.env.SECRET, {
@@ -117,16 +118,16 @@ const restorePassword = async(req,res)=>{
 }
 
 const logout = async(req, res) => {
-    let data;
     try {
-        console.log("doing");
+        console.log("logouting")
         let cookies = req.headers.cookie;
         let cookiesSlice = cookies.slice(12);
         let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
         
         data = await client.turnToNoLogged(decoded.email);
-        res.status(200).json({Msg: 'Logout'})
-        
+        return res.clearCookie("acces-token").redirect('/login');
+        // return res.redirect("/login");
+      
         
     } catch (error) {
         console.log('Error:', error);

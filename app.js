@@ -51,19 +51,23 @@ app.get('/', async (req,res)=>{
     try{
        let cookies = req.headers.cookie
        const logged = await userController.checkLogged(cookies);
-       const check = await userController.checkUser(cookies);
-       let cookiesSlice = cookies.slice(12);
-       let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
        
-        if(logged!=true){
+        if(!cookies){
             res.render('homeNoLog');
          }
-        else if(check == true){
-            res.render('homeAdmin',{userName:decoded.username});
-        }
-        else{
-            res.render('homeUser',{userName:decoded.username});
-        }
+         else{
+            
+            const check = await userController.checkUser(cookies);
+            let cookiesSlice = cookies.slice(12);
+            let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+            if(check == true && logged==true){
+                res.render('homeAdmin',{userName:decoded.username});
+            }
+            else if(check!==true && logged==true){
+                res.render('homeUser',{userName:decoded.username});
+            }
+         }
+       
         
     }
     catch(error){
@@ -99,20 +103,24 @@ app.get('/signup', (req,res)=>{
 app.get('/favourites',async (req,res)=>{
     try{
         let cookies = req.headers.cookie
-       const logged = await userController.checkLogged(cookies);
-       const check = await userController.checkUser(cookies);
-       let cookiesSlice = cookies.slice(12);
-       let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+     
        
-        if(logged!=true){
+        if(!cookies){
             res.redirect('/');
          }
-        else if(check == true){
-            res.redirect('/');
-        }
-        else{
-            res.render('favourites');
-        }
+         else{
+            const logged = await userController.checkLogged(cookies);
+            const check = await userController.checkUser(cookies);
+            let cookiesSlice = cookies.slice(12);
+            let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+            if(check == true && logged == true){
+                res.redirect('/');
+            }
+            else if(check !== true && logged == true){
+                res.render('favourites');
+            }
+         }
+       
         
         }
       
@@ -125,20 +133,24 @@ app.get('/favourites',async (req,res)=>{
 app.get('/dashboard',async (req,res)=>{
     try{
         let cookies = req.headers.cookie
-        const logged = await userController.checkLogged(cookies);
-        const check = await userController.checkUser(cookies);
-        let cookiesSlice = cookies.slice(12);
-        let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+      
        
-         if(logged!=true){
+         if(!cookies){
              res.redirect('/');
           }
-         else if(check == true){
-             res.render('dashboardAdmin');
-         }
-         else{
-             res.redirect('/');
-         }
+          else{
+            const logged = await userController.checkLogged(cookies);
+            const check = await userController.checkUser(cookies);
+            let cookiesSlice = cookies.slice(12);
+            let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+            if(check == true && logged == true){
+                res.render('dashboardAdmin');
+            }
+            else if(check !== true && logged == true){
+                res.redirect('/');
+            }
+          }
+        
         
     }
     catch(error){
@@ -152,20 +164,24 @@ app.get('/dashboard',async (req,res)=>{
 app.get('/profile',async (req,res)=>{
     try{
         let cookies = req.headers.cookie
-       const logged = await userController.checkLogged(cookies);
-       const check = await userController.checkUser(cookies);
-       let cookiesSlice = cookies.slice(12);
-       let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
       
-        if(logged!=true){
+        if(!cookies){
             res.redirect('/');
          }
-        else if(check == true){
-            res.render('profileAdmin',{userName:decoded.username});
-        }
-        else{
-            res.render('profileUser',{userName:decoded.username});
-        }
+         else{
+           
+            const logged = await userController.checkLogged(cookies);
+            const check = await userController.checkUser(cookies);
+            let cookiesSlice = cookies.slice(12);
+            let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+            if(check == true && logged == true){
+                res.render('profileAdmin',{userName:decoded.username});
+            }
+            else if(check!==true && logged == true){
+                res.render('profileUser',{userName:decoded.username});
+            }
+         }
+      
         
         
           
@@ -179,20 +195,24 @@ app.get('/profile',async (req,res)=>{
 app.get('api/users'),async (req,res)=>{
     try{
         let cookies = req.headers.cookie
-       const logged = await userController.checkLogged();
-       const check = await userController.checkUser(cookies);
-       let cookiesSlice = cookies.slice(12);
-       let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+     
    
         if(!cookies){
             res.redirect('/');
          }
-        else if(check == true){
-            res.render('usersAdmin');
-        }
-        else if(cookies){
-            res.redirect('/');
-        }
+         else{
+            const logged = await userController.checkLogged();
+            const check = await userController.checkUser(cookies);
+            let cookiesSlice = cookies.slice(12);
+            let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+            if(check == true && logged == true){
+                res.render('usersAdmin');
+            }
+            else if(check !== true && logged == true){
+                res.redirect('/');
+            }
+         }
+      
     }
     catch(error){
 
