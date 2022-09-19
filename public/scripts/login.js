@@ -15,21 +15,10 @@ document.getElementById("form1").addEventListener("submit",(event)=>{
                 headers:{
                     'Content-Type': 'application/json'
                   }
-            }).then(emailInput.value = "",passInput.value="")
-            // .then(response=>response.json())
-            // .then(data=>{
-            //     console.log(data);
-            //     emailInput.value = ""
-            //     passInput.value=""
-            //     emailInput.style.background="green"
-            //     passInput.style.background="green"
-            // })
-            
+            })
         }
         catch(error){
-            console.log("error");
-            // emailInput.style.background="red"
-            // passInput.style.background="red"
+            console.log(error);
         }
         
     }

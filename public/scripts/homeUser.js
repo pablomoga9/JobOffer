@@ -3,5 +3,7 @@ console.log("works")
 
 logoutBtn.addEventListener('submit',(event)=>{
     event.preventDefault();
-    console.log("okokok");
+    const logoutUser = async()=>{
+        await fetch('api/logout/')
+    }
 })
