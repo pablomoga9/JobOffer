@@ -59,10 +59,10 @@ const getUserByEmail= async (email) => {
 // }
 
 const createUsermodel = async (user) => {
-    const{id,email,password,full_name,role,logged}=user
+    const{email,password,full_name,role}=user
     let result;
     try {
-        const data = await pool.query(query.createUser,[id,email,password,full_name,role,logged])
+        const data = await pool.query(query.createUser,[email,password,full_name,role])
         result = data.rows
         return result
     } catch (error) {

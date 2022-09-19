@@ -1,0 +1,58 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Document
+  body 
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  a.navbar-brand(href='#') Smart City
+  button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+    span.navbar-toggler-icon
+  
+  .collapse.navbar-collapse(id='navbarSupportedContent')
+    ul.navbar-nav.mr-auto
+      li.nav-item.active
+        a.nav-link(href='#') Home
+      li.nav-item
+        a.nav-link(href='/food-courts') Food Courts
+      li.nav-item
+        a.nav-link(href='/parking') Parking
+      li.nav-item
+        a.nav-link(href='/places') Places
+    ul.navbar-nav.float-right
+      li.nav-item
+        a.nav-link(href='/login') Login
+      li.nav-item.dropdown
+        a.nav-link.dropdown-toggle(id='navbarDropdownMenuLink', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Accounts
+        .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
+          a.dropdown-item(href='#') Settings
+
+
+//- doctype html
+//- html(lang="en")
+//-     head
+//-         meta(charset="UTF-8")
+//-         meta(http-equiv="X-UA-Compatible", content="IE=edge")
+//-         meta(name="viewport", content="width=device-width, initial-scale=1.0")
+//-         style 
+//-             includes/styles.css
+//-         title Vista usuarios registrados
+//-     body
+//-       nav#menu-nav
+//-         input#menu-check(type='checkbox')
+//-          label#menu-label(for='menu-check')  ☰
+//-           ul#menu-list
+//-           li
+//-             a#favourites(href='#') Favoritos
+//-           li
+//-             a#adverts(href='#') Anuncios
+//-           li
+//-             a#users(href='#') Usuarios
+//-           li
+//-             a#profile(href='#') Mi Perfil
+//-           li
+//-             a#login(href='#') Iniciar Sesión
+//-           li
+//-             a#logout(href='#') Cerrar Sesión

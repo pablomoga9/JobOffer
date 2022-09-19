@@ -3,6 +3,7 @@ Aplicación de búsqueda de ofertas de empleo por nombre del empleo y ubicación
 <h2>Tech Stack</h2>
 NodeJS, Express, Web Scrapping(Puppeteer), Heroku, MongoDB, PostgreSQL, autenticación JWT, JEST
 <h2>Cómo usar</h2>
+
 <h3>Instalación</h3>
 
 ```
@@ -63,3 +64,5 @@ En la vista del usuario administrador habrá 3 nuevos añadidos: Botón de vista
 
 ![login](assets/img/JobAppLogin.png)
 ![register](assets/img/JobAppRegister.png)
+
+

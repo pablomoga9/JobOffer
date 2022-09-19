@@ -32,7 +32,8 @@ html(lang="en")
                input#descriptionUpdate(type="text" name="description" placeholder="Descripción...") 
                button#submitUpdate(type="submit" value="Search") Actualizar oferta
             
-         section#ad-box   
+         section#ad-box
+            h2 Anuncios creados por Administrador   
             ul#adsList(action="/api/search" method="POST")  
             script(src="/scripts/dashboard.js")  
 

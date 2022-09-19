@@ -18,12 +18,15 @@ const getUsersRegistered = async (req, res) => {
 const createUser = async(req,res) =>{
   const newUser = req.body;
   try {
-      const response = await admin.createUsermodel(newUser,{ method: "POST",
+      const response = await admin.createUsermodel(newUser
+        ,
+        { method: "POST",
       headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
       },
-      body: JSON.stringify(newUser)})
+      body: JSON.stringify(newUser)}
+      )
       res.status(201).json({"user saved": response})
   } catch (error) {
       console.log(error);
