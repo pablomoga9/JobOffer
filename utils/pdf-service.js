@@ -1,13 +1,14 @@
 const PDFDocument = require('pdfkit');
 
-function buildPDF(dataCallback,endCallback){
+const buildPDF = async(dataCallback,endCallback)=>{
    
-    const doc = new PDFDocument();
+    const doc = new PDFDocument({compress:false});
+    console.log(dataCallback);
     doc.on('data', dataCallback);
     doc.on('end', endCallback);
     doc
     .fontSize(25)
-    .text('Provisional');
+    .text(dataCallback);
     doc.end();
     
 }
