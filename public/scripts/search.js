@@ -9,7 +9,7 @@ let searchForm=document.getElementById('searchForm');
 let logoutBtn = document.getElementById('logout');
 let spinner = document.getElementById('modal4')
 let favButtons;
-
+const pdfBtn = document.getElementById('pdfBtn');
 
  searchForm.addEventListener('submit',(event)=>{
     event.preventDefault();
@@ -38,7 +38,7 @@ let favButtons;
             spinner.close()
 
             for(i=0;i<favButtons.length;i++){
-                console.log(favButtons[i]);
+                
                 favButtons[i].addEventListener('click',function(event){
                     let title = event.target.parentNode.children[0].children[0].innerHTML;
                     saveFav(title);
@@ -62,7 +62,7 @@ async function saveFav(title){
         ad = {id: data[0]._id};
      
    })
-   console.log(ad);
+   
    
     const addFav = await fetch('api/favourites',{
         method:'POST',
@@ -106,15 +106,29 @@ async function saveFav(title){
 
 
 logoutBtn.addEventListener('click',async (event)=>{
-    event.preventDefault();
-    try{
-        console.log("ininin");
-        await fetch(`/api/logout`);
-    }
-    catch(error){
-
-    }
+    
+        event.preventDefault();
+    
+      await fetch('api/logout/')
+    //   location.reload();
+        
+   
 })
+
+ document.getElementById('pdfForm').addEventListener('submit',(event)=>{
+        event.preventDefault();
+       
+        async function downloadPdf(){
+            try{
+               
+                await fetch('api/search?pdf=true')
+              }
+            catch(error){
+                console.log(error.message);
+            }
+        }
+        downloadPdf();
+    })
 
 
 

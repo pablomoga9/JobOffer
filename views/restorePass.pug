@@ -6,3 +6,10 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Document
     body 
+        form#resetForm()
+            label(for="") Introduce tu nueva contraseña
+            input#resetPassword(type="password" name="password")
+            label(for="") Introduce de nuevo la contraseña
+            input#resetPassword2(type="password" name="password")
+            button(type="submit") Enviar
+        script(src="/scripts/restorePass.js")

@@ -6,8 +6,8 @@ html(lang="en")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title Document
     body 
-        h2 Admin:#{userName}
-        form#updateName(action="api/users" method="POST")
+        h2#profileTitle #{userName}
+        form#updateName(action="api/users/updateName" method="POST")
             label Introduce tu nuevo nombre de usuario 
             input#newNameInput(type="text" name="newName") 
             button#sendNewName(type="submit") Enviar

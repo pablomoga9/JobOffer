@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const autoIncrement = require('mongoose-auto-increment')
 //ESQUEMA PROVISIONAL
 const schema = new mongoose.Schema({
     search:{
@@ -31,5 +31,6 @@ const schema = new mongoose.Schema({
     }
 })
 
+schema.plugin(autoIncrement.plugin,{model:'ads', field: 'adId'});
 const Ads = mongoose.model('ads', schema);
 module.exports = Ads;

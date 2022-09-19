@@ -3,11 +3,17 @@ const cookieParser= require('cookie-parser')
 const morgan = require('./config/morganConfig')
 const helmet = require('helmet');
 const cors = require('cors');
-const userControllers= require('./controllers/userControllers')
+
+const jsonwebtoken= require('jsonwebtoken')
+
+//heroku port
+// const port = process.env.PORT || 4000;
+const userController = require('./controllers/userControllers');
 const jwt = require('jsonwebtoken');
 
 require('./utils/dbMongo.js');
 require('./utils/dbElephant.js')
+
 
 //Routes
 const adRouter = require('./routes/adRoutes.js');
@@ -18,7 +24,7 @@ const favsRouter = require('./routes/favsRoutes.js');
 //Middlewares
 const verifyToken = require('./middlewares/verifiedToken')
 const middle404 = require('./middlewares/error404.js');
-const port =  process.env.PORT || 5000;
+// const port =  process.env.PORT || 5000;
 const app = express();
 
 
@@ -45,25 +51,27 @@ app.use(cookieParser())
 
 
 //Home(no log, user & admin)
-
-
 app.get('/', async (req,res)=>{
     try{
        let cookies = req.headers.cookie
-       const logged = await userControllers.checkLogged(cookies);
-       const check = await userControllers.checkUser(cookies);
-       let cookiesSlice = cookies.slice(12);
-       let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
-       console.log(logged);
-        if(logged!=true){
+       const logged = await userController.checkLogged(cookies);
+       
+        if(!cookies){
             res.render('homeNoLog');
          }
-        else if(check == true){
-            res.render('homeAdmin',{userName:decoded.username});
-        }
-        else{
-            res.render('homeUser',{userName:decoded.username});
-        }
+         else{
+            
+            const check = await userController.checkUser(cookies);
+            let cookiesSlice = cookies.slice(12);
+            let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+            if(check == true && logged==true){
+                res.render('homeAdmin',{userName:decoded.username});
+            }
+            else if(check!==true && logged==true){
+                res.render('homeUser',{userName:decoded.username});
+            }
+         }
+       
         
     }
     catch(error){
@@ -100,20 +108,24 @@ app.get('/signup', (req,res)=>{
 app.get('/favourites',async (req,res)=>{
     try{
         let cookies = req.headers.cookie
-       const logged = await userControllers.checkLogged(cookies);
-       const check = await userControllers.checkUser(cookies);
-       let cookiesSlice = cookies.slice(12);
-       let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
-       console.log(logged);
-        if(logged!=true){
+     
+       
+        if(!cookies){
             res.redirect('/');
          }
-        else if(check == true){
-            res.redirect('/');
-        }
-        else{
-            res.render('favourites');
-        }
+         else{
+            const logged = await userController.checkLogged(cookies);
+            const check = await userController.checkUser(cookies);
+            let cookiesSlice = cookies.slice(12);
+            let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+            if(check == true && logged == true){
+                res.redirect('/');
+            }
+            else if(check !== true && logged == true){
+                res.render('favourites');
+            }
+         }
+       
         
         }
       
@@ -126,20 +138,24 @@ app.get('/favourites',async (req,res)=>{
 app.get('/dashboard',async (req,res)=>{
     try{
         let cookies = req.headers.cookie
-        const logged = await userControllers.checkLogged(cookies);
-        const check = await userControllers.checkUser(cookies);
-        let cookiesSlice = cookies.slice(12);
-        let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
-        console.log(logged);
-         if(logged!=true){
+      
+       
+         if(!cookies){
              res.redirect('/');
           }
-         else if(check == true){
-             res.render('dashboardAdmin');
-         }
-         else{
-             res.redirect('/');
-         }
+          else{
+            const logged = await userController.checkLogged(cookies);
+            const check = await userController.checkUser(cookies);
+            let cookiesSlice = cookies.slice(12);
+            let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+            if(check == true && logged == true){
+                res.render('dashboardAdmin');
+            }
+            else if(check !== true && logged == true){
+                res.redirect('/');
+            }
+          }
+        
         
     }
     catch(error){
@@ -153,23 +169,24 @@ app.get('/dashboard',async (req,res)=>{
 app.get('/profile',async (req,res)=>{
     try{
         let cookies = req.headers.cookie
-       const logged = await userControllers.checkLogged(cookies);
-       const check = await userControllers.checkUser(cookies);
-       let cookiesSlice = cookies.slice(12);
-       let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
-       console.log(logged);
-        if(logged!=true){
+      
+        if(!cookies){
             res.redirect('/');
          }
-        else if(check == true){
-            res.render('profileAdmin',{userName:decoded.username});
-        }
-        else{
-            res.render('profileUser',{userName:decoded.username});
-        }
-        
-        
-          
+         else{
+           
+            const logged = await userController.checkLogged(cookies);
+            const check = await userController.checkUser(cookies);
+            let cookiesSlice = cookies.slice(12);
+            let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+            if(check == true && logged == true){
+                res.render('profileAdmin',{userName:decoded.username});
+            }
+            else if(check!==true && logged == true){
+                res.render('profileUser',{userName:decoded.username});
+            }
+         }
+              
         
        }
     catch(error){
@@ -180,20 +197,24 @@ app.get('/profile',async (req,res)=>{
 app.get('api/users'),async (req,res)=>{
     try{
         let cookies = req.headers.cookie
-       const logged = await userControllers.checkLogged();
-       const check = await userControllers.checkUser(cookies);
-       let cookiesSlice = cookies.slice(12);
-       let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
-    //    console.log(logged);
+     
+   
         if(!cookies){
             res.redirect('/');
          }
-        else if(check == true){
-            res.render('usersAdmin');
-        }
-        else if(cookies){
-            res.redirect('/');
-        }
+         else{
+            const logged = await userController.checkLogged();
+            const check = await userController.checkUser(cookies);
+            let cookiesSlice = cookies.slice(12);
+            let decoded = jwt.verify(cookiesSlice,process.env.SECRET);
+            if(check == true && logged == true){
+                res.render('usersAdmin');
+            }
+            else if(check !== true && logged == true){
+                res.redirect('/');
+            }
+         }
+      
     }
     catch(error){
 
@@ -206,6 +227,16 @@ app.get('/recoverPassword',(req,res)=>{
     }
     catch{
         console.log(error)
+    }
+})
+
+app.get('/resetPassword',(req,res)=>{
+    try{
+       
+         res.render('restorePass')
+        }
+    catch(error){
+        console.log(error);
     }
 })
 
